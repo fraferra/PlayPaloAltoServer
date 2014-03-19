@@ -98,6 +98,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'social_auth.middleware.SocialAuthExceptionMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -156,6 +157,8 @@ LOGGING = {
         },
     }
 }
+#AUTH_PROFILE_MODULE = "play.UserProfile"
+#SOCIAL_AUTH_USER_MODEL = 'play.CustomUser'
 LOGIN_URL          = '/login-form/'
 LOGIN_REDIRECT_URL = '/home/'
 LOGIN_ERROR_URL    = '/login-error/'
@@ -167,7 +170,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'social_auth.context_processors.social_auth_login_redirect',
 )
 FACEBOOK_APP_ID              = '301965249950489'
-FACEBOOK_API_SECRET          = '939e08567e7f52f3506d00a40f2d39e4'
+FACEBOOK_API_SECRET          = 'd294ba6e1da188e2a4317a0b5a011a10'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
@@ -177,6 +180,9 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
+    #'social_auth.backends.pipeline.associate.associate_by_email',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details'
