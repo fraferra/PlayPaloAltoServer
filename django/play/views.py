@@ -21,7 +21,7 @@ def home(request):
     	return render(request, 'play/home.html', {'customuser':customuser})
     	
 
-def challenge(request):
+def challenges(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login')
     else:
@@ -29,7 +29,21 @@ def challenge(request):
         customuser=returnCustomUser(user)
         return render(request)
 
-
+def coupons(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login')
+    else:
+        user=request.user
+        customuser=returnCustomUser(user)
+        return render(request)
+        
+def events(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login')
+    else:
+        user=request.user
+        customuser=returnCustomUser(user)
+        return render(request)
 def leaderboard(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login')
