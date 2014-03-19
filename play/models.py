@@ -26,6 +26,7 @@ class Challenge(models.Model):
 class CustomUser(models.Model):
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=None)
     user=models.ForeignKey(UserSocialAuth)	
+    facebook_id=models.DecimalField(max_digits=20, decimal_places=0)
     def __unicode__(self):  # Python 3: def __str__(self):
         return unicode(self.score) or u''
 #class Player(UserProfile):
@@ -34,7 +35,8 @@ class CustomUser(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         #picture_url=pictureUrl(instance.get_profile().extra_data['access_token'])
-        CustomUser.objects.create()
+        facebook_id=instance.uid
+        CustomUser.objects.create(user=instance, facebook_id=facebook_id)
 
 
 post_save.connect(create_user_profile, sender=UserSocialAuth)

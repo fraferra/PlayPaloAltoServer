@@ -157,7 +157,7 @@ LOGGING = {
         },
     }
 }
-#AUTH_PROFILE_MODULE = "play.UserProfile"
+AUTH_PROFILE_MODULE = "social_auth.UserSocialAuth"
 #SOCIAL_AUTH_USER_MODEL = 'play.CustomUser'
 LOGIN_URL          = '/login-form/'
 LOGIN_REDIRECT_URL = '/home/'
