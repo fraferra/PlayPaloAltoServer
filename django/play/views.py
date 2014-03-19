@@ -4,14 +4,37 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login as auth_login
 from social_auth.models import UserSocialAuth
 from play.models import *
-def home(request):
-    return render(request, 'play/home.html')
+from play.utils import *
+def login(request):
+       
+    	return render(request, 'play/home.html')
 
-def test(request):
+
+def home(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/login')
     else:
     	user=request.user
     	customuser=returnCustomUser(user)
+    	u=pictureUrl(customuser)
+       
+    	#return render(request, 'play/home.html')
+    	return HttpResponse(u)
 
-    	return HttpResponse(customuser)
+def challenge(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login')
+    else:
+        user=request.user
+        customuser=returnCustomUser(user)
+        return render(request)
+
+
+def leaderboard(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login')
+    else:
+        user=request.user
+        customuser=returnCustomUser(user)
+        return render(request)
+	
