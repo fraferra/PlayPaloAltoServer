@@ -1,5 +1,5 @@
 # Django settings for play_palo_alto project.
-
+#test
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -11,12 +11,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'play',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'fraferra',
-        'PASSWORD': 'Corniuzza1',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'USER': 'postgres',
+        'PASSWORD': 'abc1234',
+        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
 }
@@ -124,7 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'django_facebook',
+    'social_auth',
     'play',
 )
 
@@ -156,18 +156,20 @@ LOGGING = {
         },
     }
 }
-
-TEMPLATE_CONTEXT_PROCESSORS=(
+LOGIN_URL          = '/login-form/'
+LOGIN_REDIRECT_URL = '/logged-in/'
+LOGIN_ERROR_URL    = '/login-error/'
+TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'django_facebook.context_processors.facebook',
-    )
+    'social_auth.context_processors.social_auth_by_name_backends',
+    'social_auth.context_processors.social_auth_backends',
+    'social_auth.context_processors.social_auth_by_type_backends',
+    'social_auth.context_processors.social_auth_login_redirect',
+)
+FACEBOOK_APP_ID              = '301965249950489'
+FACEBOOK_API_SECRET          = '939e08567e7f52f3506d00a40f2d39e4'
 
-FACEBOOK_APP_ID='301965249950489'
-FACEBOOK_APP_SECRET='939e08567e7f52f3506d00a40f2d39e4'
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
