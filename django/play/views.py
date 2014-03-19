@@ -5,9 +5,9 @@ from django.contrib.auth import authenticate, login as auth_login
 from social_auth.models import UserSocialAuth
 from play.models import *
 from play.utils import *
+
 def login(request):
-       
-    	return render(request, 'play/home.html')
+    return render(request, 'play/home.html')
 
 
 def home(request):
@@ -16,10 +16,10 @@ def home(request):
     else:
     	user=request.user
     	customuser=returnCustomUser(user)
-    	u=pictureUrl(customuser)
+    	pictureUrl(customuser)
        
-    	#return render(request, 'play/home.html')
-    	return HttpResponse(u)
+    	return render(request, 'play/home.html', {'customuser':customuser})
+    	
 
 def challenge(request):
     if not request.user.is_authenticated():

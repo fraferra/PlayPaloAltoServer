@@ -25,6 +25,7 @@ class Challenge(models.Model):
 
 class CustomUser(models.Model):
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
+    experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
     user=models.ForeignKey(UserSocialAuth)	
     facebook_id=models.DecimalField(max_digits=20, decimal_places=0)
     picture_url=models.CharField(max_length=200, null=True, default=None)
