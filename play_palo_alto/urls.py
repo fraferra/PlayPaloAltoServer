@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'play.views.home', name='home'),
+    url(r'^test/', 'play.views.test', name='test'),
     # url(r'^play_palo_alto/', include('play_palo_alto.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

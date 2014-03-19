@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'play',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'postgres',
-        'PASSWORD': 'abc1234',
+        'PASSWORD': 'None',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -157,7 +157,7 @@ LOGGING = {
     }
 }
 LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/logged-in/'
+LOGIN_REDIRECT_URL = '/home/'
 LOGIN_ERROR_URL    = '/login-error/'
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -168,8 +168,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 FACEBOOK_APP_ID              = '301965249950489'
 FACEBOOK_API_SECRET          = '939e08567e7f52f3506d00a40f2d39e4'
-
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
+)
+
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details'
 )
