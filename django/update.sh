@@ -1,4 +1,5 @@
 TITLE=$1
+bash set-time.sh
 cd ..
 git add .
 git commit -m $TITLE
