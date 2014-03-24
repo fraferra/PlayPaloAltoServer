@@ -2,3 +2,5 @@
 /frontend/node_modules
 lib
 /frontend/dist
+/node_modules
+/dist
