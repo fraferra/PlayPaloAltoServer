@@ -3,9 +3,9 @@ from play.models import *
 from django.contrib.auth.models import User
 
 
-class UserProfileAdmin(admin.ModelAdmin):
-	model=CustomUser
-	fields=['score', 'user', 'picture_url']
+class PlayerAdmin(admin.ModelAdmin):
+	model=Player
+	fields=['score', 'user']
 
 
-admin.site.register(CustomUser, UserProfileAdmin)
+admin.site.register(Player, PlayerAdmin)

@@ -10,11 +10,36 @@ from social_auth.models import UserSocialAuth
 import constants
 # Create your models here.
 
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        #UserProfile.objects.create(user=instance)
+        Player.objects.create(user=instance)
+post_save.connect(create_user_profile, sender=User)
 
+
+class UserProfile(models.Model):
+    user=models.ForeignKey(User, unique=True)
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return unicode(self.user) or u''
+class Player(UserProfile):
+    #user=models.ForeignKey(UserProfile)
+    score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
+    experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
+    level=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
+
+class Shop(UserProfile):
+    #user=models.ForeignKey(UserProfile)
+    location=models.CharField(max_length=100, null=True)
+class Organization(UserProfile):
+    #user=models.ForeignKey(UserProfile)
+    location=models.CharField(max_length=100, null=True)
+
+'''
 class CustomUser(models.Model):
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
-    user=models.ForeignKey(UserSocialAuth)    
+    #user=models.ForeignKey(UserSocialAuth)
+    user=models.ForeignKey()
     facebook_id=models.DecimalField(max_digits=20, decimal_places=0)
     picture_url=models.CharField(max_length=200, null=True, default=None)
     def __unicode__(self):  # Python 3: def __str__(self):
@@ -30,23 +55,25 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=UserSocialAuth)
 #post_save.connect(update_user_profile, sender=CustomUser)
-
+'''
 
 class Coupon(models.Model):
     title=models.CharField(max_length=50, null=True)
     description=models.TextField(max_length=500, null=True)
     location=models.CharField(max_length=100, null=True)
     price=models.DecimalField(max_digits=4, decimal_places=0)
-    buyers=models.ManyToManyField(CustomUser)
+    buyers=models.ManyToManyField(Player)
+    shop=models.ForeignKey(Shop)
 
 class Event(models.Model):
     title=models.CharField(max_length=50, null=True)
     description=models.TextField(max_length=500, null=True)
     location=models.CharField(max_length=100, null=True)
     points=models.DecimalField(max_digits=4, decimal_places=0)  
-    participants = models.ManyToManyField(CustomUser)
+    participants = models.ManyToManyField(Player)
     event_type=models.CharField(max_length=50,choices=constants.TYPE, default=None)
     date=models.DateTimeField( null=True)
+    organizer=models.ForeignKey(Organization)
 
 
 class Challenge(models.Model):
@@ -55,4 +82,4 @@ class Challenge(models.Model):
     description=models.TextField(max_length=500, null=True)
     location=models.CharField(max_length=100, null=True)
     points=models.DecimalField(max_digits=4, decimal_places=0)    
-    participants = models.ManyToManyField(CustomUser)
+    participants = models.ManyToManyField(Player)

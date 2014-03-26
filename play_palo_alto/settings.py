@@ -127,6 +127,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'social_auth',
     'play',
+    'tastypie',
+    'provider',
+    'provider.oauth2',
 )
 
 # A sample logging configuration. The only tangible logging
