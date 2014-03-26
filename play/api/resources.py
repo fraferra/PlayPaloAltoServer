@@ -9,7 +9,7 @@ from tastypie.resources import ModelResource
 from tastypie import fields
 from django.db import IntegrityError
 from play.models import *
-
+from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 class CreateUserResource(ModelResource):
     class Meta:
         allowed_methods = ['post']
@@ -19,7 +19,7 @@ class CreateUserResource(ModelResource):
         authentication = Authentication()
         authorization = Authorization()
         include_resource_uri = False
-        fields = ['username']
+        fields = ['username','first_name', 'email']
     def obj_create(self, bundle, request=None, **kwargs):
         try:
             bundle = super(CreateUserResource, self).obj_create(bundle)
@@ -29,13 +29,25 @@ class CreateUserResource(ModelResource):
             raise BadRequest('That username already exists')
         return bundle
 
+
+class UserResource(ModelResource):
+    class Meta:
+        queryset = User.objects.all()
+        resource_name = 'user'
+        excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
+
 class PlayerResource(ModelResource):
-	class Meta:
-		queryset=Player.objects.all()
-		resource_name='player'
-		allowed_methods=['post','get']
-		authentication = BasicAuthentication()
-		authorization = DjangoAuthorization()
+    user = fields.ForeignKey(UserResource, 'user')
+
+    class Meta:
+        queryset = Player.objects.all()
+        resource_name = 'player'
+        authorization = Authorization()
+        filtering = {
+            'user': ALL_WITH_RELATIONS,
+
+        }
+
 
 class CouponResource(ModelResource):
     class Meta:
