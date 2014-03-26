@@ -1,4 +1,5 @@
 .DS_Store
+.pyc
 /frontend/node_modules
 lib
 /frontend/dist
