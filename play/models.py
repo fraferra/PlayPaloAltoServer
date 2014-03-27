@@ -63,15 +63,15 @@ class Coupon(models.Model):
     description=models.TextField(max_length=500, null=True)
     location=models.CharField(max_length=100, null=True)
     price=models.DecimalField(max_digits=4, decimal_places=0)
-    buyers=models.ManyToManyField(Player)
-    shop=models.ForeignKey(Shop)
+    buyers=models.ManyToManyField(Player, default=None, null=True)
+    #shop=models.ForeignKey(Shop)
 
 class Event(models.Model):
     title=models.CharField(max_length=50, null=True)
     description=models.TextField(max_length=500, null=True)
     location=models.CharField(max_length=100, null=True)
     points=models.DecimalField(max_digits=4, decimal_places=0)  
-    participants = models.ManyToManyField(Player)
+    participants = models.ManyToManyField(Player, default=None, null=True)
     event_type=models.CharField(max_length=50,choices=constants.TYPE, default=None)
     date=models.DateTimeField( null=True)
     organizer=models.ForeignKey(Organization)

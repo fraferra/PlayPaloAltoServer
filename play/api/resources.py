@@ -10,6 +10,7 @@ from tastypie import fields
 from django.db import IntegrityError
 from play.models import *
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
+
 class CreateUserResource(ModelResource):
     class Meta:
         allowed_methods = ['post']
@@ -45,15 +46,16 @@ class PlayerResource(ModelResource):
         authorization = Authorization()
         filtering = {
             'user': ALL_WITH_RELATIONS,
-
         }
 
 
 class CouponResource(ModelResource):
+    buyers=fields.ToManyField(PlayerResource, 'buyers',full=True)
     class Meta:
         queryset = Coupon.objects.all()
         resource_name = 'coupon'
-        allowed_methods = ['post', 'get']
+        authorization = Authorization()
+        allowed_methods = ['post', 'get','put']
 
 class EventResource(ModelResource):
     class Meta:
