@@ -63,3 +63,11 @@ if arg=='leaderboard':
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'} 
     r = requests.post(url, headers=headers, data=json.dumps(data))
     print r.content    
+
+if arg=='coupons':
+    url = 'http://127.0.0.1:8000/play/coupons/'
+    data={'username':'test', 'password':'1'}
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'} 
+    #r = requests.post(url, headers=headers, data=json.dumps(data))
+    r = requests.get(url+'?id_coupon=1', headers=headers, data=json.dumps(data))
+    print r.content    
