@@ -1,0 +1,1 @@
+web: gunicorn play_palo_alto.wsgi
