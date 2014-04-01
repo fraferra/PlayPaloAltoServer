@@ -10,6 +10,18 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 import json
+
+def home(request):
+    if request.method=='POST':
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        email=request.POST['email']
+        password=request.POST['password']
+        User.objects.create(username=email, email=email, first_name=first_name,
+                            last_name=last_name, password=password)
+    return render(request, 'play/index.html')
+
+
 @csrf_exempt
 def login(request):
     username, password =authenticationFra(request)
@@ -43,13 +55,6 @@ def leaderboard(request):
     else: 
         pass
 
-@csrf_exempt
-def home(request):
-    if not authenticationFra(request):
-        return HttpResponse('/login')
-    else:
-        return HttpResponse('logged')
-
 
 @csrf_exempt
 def coupons(request):
@@ -81,13 +86,6 @@ def coupons(request):
     else: 
         return HttpResponse('not auth')
 
-def events(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login')
-    else:
-        user=request.user
-        customuser=returnCustomUser(user)
-        return render(request)
 
 @csrf_exempt
 def my_coupons(request):
