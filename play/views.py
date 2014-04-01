@@ -50,13 +50,6 @@ def home(request):
     else:
         return HttpResponse('logged')
 
-def challenges(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login')
-    else:
-        user=request.user
-        customuser=returnCustomUser(user)
-        return render(request)
 
 @csrf_exempt
 def coupons(request):
@@ -65,13 +58,14 @@ def coupons(request):
     auth_login(request,user)
     if user.is_authenticated():
         player=Player.objects.get(user=user)
-        if request.method == 'GET':
-            id_coupon=request.GET['id_coupon']
+        #if request.method == 'GET':
+        id_coupon=request.GET.get('id_coupon','')
+        if len(id_coupon)!=0:
             coupon=Coupon.objects.get(pk=id_coupon)
             player.score=player.score-coupon.price
             if player.score <0:
                 return HttpResponse('not enough points')
-            coupon.buyer=player
+            coupon.buyers.add(player)
             coupon.save()
             player.save()
             data={'score':player.score}
@@ -94,5 +88,22 @@ def events(request):
         user=request.user
         customuser=returnCustomUser(user)
         return render(request)
+
+@csrf_exempt
+def my_coupons(request):
+    username, password =authenticationFra(request)
+    user = authenticate(username=username,  password=password)
+    auth_login(request,user)
+    if user.is_authenticated():
+        player=Player.objects.get(user=user)
+        coupons=player.coupon_set.all()
+        list_of_coupons=[]
+        for coupon in coupons:
+            list_of_coupons.append({'name':coupon.title})
+        data= {'user':user.username, 'player':player.score, 'coupons':list_of_coupons}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+    else: 
+        return HttpResponse('not auth') 
 
 	

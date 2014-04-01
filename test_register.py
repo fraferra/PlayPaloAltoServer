@@ -5,17 +5,19 @@ import datetime
 import simplejson
 from requests.auth import HTTPBasicAuth
 import sys
-arg=sys.argv[1]
-print arg
-if arg=='user':
-    url = 'http://127.0.0.1:8000/api/v1/newuser/'
+method=sys.argv[1]
+
+print method
+if method=='user':
+    #url = 'http://127.0.0.1:8000/api/v1/newuser/'
+    url='http://www.playpaloalto.com/api/v1/newuser/'
     data = {'username' :'test2', 'password' : '1', 'email':'test@gmail.com', 'first_name':'fra'}
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     print json.dumps(data)
     r = requests.post(url, data=json.dumps(data), headers=headers)
     print r.content
 
-if arg=='player':
+if method=='player':
     url = 'http://127.0.0.1:8000/api/v1/player/2/'
     data = {'score' :'12', 'user':'/api/v1/user/2/'}
     auth=('test', '1')
@@ -24,7 +26,7 @@ if arg=='player':
     r = requests.put(url, data=json.dumps(data), headers=headers, auth=auth)
     print r.content    
 
-if arg=='coupon':
+if method=='coupon':
     url = 'http://127.0.0.1:8000/api/v1/coupon/1/'
     data = {'buyers':["/api/v1/player/1/"], 'price':'12'}
     #data = {'price':'12'}
@@ -34,7 +36,7 @@ if arg=='coupon':
     r = requests.put(url, data=json.dumps(data), headers=headers, auth=auth)
     print r.content    
 
-if arg=='login':
+if method=='login':
     url = 'http://127.0.0.1:8000/play/login/'
     #data = {'buyers':["/api/v1/player/1/"], 'price':'12'}
     #data = {'price':'12'}
@@ -47,7 +49,7 @@ if arg=='login':
     print r.content    
 
 
-if arg=='home':
+if method=='home':
     #url = 'http://127.0.0.1:8000/play/home/'
     url = 'http://127.0.0.1:8000/play/home/?username=test&password=1'
     data={'password': '1', 'username':'test'}
@@ -57,17 +59,25 @@ if arg=='home':
     r = requests.get(url)#, auth=auth, data=data )
     print r.content  
 
-if arg=='leaderboard':
+if method=='leaderboard':
     url = 'http://127.0.0.1:8000/play/leaderboard/'
     data={'username':'test', 'password':'1'}
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'} 
     r = requests.post(url, headers=headers, data=json.dumps(data))
     print r.content    
 
-if arg=='coupons':
+if method=='coupons':
     url = 'http://127.0.0.1:8000/play/coupons/'
     data={'username':'test', 'password':'1'}
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'} 
-    #r = requests.post(url, headers=headers, data=json.dumps(data))
-    r = requests.get(url+'?id_coupon=1', headers=headers, data=json.dumps(data))
+    r = requests.get(url, headers=headers, data=json.dumps(data))
+    #r = requests.get(url+'?id_coupon=1', headers=headers, data=json.dumps(data))
     print r.content    
+
+if method=='my_coupons':
+    url = 'http://127.0.0.1:8000/play/my_coupons/'
+    data={'username':'test', 'password':'1'}
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'} 
+    r = requests.get(url, headers=headers, data=json.dumps(data))
+    #r = requests.get(url+'?id_coupon=1', headers=headers, data=json.dumps(data))
+    print r.content  
