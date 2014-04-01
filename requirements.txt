@@ -39,11 +39,6 @@ psycopg2==2.5.2
 
 pyrise==0.4.5
 
-python-dateutil==1.5
-python-debian==0.1.21ubuntu1
-python-mimeparse==0.1.4
-python-openid==2.2.5
-python-virtkey==0.60.0
 pytz==2014.1.1
 
 requests==2.2.1
