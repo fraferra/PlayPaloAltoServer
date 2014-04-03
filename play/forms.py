@@ -8,11 +8,8 @@ import string
 
 class SignUpForm(UserCreationForm):
     """ Require email address when a user signs up """
-    email = forms.EmailField(label='Email address',widget=forms.TextInput(attrs={'placeholder': 'Email'}), max_length=75)
-    first_name = forms.CharField(label='search', 
-                    widget=forms.TextInput(attrs={'placeholder': 'First name'}))
-    last_name = forms.CharField(label='search', 
-                    widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
+    email = forms.EmailField(label='Email address', max_length=75)
+
     def __init__(self, *args, **kwargs): 
         super(SignUpForm, self).__init__(*args, **kwargs) 
         # remove username
