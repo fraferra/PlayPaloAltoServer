@@ -10,8 +10,26 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 import json
+from django.contrib.auth import logout as django_logout
 
-def home(request):
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username =username, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return HttpResponseRedirect('/home/')
+    return render(request, 'play/login.html')
+
+
+def logout(request):
+    django_logout(request)
+    return HttpResponseRedirect('/login/')
+
+
+def index(request):
     if request.method=='POST':
         first_name=request.POST['first_name']
         last_name=request.POST['last_name']
@@ -22,8 +40,24 @@ def home(request):
     return render(request, 'play/index.html')
 
 
+def home(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+
+
+    return render(request, 'play/home.html')
+
+
+
+
+
+
+#API
+
 @csrf_exempt
-def login(request):
+def api_login(request):
     username, password =authenticationFra(request)
     user = authenticate(username=username,  password=password)
     auth_login(request,user)
