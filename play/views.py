@@ -45,12 +45,15 @@ def home(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-
-
     return render(request, 'play/home.html')
 
 
-
+def create_event(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+    return render(request, 'play/create_event.html')
 
 
 
