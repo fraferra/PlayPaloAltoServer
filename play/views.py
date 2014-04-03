@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 import json
 from django.contrib.auth import logout as django_logout
+from play.forms import *
 
 def login(request):
     if request.method == 'POST':
@@ -31,13 +32,13 @@ def logout(request):
 
 def index(request):
     if request.method=='POST':
-        first_name=request.POST['first_name']
-        last_name=request.POST['last_name']
-        email=request.POST['email']
-        password=request.POST['password']
-        User.objects.create(username=email, email=email, first_name=first_name,
-                            last_name=last_name, password=password)
-    return render(request, 'play/index.html')
+        form = SignUpForm(request.POST) 
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect('/login/') 
+    else:
+        form = SignUpForm()
+    return render(request, 'play/index.html', {'form':form})
 
 
 def home(request):

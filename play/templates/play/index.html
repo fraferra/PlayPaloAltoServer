@@ -172,8 +172,11 @@
 						<a href="#"><i class="fa fa-envelope"></i></a>
 					</div>-->
 					<form method='post'>{% csrf_token %}
-                    <p><input type="text" placeholder="First name" name="first_name" > <input type="text" placeholder="Last name" name="last_name" ></p>
-					<p><input placeholder="Email" type="email" name="email"> <input type="password" placeholder="Password" name="password" ></p>
+                    <p style="word-spacing:30px;">FIRST NAME&nbsp;&nbsp;{{form.first_name}}</p>
+                    <p style="word-spacing:30px;">LAST NAME&nbsp;&nbsp;{{form.last_name}}</p>
+					<p style="word-spacing:20px;">EMAIL ADDRESS&nbsp;&nbsp;{{form.email}}</p>
+					<p style="word-spacing:30px;">PASSWORD&nbsp;&nbsp;&nbsp;{{form.password1}}</p>
+					<p style="word-spacing:10px;">CONFIRM PASSWORD&nbsp;{{form.password2}}</p>
 					<input type="submit"   class="btn btn-primary btn-default" value="Register">
 				</form>
 				</div>
