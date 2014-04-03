@@ -54,7 +54,14 @@ def create_event(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-    return render(request, 'play/create_event.html')
+        if request.method=='POST':
+            form = EventForm(request.POST) 
+            if form.is_valid():
+                new_event = form.save()
+            
+        else:
+            form = EventForm()
+    return render(request, 'play/create_event.html', {'form':form})
 
 
 

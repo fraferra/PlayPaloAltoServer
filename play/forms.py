@@ -3,8 +3,12 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 import string
+from play.models import *
 
-
+class EventForm(ModelForm):
+    class Meta:
+        model=Event
+        fields = ('title','description','location','points','event_type', 'date')
 
 class SignUpForm(UserCreationForm):
     """ Require email address when a user signs up """
