@@ -4,8 +4,13 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 import string
 from play.models import *
+import constants
 
 class EventForm(ModelForm):
+    title=forms.CharField(widget = forms.TextInput(attrs={'style':'color:black'}))
+    location=forms.CharField(widget = forms.TextInput(attrs={'style':'color:black'}))
+    description=forms.CharField(widget = forms.Textarea(attrs={'style':'color:black'}))
+    points=forms.DecimalField(widget = forms.TextInput(attrs={'style':'color:black;', 'size':'4'}))
     class Meta:
         model=Event
         fields = ('title','description','location','points','event_type', 'date')
