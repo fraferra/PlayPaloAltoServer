@@ -49,7 +49,7 @@ def home(request):
         user=request.user
         try:
             organization=Organization.objects.get(user=user)
-            return render(request, 'play/home.html')
+            return render(request, 'play/home.html', {'user':user})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
