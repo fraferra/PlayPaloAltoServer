@@ -182,7 +182,7 @@ AUTHENTICATION_BACKENDS = (
     #'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-'''
+
 #AUTH_PROFILE_MODULE = "social_auth.UserSocialAuth"
 #SOCIAL_AUTH_USER_MODEL = 'play.CustomUser'
 LOGIN_URL          = '/login-form/'
@@ -213,4 +213,3 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details'
 )
-'''
