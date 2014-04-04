@@ -122,7 +122,14 @@ def my_company(request):
         user=request.user
         try:
             organization=Organization.objects.get(user=user)
-            return render(request, 'play/home.html', {'user':user})
+            if request.method=='POST':
+                title=request.POST.get('title', '')
+                location=request.POST.get('location','')
+                organization.title=title
+                organization.location=location
+                organization.save()
+                return HttpResponseRedirect('/company/')
+            return render(request, 'play/my_company.html', {'user':user,'organization':organization})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 

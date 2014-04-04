@@ -1,0 +1,18 @@
+{% extends "play/layout.html" %}
+{% block content %}
+	<div id="social">
+		<div class="container">
+			<div class="row centered">
+				<div class="col-lg-8 col-lg-offset-2">
+					<form method='post'>{% csrf_token %}
+					<h3>TELL US ABOUT YOUR COMPANY</h3>
+                     <p style="word-spacing:150px;" >NAME  <input type="text" name="title" value="{{organization.title}}"></p>
+                     <p style="word-spacing:35px;">WHERE IS IT? <input type="text" name="location" value="{{organization.location}}"></p>
+					<input type="submit"   class="btn btn-primary btn-default" value="SAVE">
+				</form>
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div>
+    <br>
+{% endblock %}
