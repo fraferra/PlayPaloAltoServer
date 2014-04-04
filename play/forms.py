@@ -8,7 +8,7 @@ import constants
 
 class EventForm(ModelForm):
     title=forms.CharField(widget = forms.TextInput(attrs={'style':'color:black'}))
-    location=forms.CharField(widget = forms.TextInput(attrs={'style':'color:black'}))
+    location=forms.CharField(widget = forms.TextInput(attrs={'style':'color:black', 'size':'30'}))
     description=forms.CharField(widget = forms.Textarea(attrs={'style':'color:black'}))
     points=forms.DecimalField(widget = forms.TextInput(attrs={'style':'color:black;', 'size':'4'}))
     class Meta:
