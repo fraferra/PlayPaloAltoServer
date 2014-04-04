@@ -114,6 +114,19 @@ def reward(request):
             event.save()
             return HttpResponseRedirect('/my_events/')
 
+
+def my_company(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        try:
+            organization=Organization.objects.get(user=user)
+            return render(request, 'play/home.html', {'user':user})
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect('/sorry/')
+
+
 #API
 
 @csrf_exempt

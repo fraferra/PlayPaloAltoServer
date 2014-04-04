@@ -8,6 +8,7 @@ from django.utils.translation import ugettext as _
 from utils import *
 from social_auth.models import UserSocialAuth
 import constants
+from geoposition.fields import GeopositionField
 # Create your models here.
 
 def create_user_profile(sender, instance, created, **kwargs):
@@ -72,6 +73,7 @@ class Event(models.Model):
     title=models.CharField(max_length=50, null=True)
     description=models.TextField(max_length=500, null=True)
     location=models.CharField(max_length=100, null=True)
+    #position = GeopositionField()
     points=models.DecimalField(max_digits=4, decimal_places=0)  
     participants = models.ManyToManyField(Player, default=None, null=True)
     event_type=models.CharField(max_length=50,choices=constants.TYPE, default=None)

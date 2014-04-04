@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     'tastypie',
     'provider',
     'provider.oauth2',
+
 )
 
 # A sample logging configuration. The only tangible logging
@@ -210,3 +211,5 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details'
 )
+
+

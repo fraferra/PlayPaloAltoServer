@@ -15,6 +15,11 @@ class EventForm(ModelForm):
         model=Event
         fields = ('title','description','location','points','event_type', 'date')
 
+class CompanyForm(ModelForm):
+    class Meta:
+        model=Organization
+        fields=('title', 'location')
+
 class SignUpForm(UserCreationForm):
     """ Require email address when a user signs up """
     email = forms.EmailField(label='Email address', max_length=75)
