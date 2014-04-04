@@ -15,6 +15,10 @@ class CouponAdmin(admin.ModelAdmin):
 	model=Coupon
 	fields=['title', 'description', 'location', 'buyers', 'price']
 
+class EventAdmin(admin.ModelAdmin):
+	model=Event
+	fields=['title', 'description', 'location', 'participants', 'points']
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Coupon, CouponAdmin)
+admin.site.register(Event, EventAdmin)
 admin.site.register(Organization, OrganizationAdmin)

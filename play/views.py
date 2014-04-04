@@ -90,6 +90,24 @@ def my_events(request):
             return HttpResponseRedirect('/sorry/')
 
 
+
+def reward(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        organization=Organization.objects.get(user=user)
+        if request.method == 'GET':
+            id_user=request.GET['id_user']
+            id_event=request.GET['id_event']
+            event=Event.objects.get(id=id_event)
+            player=Player.objects.get(id=id_user)
+            player.score=player.score +  event.points
+            player.event_set.remove(event)
+            player.save()
+            event.save()
+            return HttpResponseRedirect('/my_events/')
+
 #API
 
 @csrf_exempt
