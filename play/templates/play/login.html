@@ -22,6 +22,8 @@
             <a href="#"><i class="fa fa-envelope"></i></a>
           </div>-->
           <form method='post'>{% csrf_token %}
+          <p>Log in with<a href="{% url 'socialauth_begin' 'facebook' %}?{{ redirect_querystring }}"><i class="fa fa-facebook-square fa-fw" style="color:#3366FF"></i></a></p>
+          <p>OR</p>
 
           <p><input placeholder="Email" type="email" name="username"></p><p> <input type="password" placeholder="Password" name="password" ></p>
           <input type="submit"   class="btn btn-primary btn-default" value="Login">

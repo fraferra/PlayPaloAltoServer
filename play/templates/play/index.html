@@ -185,7 +185,7 @@
 					<div class="col-md-3">
 						<a href="#"><i class="fa fa-envelope"></i></a>
 					</div>-->
-					<p>Sign up with<a href="{% url 'socialauth_begin' 'facebook' %}?{{ redirect_querystring }}"><i class="fa fa-facebook-square fa-fw"></i></a></p>
+					<p>Sign up with<a href="{% url 'socialauth_begin' 'facebook' %}?{{ redirect_querystring }}"><i class="fa fa-facebook-square fa-fw" style="color:#3366FF"></i></a></p>
 					<p>OR</p>
 					<form method='post'>{% csrf_token %}
                     <p style="word-spacing:30px;">FIRST NAME&nbsp;&nbsp;{{form.first_name}}</p>
