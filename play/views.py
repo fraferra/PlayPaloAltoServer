@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 import json
 from django.contrib.auth import logout as django_logout
 from play.forms import *
+from django.core.exceptions import *
 
 def login(request):
     if request.method == 'POST':
@@ -46,22 +47,37 @@ def home(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-    return render(request, 'play/home.html')
+        try:
+            organization=Organization.objects.get(user=user)
+            return render(request, 'play/home.html')
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect('/sorry/')
 
+    
+def sorry(request):
+    return render(request, 'play/sorry.html')
 
 def create_event(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        if request.method=='POST':
-            form = EventForm(request.POST) 
-            if form.is_valid():
-                new_event = form.save()
-            
-        else:
-            form = EventForm()
-    return render(request, 'play/create_event.html', {'form':form})
+        organization=Organization.objects.get(user=user)
+        try:
+            if request.method=='POST':
+                form = EventForm(request.POST) 
+                if form.is_valid():
+                    new_event = form.save(commit=False)
+                    new_event.organizer=organization
+                    new_event.save()
+                    return HttpResponseRedirect('/my_events/')
+            else:
+                form = EventForm()
+            return render(request, 'play/create_event.html', {'form':form})
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect('/sorry/')
+
+
 
 
 

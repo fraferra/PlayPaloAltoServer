@@ -17,24 +17,24 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 
-class UserProfile(models.Model):
-    user=models.ForeignKey(User, unique=True)
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return unicode(self.user) or u''
-
 class Player(models.Model):
-    user=models.ForeignKey(User , unique=True)
+    user=models.ForeignKey(User)
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
     level=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
 
-class Shop(UserProfile):
-    #user=models.ForeignKey(UserProfile)
+class Shop(models.Model):
+    user=models.ForeignKey(User)
+    title=models.CharField(max_length=100, null=True, default='Super shop!')
     location=models.CharField(max_length=100, null=True)
-class Organization(UserProfile):
-    #user=models.ForeignKey(UserProfile)
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return unicode(self.title) or u''    
+class Organization(models.Model):
+    user=models.ForeignKey(User)
+    title=models.CharField(max_length=100, null=True, default='Super Duper!')
     location=models.CharField(max_length=100, null=True)
-
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return unicode(self.title) or u''
 '''
 class CustomUser(models.Model):
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
