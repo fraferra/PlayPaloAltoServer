@@ -177,11 +177,7 @@ LOGGING = {
         },
     }
 }
-
-AUTHENTICATION_BACKENDS = (
-    #'social_auth.backends.facebook.FacebookBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 #AUTH_PROFILE_MODULE = "social_auth.UserSocialAuth"
 #SOCIAL_AUTH_USER_MODEL = 'play.CustomUser'
@@ -199,8 +195,9 @@ FACEBOOK_APP_ID              = '301965249950489'
 FACEBOOK_API_SECRET          = 'd294ba6e1da188e2a4317a0b5a011a10'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 AUTHENTICATION_BACKENDS = (
-    #'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'play_palo_alto.backends.EmailAuthBackend',
 )
 
 
