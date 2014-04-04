@@ -77,8 +77,17 @@ def create_event(request):
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
-
-
+def my_events(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        organization=Organization.objects.get(user=user)
+        try:
+            list_of_events=Event.objects.filter(organizer=organization)
+            return render(request, 'play/my_events.html', {'list_of_events':list_of_events})
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect('/sorry/')
 
 
 #API
