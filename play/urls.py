@@ -5,8 +5,7 @@ from django.views.generic import RedirectView
 from play import views
 
 urlpatterns = patterns('',
-    url(r'^login/$', views.login ,name='login'),
-    url(r'^api_login/$', views.api_login ,name='api_login'),
+    url(r'^login/$', views.login ,name='login'),  
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^home/$', views.home ,name='home'),
     url(r'^sorry/$', views.sorry ,name='sorry'),
@@ -15,8 +14,13 @@ urlpatterns = patterns('',
     url(r'^company/$', views.my_company ,name='my_company'),
     url(r'^reward/$', views.reward ,name='reward'),
     url(r'^$', views.index ,name='index'),
+
+
+
+
+    url(r'^api_registration/$', views.api_registration ,name='api_registration'),
+    url(r'^api_login/$', views.api_login ,name='api_login'),
     url(r'^coupons/$', views.coupons ,name='coupons'),
-    url(r'^my_coupons/$', views.my_coupons ,name='my_coupons'),
     url(r'^leaderboard/$', views.leaderboard ,name='leaderboard'),
 
 )

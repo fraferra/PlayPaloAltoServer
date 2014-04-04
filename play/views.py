@@ -7,7 +7,7 @@ from play.models import *
 from play.utils import *
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate,login as auth_login
 from django.contrib.auth.models import User
 import json
 from django.contrib.auth import logout as django_logout
@@ -136,6 +136,92 @@ def my_company(request):
 
 #API
 
+def api_registration(request):
+    if request.method == 'GET':
+        email = request.GET['email']
+        first_name=request.GET['first_name']
+        last_name=request.GET['last_name']
+        password = request.GET['password']
+        user=User.objects.create(username=email, email=email, 
+                            first_name=first_name, last_name=last_name)
+        user.set_password(password)
+        user.save()
+        return HttpResponseRedirect('/api_login/')
+
+
+def api_login(request):
+    if request.method == 'GET':
+        username = request.GET['username']
+        password = request.GET['password']
+        user = authenticate(username =username, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return HttpResponseRedirect('/api_home/')
+            else:
+                return HttpResponseRedirect('/notactive/')
+        else:
+            return HttpResponseRedirect('/notregistered/')
+
+
+
+
+
+
+
+
+
+def leaderboard(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api_login/')
+
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        players=Player.objects.all().order_by('score')
+        list_of_players=[]
+        for other_player in players:
+            list_of_players.append({'player':other_player.user.username, 'player_experience':other_player.experience})
+
+        data= {'user':user.username, 'score':player.score, 'players':list_of_players}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+
+
+
+def coupons(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api_login/')
+
+    else:
+        player=Player.objects.get(user=user)
+        #if request.method == 'GET':
+        id_coupon=request.GET.get('id_coupon','')
+        if len(id_coupon)!=0:
+            coupon=Coupon.objects.get(pk=id_coupon)
+            player.score=player.score-coupon.price
+            if player.score <0:
+                return HttpResponse('not enough points')
+            coupon.buyers.add(player)
+            coupon.save()
+            player.save()
+            data={'score':player.score}
+            data = simplejson.dumps(data)
+            return HttpResponse(data, mimetype='application/json')
+        coupons=Coupon.objects.all()
+        list_of_coupons=[]
+        for cou in coupons:
+            list_of_coupons.append({'name':cou.title, 'price':cou.price})
+        data= {'user':user.username, 'list_of_coupons':list_of_coupons}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+
+
+
+'''
+
 @csrf_exempt
 def api_login(request):
     username, password =authenticationFra(request)
@@ -149,7 +235,6 @@ def api_login(request):
         return HttpResponse(data, mimetype='application/json')
     else: 
         return HttpResponse('not auth')
-
 
 @csrf_exempt
 def leaderboard(request):
@@ -217,5 +302,8 @@ def my_coupons(request):
         return HttpResponse(data, mimetype='application/json')
     else: 
         return HttpResponse('not auth') 
+
+
+'''
 
 	
