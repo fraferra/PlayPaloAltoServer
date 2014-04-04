@@ -9,11 +9,12 @@
 				<div class="col-md-8">
 
 					<div class="panel-group" id="accordion">
+						{% if number != 0 %}
 						{% for result in list_of_events %}
   						<div >
     						<div >
       						<h4 style="color:orange">
-      							<i class="fa fa-hand-o-right"></i> {{result.title}} / {{result.date}}
+      							<i class="fa fa-hand-o-right"></i> {{result.title}} / {{result.date}}  <span style="font-size:10px">(<a href="/my_events/?delete={{result.id}}"><i class="fa fa-thumbs-down"></i> DELETE</a>)</span>
       						</h4>
       						<ul style="color:black">
       							<li><p>DESCRIPTION____ {{result.description}}</p></li>
@@ -35,6 +36,9 @@
     						</div>
   						</div>
   						{% endfor %}
+  						{% else %}
+  						<h4 style="color:orange">WHAT?! IT LOOKS LIKE YOU HAVE NO EVENTS AT THE MOMENT! GO TO <a href="/create">CREATE NEW EVENT</a> TO MAKE A NEW ONE!</h4>
+  						{% endif %}
 					</div>
 
 

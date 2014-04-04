@@ -85,7 +85,13 @@ def my_events(request):
         organization=Organization.objects.get(user=user)
         try:
             list_of_events=Event.objects.filter(organizer=organization)
-            return render(request, 'play/my_events.html', {'list_of_events':list_of_events})
+            number=len(list_of_events)
+            id_delete=request.GET.get('delete','')
+            if len(id_delete)!=0:
+                event=Event.objects.get(pk=id_delete)
+                event.delete()
+                return HttpResponseRedirect('/my_events/')
+            return render(request, 'play/my_events.html', {'list_of_events':list_of_events, 'number':number})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
