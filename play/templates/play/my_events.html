@@ -1,0 +1,48 @@
+{% extends "play/layout_user.html" %}
+{% block content %}
+
+<div id="skills">
+		<div class="container">
+			<div class="row">
+				<br>
+				<h3>YOUR BADASS EVENTS</h3>
+				<div class="col-md-8">
+
+					<div class="panel-group" id="accordion">
+						{% for result in list_of_events %}
+  						<div >
+    						<div >
+      						<h4 style="color:orange">
+      							<i class="fa fa-hand-o-right"></i> {{result.title}} / {{result.date}}
+      						</h4>
+      						<ul style="color:black">
+      							<li><p>DESCRIPTION____ {{result.description}}</p></li>
+      							<li><p>LOCATION____ {{result.location}}</p></li>
+      						</ul>
+        						<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
+          							View parcitipants <i class="fa fa-angle-double-down"></i>
+        						</a>
+      						
+    						</div>
+    						<div id="collapse{{result.id}}" class="panel-collapse collapse in">
+      							<div class="panel-body">
+      							<ul>
+      	                           {% for person in result.participants.all %}
+                                     <li>{{person.first_name}} {{person.last_name}}</li>
+      	                           {% endfor %}
+      	                          </ul>
+     							</div>
+    						</div>
+  						</div>
+  						{% endfor %}
+					</div>
+
+
+				</div>
+        
+				
+			</div>
+		</div> 
+	</div>
+
+{% endblock %}
