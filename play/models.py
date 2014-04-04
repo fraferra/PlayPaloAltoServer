@@ -22,7 +22,8 @@ class Player(models.Model):
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
     level=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
-
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return unicode(self.user) or u'' 
 class Shop(models.Model):
     user=models.ForeignKey(User)
     title=models.CharField(max_length=100, null=True, default='Super shop!')
@@ -65,7 +66,8 @@ class Coupon(models.Model):
     price=models.DecimalField(max_digits=4, decimal_places=0)
     buyers=models.ManyToManyField(Player, default=None, null=True)
     #shop=models.ForeignKey(Shop)
-
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return unicode(self.title) or u'' 
 class Event(models.Model):
     title=models.CharField(max_length=50, null=True)
     description=models.TextField(max_length=500, null=True)
@@ -75,7 +77,8 @@ class Event(models.Model):
     event_type=models.CharField(max_length=50,choices=constants.TYPE, default=None)
     date=models.DateTimeField( null=True)
     organizer=models.ForeignKey(Organization)
-
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return unicode(self.title) or u'' 
 
 class Challenge(models.Model):
     title=models.CharField(max_length=50, null=True)

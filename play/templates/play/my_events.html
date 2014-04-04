@@ -26,9 +26,9 @@
     						</div>
     						<div id="collapse{{result.id}}" class="panel-collapse collapse in">
       							<div class="panel-body">
-      							<ul>
+      							<ul style="color:black">
       	                           {% for person in result.participants.all %}
-                                     <li>{{person.first_name}} {{person.last_name}} - <a href='/reward/?id_user={{person.id}}&id_event={{result.id}}'> REWARD! <i class="fa fa-smile-o"></i> </a></li>
+                                     <li style="color:black">{{person.user.first_name}} {{person.user.last_name}} - <a href='/reward/?id_user={{person.id}}&id_event={{result.id}}'> REWARD! <i class="fa fa-smile-o"></i> </a></li>
       	                           {% endfor %}
       	                          </ul>
      							</div>
