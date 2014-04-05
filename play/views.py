@@ -62,8 +62,8 @@ def create_event(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        organization=Organization.objects.get(user=user)
         try:
+            organization=Organization.objects.get(user=user)
             if request.method=='POST':
                 form = EventForm(request.POST) 
                 if form.is_valid():
@@ -82,8 +82,8 @@ def my_events(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        organization=Organization.objects.get(user=user)
         try:
+            organization=Organization.objects.get(user=user)
             list_of_events=Event.objects.filter(organizer=organization)
             number=len(list_of_events)
             id_delete=request.GET.get('delete','')
@@ -166,11 +166,6 @@ def api_login(request):
 
 
 
-
-
-
-
-
 def leaderboard(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api_login/')
@@ -195,8 +190,8 @@ def coupons(request):
         return HttpResponseRedirect('/api_login/')
 
     else:
+        user=request.user
         player=Player.objects.get(user=user)
-        #if request.method == 'GET':
         id_coupon=request.GET.get('id_coupon','')
         if len(id_coupon)!=0:
             coupon=Coupon.objects.get(pk=id_coupon)
