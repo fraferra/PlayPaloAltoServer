@@ -226,14 +226,20 @@ def api_coupons(request):
         if len(id_coupon)!=0:
             coupon=Coupon.objects.get(pk=id_coupon)
             player.score=player.score-coupon.price
-            if player.score <0:
-                return HttpResponse('not enough points')
-            coupon.buyers.add(player)
-            coupon.save()
-            player.save()
-            data={'score':player.score}
-            data = simplejson.dumps(data)
-            return HttpResponse(data, mimetype='application/json')
+            coupons=player.coupon_set.all()
+            if coupon in coupons:
+                data={'message':'You have already selected!'}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')
+            else:
+                if player.score <0:
+                    return HttpResponse('not enough points')
+                coupon.buyers.add(player)
+                coupon.save()
+                player.save()
+                data={'score':player.score}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')
         coupons=Coupon.objects.all()
         list_of_coupons=[]
         for cou in coupons:
@@ -251,14 +257,18 @@ def api_events(request):
         id_event=request.GET.get('id_event','')
         if len(id_event)!=0:
             event=Event.objects.get(pk=id_event)
-            if player.score <0:
-                return HttpResponse('not enough points')
-            event.participants.add(player)
-            event.save()
-            player.save()
-            data={'event':event}
-            data = simplejson.dumps(data)
-            return HttpResponse(data, mimetype='application/json')
+            events=player.event_set.all()
+            if not event in events:
+                event.participants.add(player)
+                event.save()
+                player.save()
+                data={'event':event}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')
+            else:
+                data={'message':'You have already selected!'}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')                
         events=Event.objects.all()
         list_of_events=[]
         for eve in events:
