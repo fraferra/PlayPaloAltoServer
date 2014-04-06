@@ -148,6 +148,9 @@ def api_registration(request):
         user.save()
         return HttpResponseRedirect('/api_login/')
 
+def api_logout(request):
+    django_logout(request)
+    return HttpResponseRedirect('/api_login/')
 
 def api_login(request):
     if request.method == 'GET':
@@ -167,7 +170,7 @@ def api_login(request):
 
 
 
-def leaderboard(request):
+def api_leaderboard(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api_login/')
     else:
@@ -197,11 +200,23 @@ def api_my_events(request):
         return HttpResponse(data, mimetype='application/json')
 
 
+def api_my_coupons(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api_login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        coupons=player.coupon_set.all()
+        list_coupons=[]
+        for coupon in coupons:
+            list_events.append({'name':coupon.title, 'points':coupon.points, 'location':coupon.location})
+        data= {'user':user.username, 'score':player.score, 'coupons':list_coupons}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
 
 
 
-
-def coupons(request):
+def api_coupons(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api_login/')
     else:
@@ -226,6 +241,32 @@ def coupons(request):
         data= {'user':user.username, 'list_of_coupons':list_of_coupons}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
+
+def api_events(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api_login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        id_event=request.GET.get('id_event','')
+        if len(id_event)!=0:
+            event=Event.objects.get(pk=id_event)
+            if player.score <0:
+                return HttpResponse('not enough points')
+            event.participants.add(player)
+            event.save()
+            player.save()
+            data={'event':event}
+            data = simplejson.dumps(data)
+            return HttpResponse(data, mimetype='application/json')
+        events=Event.objects.all()
+        list_of_events=[]
+        for eve in events:
+            list_events.append({'name':eve.title, 'location':eve.location, 'points':eve.points})
+        data= {'user':user.username, 'list_events':list_events}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
 
 
 
