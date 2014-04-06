@@ -262,7 +262,7 @@ def api_events(request):
                 event.participants.add(player)
                 event.save()
                 player.save()
-                data={'event':event}
+                data={'event':event.title}
                 data = simplejson.dumps(data)
                 return HttpResponse(data, mimetype='application/json')
             else:
