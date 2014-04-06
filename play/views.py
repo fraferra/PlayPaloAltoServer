@@ -270,7 +270,7 @@ def api_events(request):
                 data = simplejson.dumps(data)
                 return HttpResponse(data, mimetype='application/json')                
         events=Event.objects.all()
-        list_of_events=[]
+        list_events=[]
         for eve in events:
             list_events.append({'name':eve.title, 'location':eve.location, 'points':eve.points})
         data= {'user':user.username, 'list_events':list_events}
