@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^api_registration/$', views.api_registration ,name='api_registration'),
     url(r'^api_login/$', views.api_login ,name='api_login'),
     url(r'^coupons/$', views.coupons ,name='coupons'),
+    url(r'^api_my_events/$', views.api_my_events ,name='api_my_events'),
     url(r'^leaderboard/$', views.leaderboard ,name='leaderboard'),
 
 )

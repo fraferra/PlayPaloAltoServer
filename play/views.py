@@ -162,14 +162,14 @@ def api_login(request):
                 return HttpResponseRedirect('/notactive/')
         else:
             return HttpResponseRedirect('/notregistered/')
-
+    else:
+        pass
 
 
 
 def leaderboard(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api_login/')
-
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -182,13 +182,28 @@ def leaderboard(request):
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
+def api_my_events(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api_login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        events=player.event_set.all()
+        list_events=[]
+        for event in events:
+            list_events.append({'name':event.title, 'points':event.points, 'location':event.location})
+        data= {'user':user.username, 'score':player.score, 'events':list_events}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+
+
 
 
 
 def coupons(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api_login/')
-
     else:
         user=request.user
         player=Player.objects.get(user=user)
