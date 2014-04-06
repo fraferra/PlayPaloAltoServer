@@ -222,7 +222,7 @@ def api_coupons(request):
     else:
         user=request.user
         player=Player.objects.get(user=user)
-        id_coupon=request.GET.get('id_coupon','')
+        id_coupon=request.GET.get('id','')
         if len(id_coupon)!=0:
             coupon=Coupon.objects.get(pk=id_coupon)
             player.score=player.score-coupon.price
@@ -254,7 +254,7 @@ def api_events(request):
     else:
         user=request.user
         player=Player.objects.get(user=user)
-        id_event=request.GET.get('id_event','')
+        id_event=request.GET.get('id','')
         if len(id_event)!=0:
             event=Event.objects.get(pk=id_event)
             events=player.event_set.all()

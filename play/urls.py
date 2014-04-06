@@ -18,14 +18,14 @@ urlpatterns = patterns('',
 
 
 
-    url(r'^api_registration/$', views.api_registration ,name='api_registration'),
-    url(r'^api_login/$', views.api_login ,name='api_login'),
-    url(r'^api_logout/$', views.api_logout ,name='api_logout'),
-    url(r'^api_my_events/$', views.api_my_events ,name='api_my_events'),
-    url(r'^api_events/$', views.api_events ,name='api_events'),
-    url(r'^api_my_coupons/$', views.api_my_coupons ,name='api_my_coupons'),
-    url(r'^api_coupons/$', views.api_coupons ,name='api_coupons'),
-    url(r'^api_leaderboard/$', views.api_leaderboard ,name='api_leaderboard'),
+    url(r'^api/registration/$', views.api_registration ,name='api_registration'),
+    url(r'^api/login/$', views.api_login ,name='api_login'),
+    url(r'^api/logout/$', views.api_logout ,name='api_logout'),
+    url(r'^api/my_events/$', views.api_my_events ,name='api_my_events'),
+    url(r'^api/events/$', views.api_events ,name='api_events'),
+    url(r'^api/my_coupons/$', views.api_my_coupons ,name='api_my_coupons'),
+    url(r'^api/coupons/$', views.api_coupons ,name='api_coupons'),
+    url(r'^api/leaderboard/$', views.api_leaderboard ,name='api_leaderboard'),
 
 )
 
