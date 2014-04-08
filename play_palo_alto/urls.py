@@ -25,6 +25,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('play.urls', namespace="play")),
     url(r'', include('social_auth.urls')),
-    (r'^api/', include(v1_api.urls)),
+    #(r'^api/', include('play.api_urls', namespace="api")),
     url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),
 )

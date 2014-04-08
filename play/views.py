@@ -146,11 +146,11 @@ def api_registration(request):
                             first_name=first_name, last_name=last_name)
         user.set_password(password)
         user.save()
-        return HttpResponseRedirect('/api_login/')
+        return HttpResponseRedirect('/api/login/')
 
 def api_logout(request):
     django_logout(request)
-    return HttpResponseRedirect('/api_login/')
+    return HttpResponseRedirect('/api/login/')
 
 def api_login(request):
     if request.method == 'GET':
@@ -172,7 +172,7 @@ def api_login(request):
 
 def api_leaderboard(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api_login/')
+        return HttpResponseRedirect('/api/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -187,7 +187,7 @@ def api_leaderboard(request):
 
 def api_my_events(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api_login/')
+        return HttpResponseRedirect('/api/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -202,7 +202,7 @@ def api_my_events(request):
 
 def api_my_coupons(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api_login/')
+        return HttpResponseRedirect('/api/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -218,7 +218,7 @@ def api_my_coupons(request):
 
 def api_coupons(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api_login/')
+        return HttpResponseRedirect('/api/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -250,7 +250,7 @@ def api_coupons(request):
 
 def api_events(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api_login/')
+        return HttpResponseRedirect('/api/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
