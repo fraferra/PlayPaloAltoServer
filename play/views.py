@@ -153,20 +153,18 @@ def api_logout(request):
     return HttpResponseRedirect('/api/login/')
 
 def api_login(request):
-    if request.method == 'GET':
-        username = request.GET['username']
-        password = request.GET['password']
-        user = authenticate(username =username, password=password)
-        if user is not None:
-            if user.is_active:
-                auth_login(request, user)
-                return HttpResponseRedirect('/api_home/')
-            else:
-                return HttpResponseRedirect('/notactive/')
+    username = request.GET.get('username','')
+    password = request.GET.get('password','')
+    user = authenticate(username =username, password=password)
+    if user is not None:
+        if user.is_active:
+            auth_login(request, user)
+            return HttpResponse('logged in successfully')
         else:
-            return HttpResponseRedirect('/notregistered/')
+            return HttpResponse('not authenticated')
     else:
-        pass
+        return HttpResponse('not authenticated')
+
 
 
 
