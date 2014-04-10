@@ -32,7 +32,7 @@ class Player(models.Model):
     picture_url=models.CharField(max_length=200, null=True, default=None)
     def __unicode__(self):  # Python 3: def __str__(self):
         return unicode(self.user) or u'' 
-        
+
 class Shop(models.Model):
     user=models.ForeignKey(User)
     title=models.CharField(max_length=100, null=True, default='Super shop!')
@@ -80,6 +80,6 @@ class Challenge(models.Model):
     participants = models.ManyToManyField(Player)
 
 class CouponHistory(models.Model):
-    coupon=models.ForeignKey(coupon, related_name='coupon')
-    player=models.ForeignKey(coupon, related_name='player')
-    shop=models.ForeignKey(coupon, related_name='shop')
+    coupon=models.ForeignKey(Coupon, related_name='coupon')
+    player=models.ForeignKey(Player, related_name='player')
+    shop=models.ForeignKey(Shop, related_name='shop')
