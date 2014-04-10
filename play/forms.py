@@ -13,7 +13,7 @@ class EventForm(ModelForm):
     points=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
     class Meta:
         model=Event
-        fields = ('title','description','location','points','event_type', 'date')
+        fields = ('title','description','location','points','event_type', 'date', 'experience')
 
 class CompanyForm(ModelForm):
     class Meta:

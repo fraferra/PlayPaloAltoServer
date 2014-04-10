@@ -31,6 +31,7 @@ def logout(request):
     return HttpResponseRedirect('/login/')
 
 
+
 def index(request):
     if request.method=='POST':
         form = SignUpForm(request.POST) 
@@ -109,6 +110,7 @@ def reward(request):
             event=Event.objects.get(id=id_event)
             player=Player.objects.get(id=id_user)
             player.score=player.score +  event.points
+            player.experience=player.experience+event.experience
             player.event_set.remove(event)
             player.save()
             event.save()
@@ -153,19 +155,32 @@ def api_logout(request):
     return HttpResponseRedirect('/api/login/')
 
 def api_login(request):
+    message=''
+    data={'message':message}
     username = request.GET.get('username','')
     password = request.GET.get('password','')
     user = authenticate(username =username, password=password)
     if user is not None:
         if user.is_active:
             auth_login(request, user)
-            return HttpResponse('logged in successfully')
+
+            #message='logged in successfully'
+            return HttpResponseRedirect('/api/home/')
         else:
-            return HttpResponse('not authenticated')
+            message='not authenticated'
     else:
-        return HttpResponse('not authenticated')
+        message='not existing'
+    data=simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')
 
-
+def api_home(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api/login/')
+    else:
+        user=request.user
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture_url':player.picture_url}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')   
 
 
 def api_leaderboard(request):
@@ -179,7 +194,8 @@ def api_leaderboard(request):
         for other_player in players:
             list_of_players.append({'player':other_player.user.username, 'player_experience':other_player.experience})
 
-        data= {'user':user.username, 'score':player.score, 'players':list_of_players}
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+                'picture_url':player.picture_url 'players':list_of_players}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
@@ -192,8 +208,9 @@ def api_my_events(request):
         events=player.event_set.all()
         list_events=[]
         for event in events:
-            list_events.append({'name':event.title, 'points':event.points, 'location':event.location})
-        data= {'user':user.username, 'score':player.score, 'events':list_events}
+            list_events.append({'name':event.title, 'points':event.points, 'experience':event.experience, 'location':event.location})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+               'picture_url':player.picture_url 'events':list_events}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
@@ -206,9 +223,17 @@ def api_my_coupons(request):
         player=Player.objects.get(user=user)
         coupons=player.coupon_set.all()
         list_coupons=[]
+        id_coupon=request.GET.get('id','')
+        if len(id_coupon)!=0:
+            my_coupon=Coupon.objects.get(id=id_coupon)
+            player.coupon_set.remove(my_coupon)
+            data={'message':'Coupon redeemed!'}
+            data = simplejson.dumps(data)
+            return HttpResponse(data, mimetype='application/json')           
         for coupon in coupons:
-            list_events.append({'name':coupon.title, 'points':coupon.points, 'location':coupon.location})
-        data= {'user':user.username, 'score':player.score, 'coupons':list_coupons}
+            list_events.append({'name':coupon.title, 'points':coupon.points, 'location':coupon.location, 'shop':coupon.shop})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
+               'picture_url':player.picture_url, 'coupons':list_coupons}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
@@ -231,7 +256,9 @@ def api_coupons(request):
                 return HttpResponse(data, mimetype='application/json')
             else:
                 if player.score <0:
-                    return HttpResponse('not enough points')
+                    data={'message':'Not enough points'}
+                    data = simplejson.dumps(data)
+                    return HttpResponse(data, mimetype='application/json')
                 coupon.buyers.add(player)
                 coupon.save()
                 player.save()
@@ -241,8 +268,9 @@ def api_coupons(request):
         coupons=Coupon.objects.all()
         list_of_coupons=[]
         for cou in coupons:
-            list_of_coupons.append({'name':cou.title, 'price':cou.price})
-        data= {'user':user.username, 'list_of_coupons':list_of_coupons}
+            list_of_coupons.append({'name':cou.title, 'price':cou.price, 'location':cou.location, 'shop':cou.shop})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
+               'picture_url':player.picture_url, 'list_of_coupons':list_of_coupons}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
@@ -270,8 +298,9 @@ def api_events(request):
         events=Event.objects.all()
         list_events=[]
         for eve in events:
-            list_events.append({'name':eve.title, 'location':eve.location, 'points':eve.points})
-        data= {'user':user.username, 'list_events':list_events}
+            list_events.append({'name':eve.title, 'location':eve.location, 'points':eve.points, 'experience':eve.experience})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
+               'picture_url':player.picture_url, 'list_events':list_events}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
