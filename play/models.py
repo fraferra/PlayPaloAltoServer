@@ -13,16 +13,25 @@ from django.core.exceptions import *
 import requests
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        #UserProfile.objects.create(user=instance)
-        try:
-            token=UserSocialAuth.objects.get(user=instance).extra_data['access_token']
-            url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
-            rr=requests.get(url).json()['picture']['data']['url']
-        except ObjectDoesNotExist:
-            rr=''
-        Player.objects.create(user=instance, picture_url=rr)
+        Player.objects.create(user=instance)
 post_save.connect(create_user_profile, sender=User)
 
+
+def create_pic(sender, instance, created, **kwargs):
+    if created:
+        #UserProfile.objects.create(user=instance)
+        try:
+            token=instance.extra_data['access_token']
+            url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
+            rr=requests.get(url).json()['picture']['data']['url']
+            user=instance.user
+            player=Player.objects.get(user=user)
+            player.picture_url=rr
+            player.save()
+        except ObjectDoesNotExist:
+            pass
+
+post_save.connect(create_pic, sender=UserSocialAuth)
 
 class Player(models.Model):
     user=models.ForeignKey(User)
