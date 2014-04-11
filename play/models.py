@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from utils import *
 from social_auth.models import UserSocialAuth
 import constants
-
+from django.core.exceptions import *
 # Create your models here.
 
 def create_user_profile(sender, instance, created, **kwargs):
