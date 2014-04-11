@@ -10,12 +10,12 @@ from social_auth.models import UserSocialAuth
 import constants
 from django.core.exceptions import *
 # Create your models here.
-
+import requests
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         #UserProfile.objects.create(user=instance)
         try:
-            token=UserSocialAuth.objects.get(user=instance)['access_token']
+            token=UserSocialAuth.objects.get(user=instance).extra_data['access_token']
             url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
             rr=requests.get(url).json()['picture']['data']['url']
         except ObjectDoesNotExist:
