@@ -195,7 +195,7 @@ def api_leaderboard(request):
             list_of_players.append({'player':other_player.user.username, 'player_experience':other_player.experience})
 
         data= {'user':user.username, 'score':player.score, 'experience':player.experience,
-                'picture_url':player.picture_url 'players':list_of_players}
+                'picture_url':player.picture_url, 'players':list_of_players}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 

@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 
     url(r'^api/registration/$', views.api_registration ,name='api_registration'),
     url(r'^api/login/$', views.api_login ,name='api_login'),
+    url(r'^api/home/$', views.api_home ,name='api_home'),
     url(r'^api/logout/$', views.api_logout ,name='api_logout'),
     url(r'^api/my_events/$', views.api_my_events ,name='api_my_events'),
     url(r'^api/events/$', views.api_events ,name='api_events'),
