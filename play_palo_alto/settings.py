@@ -147,7 +147,7 @@ INSTALLED_APPS = (
     'tastypie',
     'provider',
     'provider.oauth2',
-    'south',
+    #'south',
 
 )
 
