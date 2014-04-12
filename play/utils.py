@@ -3,15 +3,18 @@ from django.contrib.auth.models import User,UserManager
 from social_auth.models import UserSocialAuth
 from django.contrib.auth import authenticate, login as auth_login
 import json
-def pictureUrl(customuser):
-    if customuser.picture_url is None:
-    	token=customuser.user.extra_data['access_token']
-        url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
-        rr=requests.get(url).json()['picture']['data']['url']
-        customuser.picture_url=rr
-        customuser.save()
-    else:
+def pictureUrl(user, player):
+    try:
+        social=UserSocialAuth.objects.get(user=user)
+        if player.picture_url is None:
+            token=social.extra_data['access_token']
+            url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
+            rr=requests.get(url).json()['picture']['data']['url']
+            player.picture_url=rr
+            player.save()
+    except ObjectDoesNotExist:
         pass
+
 
 def returnCustomUser(user):
     from models import *

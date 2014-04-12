@@ -49,6 +49,8 @@ def home(request):
     else:
         user=request.user
         try:
+            player=Player.objects.get(user=user)
+            pictureUrl(user, player)
             organization=Organization.objects.get(user=user)
             return render(request, 'play/home.html', {'user':user})
         except ObjectDoesNotExist:
