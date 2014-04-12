@@ -21,17 +21,17 @@ def create_pic(sender, instance, created, **kwargs):
     if created:
         #UserProfile.objects.create(user=instance)
         try:
-            token=instance.extra_data['access_token']
+            user=instance.user
+            social=UserSocialAuth.objects.get(user=user)
+            token=social.extra_data['access_token']
             url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
             rr=requests.get(url).json()['picture']['data']['url']
-            user=instance.user
-            player=Player.objects.get(user=user)
-            player.picture_url=rr
-            player.save()
+            instance.picture_url=rr
+            instance.save()
         except ObjectDoesNotExist:
             pass
 
-post_save.connect(create_pic, sender=UserSocialAuth)
+post_save.connect(create_pic, sender=Player)
 
 class Player(models.Model):
     user=models.ForeignKey(User)
