@@ -11,6 +11,18 @@ import constants
 from django.core.exceptions import *
 # Create your models here.
 import requests
+
+
+class Player(models.Model):
+    user=models.ForeignKey(User)
+    score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
+    experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
+    level=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
+    picture_url=models.CharField(max_length=200, null=True, default=None)
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return unicode(self.user) or u'' 
+
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Player.objects.create(user=instance)
@@ -33,14 +45,6 @@ def create_pic(sender, instance, created, **kwargs):
 
 post_save.connect(create_pic, sender=Player)
 
-class Player(models.Model):
-    user=models.ForeignKey(User)
-    score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
-    experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
-    level=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
-    picture_url=models.CharField(max_length=200, null=True, default=None)
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return unicode(self.user) or u'' 
 
 class Shop(models.Model):
     user=models.ForeignKey(User)
