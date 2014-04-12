@@ -180,6 +180,8 @@ def api_home(request):
         return HttpResponseRedirect('/api/login/')
     else:
         user=request.user
+        player=Player.objects.get(user=user)
+        pictureUrl(user, player)
         data= {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture_url':player.picture_url}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')   
