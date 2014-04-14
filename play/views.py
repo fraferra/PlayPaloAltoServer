@@ -140,6 +140,9 @@ def my_company(request):
 
 #API
 
+
+
+
 def api_registration(request):
     if request.method == 'GET':
         email = request.GET['email']
@@ -151,6 +154,187 @@ def api_registration(request):
         user.set_password(password)
         user.save()
         return HttpResponseRedirect('/api/login/')
+
+
+
+
+
+
+
+
+
+def api_login(request):
+    message=''
+    data={'message':message}
+    username = request.GET.get('username','')
+    password = request.GET.get('password','')
+    user = authenticate(username =username, password=password)
+    if user is not None:
+        if user.is_active:
+            auth_login(request, user)
+            player=Player.objects.get(user=user)
+            player.custom_auth=True
+            player.save()
+
+            #message='logged in successfully'
+            return HttpResponseRedirect('/api/home/')
+        else:
+            message='not authenticated'
+    else:
+        message='not existing'
+    data=simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')   
+
+
+
+def api_logout(request):
+    player=Player.objects.get(user=request.user)
+    player.custom_auth=False
+    player.save()
+    django_logout(request)
+    return HttpResponseRedirect('/api/login/')
+
+
+ 
+
+def api_home(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        pictureUrl(user, player)
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture_url':player.picture_url}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')   
+
+
+def api_leaderboard(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        players=Player.objects.all().order_by('score')
+        list_of_players=[]
+        for other_player in players:
+            list_of_players.append({'player':other_player.user.username, 'player_experience':other_player.experience})
+
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+                'picture_url':player.picture_url, 'players':list_of_players}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+def api_my_events(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        events=player.event_set.all()
+        list_events=[]
+        for event in events:
+            list_events.append({'name':event.title, 'points':event.points, 'experience':event.experience, 'location':event.location})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+               'picture_url':player.picture_url, 'events':list_events}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+
+def api_my_coupons(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        coupons=player.coupon_set.all()
+        list_coupons=[]
+        id_coupon=request.GET.get('id','')
+        if len(id_coupon)!=0:
+            my_coupon=Coupon.objects.get(id=id_coupon)
+            player.coupon_set.remove(my_coupon)
+            data={'message':'Coupon redeemed!'}
+            data = simplejson.dumps(data)
+            return HttpResponse(data, mimetype='application/json')           
+        for coupon in coupons:
+            list_events.append({'name':coupon.title, 'points':coupon.points, 'location':coupon.location, 'shop':coupon.shop})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
+               'picture_url':player.picture_url, 'coupons':list_coupons}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+
+
+def api_coupons(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        id_coupon=request.GET.get('id','')
+        if len(id_coupon)!=0:
+            coupon=Coupon.objects.get(pk=id_coupon)
+            player.score=player.score-coupon.price
+            coupons=player.coupon_set.all()
+            if coupon in coupons:
+                data={'message':'You have already selected!'}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')
+            else:
+                if player.score <0:
+                    data={'message':'Not enough points'}
+                    data = simplejson.dumps(data)
+                    return HttpResponse(data, mimetype='application/json')
+                coupon.buyers.add(player)
+                coupon.save()
+                player.save()
+                data={'score':player.score}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')
+        coupons=Coupon.objects.all()
+        list_of_coupons=[]
+        for cou in coupons:
+            list_of_coupons.append({'name':cou.title, 'price':cou.price, 'location':cou.location, 'shop':cou.shop})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
+               'picture_url':player.picture_url, 'list_of_coupons':list_of_coupons}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+def api_events(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        id_event=request.GET.get('id','')
+        if len(id_event)!=0:
+            event=Event.objects.get(pk=id_event)
+            events=player.event_set.all()
+            if not event in events:
+                event.participants.add(player)
+                event.save()
+                player.save()
+                data={'event':event.title}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')
+            else:
+                data={'message':'You have already selected!'}
+                data = simplejson.dumps(data)
+                return HttpResponse(data, mimetype='application/json')                
+        events=Event.objects.all()
+        list_events=[]
+        for eve in events:
+            list_events.append({'name':eve.title, 'location':eve.location, 'points':eve.points, 'experience':eve.experience})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
+               'picture_url':player.picture_url, 'list_events':list_events}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+
+
+'''
+
+
 
 def api_logout(request):
     django_logout(request)
@@ -174,6 +358,8 @@ def api_login(request):
         message='not existing'
     data=simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')
+
+ 
 
 def api_home(request):
     if not request.user.is_authenticated():
@@ -310,3 +496,4 @@ def api_events(request):
 
 
 
+'''
