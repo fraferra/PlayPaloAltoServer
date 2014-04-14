@@ -3,6 +3,8 @@ from django.contrib.auth.models import User,UserManager
 from social_auth.models import UserSocialAuth
 from django.contrib.auth import authenticate, login as auth_login
 import json
+from django.core.exceptions import *
+
 def pictureUrl(user, player):
     try:
         social=UserSocialAuth.objects.get(user=user)
