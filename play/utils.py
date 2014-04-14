@@ -39,13 +39,14 @@ def customAuth(request):
     from play.models import *
     token=''
     try:
-        print 'ciao'
         token=request.GET.get('token','')
-        print token
-        try:
-            player=Player.objects.get(token=token)
-            return True
-        except ObjectDoesNotExist:
+        if len(token)!=0:
+            try:
+                player=Player.objects.get(token=token)
+                return True
+            except ObjectDoesNotExist:
+                return False
+        else:
             return False
     except TypeError:
         return False
