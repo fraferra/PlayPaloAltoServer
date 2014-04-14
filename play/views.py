@@ -52,7 +52,7 @@ def home(request):
             player=Player.objects.get(user=user)
             pictureUrl(user, player)
             organization=Organization.objects.get(user=user)
-            return render(request, 'play/home.html', {'user':user})
+            return render(request, 'play/home.html', {'user':user, 'player':player})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
