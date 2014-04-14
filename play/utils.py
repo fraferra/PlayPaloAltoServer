@@ -34,5 +34,6 @@ def authenticationFra(request):
 
 
 def customAuth(request):
+    from play.models import *
     status=Player.objects.get(user=request.user).custom_auth
     return status
