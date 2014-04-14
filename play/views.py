@@ -164,7 +164,7 @@ def api_registration(request):
 
 
 def api_login(request):
-    message=''
+    message='not auth'
     data={'message':message}
     username = request.GET.get('username','')
     password = request.GET.get('password','')
@@ -173,7 +173,7 @@ def api_login(request):
         if user.is_active:
             auth_login(request, user)
             player=Player.objects.get(user=user)
-            player.token=randomword(20)
+            player.token=randomword(30)
             player.save()
             data= {'token':player.token}
             data = simplejson.dumps(data)
@@ -216,8 +216,10 @@ def api_leaderboard(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
-        user=request.user
-        player=Player.objects.get(user=user)
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
+
         players=Player.objects.all().order_by('score')
         list_of_players=[]
         for other_player in players:
@@ -232,8 +234,9 @@ def api_my_events(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
-        user=request.user
-        player=Player.objects.get(user=user)
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
         events=player.event_set.all()
         list_events=[]
         for event in events:
@@ -248,8 +251,9 @@ def api_my_coupons(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
-        user=request.user
-        player=Player.objects.get(user=user)
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
         coupons=player.coupon_set.all()
         list_coupons=[]
         id_coupon=request.GET.get('id','')
@@ -272,8 +276,9 @@ def api_coupons(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
-        user=request.user
-        player=Player.objects.get(user=user)
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
         id_coupon=request.GET.get('id','')
         if len(id_coupon)!=0:
             coupon=Coupon.objects.get(pk=id_coupon)
@@ -307,8 +312,9 @@ def api_events(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
-        user=request.user
-        player=Player.objects.get(user=user)
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
         id_event=request.GET.get('id','')
         if len(id_event)!=0:
             event=Event.objects.get(pk=id_event)
