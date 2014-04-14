@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login as auth_login
 import json
 from django.core.exceptions import *
 from play.models import *
-
+from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 def pictureUrl(user, player):
     try:
         social=UserSocialAuth.objects.get(user=user)
@@ -35,5 +35,8 @@ def authenticationFra(request):
 
 def customAuth(request):
     from play.models import *
-    status=Player.objects.get(user=request.user).custom_auth
-    return status
+    try:
+        status=Player.objects.get(user=request.user).custom_auth
+        return status
+    except TypeError:
+        return False
