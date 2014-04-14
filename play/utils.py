@@ -6,6 +6,7 @@ import json
 from django.core.exceptions import *
 from play.models import *
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
+import string, random
 def pictureUrl(user, player):
     try:
         social=UserSocialAuth.objects.get(user=user)
@@ -33,6 +34,26 @@ def authenticationFra(request):
     return username, password
 
 
+
+def customAuth(request):
+    from play.models import *
+    token=''
+    try:
+        print 'ciao'
+        token=request.GET.get('token','')
+        print token
+        try:
+            player=Player.objects.get(token=token)
+            return True
+        except ObjectDoesNotExist:
+            return False
+    except TypeError:
+        return False
+
+def randomword(length):
+   return ''.join(random.choice(string.lowercase) for i in range(length))
+'''
+
 def customAuth(request):
     from play.models import *
     try:
@@ -40,3 +61,4 @@ def customAuth(request):
         return status
     except TypeError:
         return False
+'''

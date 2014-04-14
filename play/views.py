@@ -173,23 +173,26 @@ def api_login(request):
         if user.is_active:
             auth_login(request, user)
             player=Player.objects.get(user=user)
-            player.custom_auth=True
+            player.token=randomword(20)
             player.save()
-
+            data= {'token':player.token}
+            data = simplejson.dumps(data)
             #message='logged in successfully'
-            return HttpResponseRedirect('/api/home/')
+            return HttpResponse(data, mimetype='application/json')
         else:
             message='not authenticated'
     else:
         message='not existing'
     data=simplejson.dumps(data)
-    return HttpResponse(data, mimetype='application/json')   
+    response = HttpResponse(data, mimetype='application/json')   
+    response.set_cookie('user', user)
+    return response
 
 
 
 def api_logout(request):
     player=Player.objects.get(user=request.user)
-    player.custom_auth=False
+    player.token=''
     player.save()
     django_logout(request)
     return HttpResponseRedirect('/api/login/')

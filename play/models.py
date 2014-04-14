@@ -16,6 +16,7 @@ import requests
 class Player(models.Model):
     user=models.ForeignKey(User)
     custom_auth = forms.BooleanField(initial=False)
+    token=models.CharField(max_length=100, null=True, default=None)
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
     level=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
