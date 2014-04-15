@@ -195,14 +195,14 @@ def api_v2_logout(request):
     player.token=''
     player.save()
     django_logout(request)
-    return HttpResponseRedirect('/api/login/')
+    return HttpResponseRedirect('/api/v2/login/')
 
 
  
 
 def api_v2_home(request):
     if not customAuth(request):
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v2/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -214,7 +214,7 @@ def api_v2_home(request):
 
 def api_v2_leaderboard(request):
     if not customAuth(request):
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v2/login/')
     else:
         token=request.GET.get('token','')
         player=Player.objects.get(token=token)
@@ -232,7 +232,7 @@ def api_v2_leaderboard(request):
 
 def api_v2_my_events(request):
     if not customAuth(request):
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v2/login/')
     else:
         token=request.GET.get('token','')
         player=Player.objects.get(token=token)
@@ -249,7 +249,7 @@ def api_v2_my_events(request):
 
 def api_v2_my_coupons(request):
     if not customAuth(request):
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v2/login/')
     else:
         token=request.GET.get('token','')
         player=Player.objects.get(token=token)
@@ -274,7 +274,7 @@ def api_v2_my_coupons(request):
 
 def api_v2_coupons(request):
     if not customAuth(request):
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v2/login/')
     else:
         token=request.GET.get('token','')
         player=Player.objects.get(token=token)
@@ -310,7 +310,7 @@ def api_v2_coupons(request):
 
 def api_v2_events(request):
     if not customAuth(request):
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v2/login/')
     else:
         token=request.GET.get('token','')
         player=Player.objects.get(token=token)
@@ -360,7 +360,7 @@ def api_v1_login(request):
             auth_login(request, user)
 
             #message='logged in successfully'
-            return HttpResponseRedirect('/api/home/')
+            return HttpResponseRedirect('/api/v1/home/')
         else:
             message='not authenticated'
     else:
@@ -372,7 +372,7 @@ def api_v1_login(request):
 
 def api_v1_home(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v1/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -384,7 +384,7 @@ def api_v1_home(request):
 
 def api_v1_leaderboard(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v1/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -400,7 +400,7 @@ def api_v1_leaderboard(request):
 
 def api_v1_my_events(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v1/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -416,7 +416,7 @@ def api_v1_my_events(request):
 
 def api_v1_my_coupons(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v1/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -440,7 +440,7 @@ def api_v1_my_coupons(request):
 
 def api_v1_coupons(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v1/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -475,7 +475,7 @@ def api_v1_coupons(request):
 
 def api_v1_events(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/login/')
+        return HttpResponseRedirect('/api/v1/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
