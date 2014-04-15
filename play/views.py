@@ -163,7 +163,7 @@ def api_registration(request):
 
 
 
-def api_login(request):
+def api_v2_login(request):
     message='not auth'
     data={'message':message}
     username = request.GET.get('username','')
@@ -190,7 +190,7 @@ def api_login(request):
 
 
 
-def api_logout(request):
+def api_v2_logout(request):
     player=Player.objects.get(user=request.user)
     player.token=''
     player.save()
@@ -200,7 +200,7 @@ def api_logout(request):
 
  
 
-def api_home(request):
+def api_v2_home(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
@@ -212,7 +212,7 @@ def api_home(request):
         return HttpResponse(data, mimetype='application/json')   
 
 
-def api_leaderboard(request):
+def api_v2_leaderboard(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
@@ -230,7 +230,7 @@ def api_leaderboard(request):
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
-def api_my_events(request):
+def api_v2_my_events(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
@@ -247,7 +247,7 @@ def api_my_events(request):
         return HttpResponse(data, mimetype='application/json')
 
 
-def api_my_coupons(request):
+def api_v2_my_coupons(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
@@ -272,7 +272,7 @@ def api_my_coupons(request):
 
 
 
-def api_coupons(request):
+def api_v2_coupons(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
@@ -308,7 +308,7 @@ def api_coupons(request):
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
-def api_events(request):
+def api_v2_events(request):
     if not customAuth(request):
         return HttpResponseRedirect('/api/login/')
     else:
@@ -341,15 +341,15 @@ def api_events(request):
 
 
 
-'''
 
 
 
-def api_logout(request):
+
+def api_v1_logout(request):
     django_logout(request)
     return HttpResponseRedirect('/api/login/')
 
-def api_login(request):
+def api_v1_login(request):
     message=''
     data={'message':message}
     username = request.GET.get('username','')
@@ -370,7 +370,7 @@ def api_login(request):
 
  
 
-def api_home(request):
+def api_v1_home(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api/login/')
     else:
@@ -382,7 +382,7 @@ def api_home(request):
         return HttpResponse(data, mimetype='application/json')   
 
 
-def api_leaderboard(request):
+def api_v1_leaderboard(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api/login/')
     else:
@@ -398,7 +398,7 @@ def api_leaderboard(request):
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
-def api_my_events(request):
+def api_v1_my_events(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api/login/')
     else:
@@ -414,7 +414,7 @@ def api_my_events(request):
         return HttpResponse(data, mimetype='application/json')
 
 
-def api_my_coupons(request):
+def api_v1_my_coupons(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api/login/')
     else:
@@ -438,7 +438,7 @@ def api_my_coupons(request):
 
 
 
-def api_coupons(request):
+def api_v1_coupons(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api/login/')
     else:
@@ -473,7 +473,7 @@ def api_coupons(request):
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
-def api_events(request):
+def api_v1_events(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/api/login/')
     else:
@@ -505,4 +505,3 @@ def api_events(request):
 
 
 
-'''
