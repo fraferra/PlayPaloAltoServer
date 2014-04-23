@@ -11,9 +11,19 @@ class EventForm(ModelForm):
     location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))
     description=forms.CharField(widget = forms.Textarea(attrs={}))
     points=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
+    experience=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
     class Meta:
         model=Event
         fields = ('title','description','location','points','event_type', 'date', 'experience')
+
+class CouponForm(ModelForm):
+    title=forms.CharField()
+    location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))
+    description=forms.CharField(widget = forms.Textarea(attrs={}))
+    price=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
+    class Meta:
+        model=Coupon
+        fields = ('title','description','location','price')
 
 class CompanyForm(ModelForm):
     class Meta:

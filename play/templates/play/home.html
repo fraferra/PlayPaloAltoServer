@@ -15,10 +15,10 @@
 	    		    
                     <div class="col-lg-8 col-lg-offset-2 centered"> 
                     	
-                    	<button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/create'" data-target="#myLogin">
+                    	<button style="word-spacing:10px;" class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/create_event'" data-target="#myLogin">
                              CREATE NEW EVENT
                         </button>
-                        <button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/my_events'" data-target="#myLogin">
+                        <button style="word-spacing:10px;" class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/my_events'" data-target="#myLogin">
                              CHECK MY EVENTS
                         </button>
                     </div>
@@ -26,6 +26,24 @@
 
  
 			</div>
+			<br>
+			{% if shop %}
+	    	<div class="row">
+	    		    
+                    <div class="col-lg-8 col-lg-offset-2 centered"> 
+                    	
+                    	<button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/create_coupon'" data-target="#myLogin">
+                             CREATE NEW COUPON
+                        </button>
+                        <button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/my_coupons'" data-target="#myLogin">
+                             CHECK MY COUPONS
+                        </button>
+                    </div>
+               
+
+ 
+			</div>
+			{% endif %}
 	    </div> <!-- /container -->
 	</div><!-- /hello -->
 

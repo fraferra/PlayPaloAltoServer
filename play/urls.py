@@ -2,17 +2,20 @@ from django.conf.urls import patterns, url
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
-from play import views
+from play import views, api
 
 urlpatterns = patterns('',
     url(r'^login/$', views.login ,name='login'),  
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^home/$', views.home ,name='home'),
     url(r'^sorry/$', views.sorry ,name='sorry'),
-    url(r'^create/$', views.create_event ,name='create_event'),
+    url(r'^create_event/$', views.create_event ,name='create_event'),
+    url(r'^create_coupon/$', views.create_coupon ,name='create_coupon'),
     url(r'^my_events/$', views.my_events ,name='my_events'),
+    url(r'^my_coupons/$', views.my_coupons ,name='my_coupons'),
     url(r'^company/$', views.my_company ,name='my_company'),
     url(r'^reward/$', views.reward ,name='reward'),
+    url(r'^erase/$', views.erase ,name='erase'),
     url(r'^$', views.index ,name='index'),
 
 

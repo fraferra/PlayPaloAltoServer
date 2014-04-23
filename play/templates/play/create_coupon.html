@@ -6,14 +6,13 @@
 			<div class="row centered">
 				<div class="col-lg-8 col-lg-offset-2">
 					<form method='post'>{% csrf_token %}
-					<h3>WHATCHA GONNA DO?!</h3>
+					<h3>WHATCHA GONNA OFFER?!</h3>
                      <p style="word-spacing:150px;" >TITLE {{form.title}}</p>
-                     <p style="word-spacing:20px;">TELL US ABOUT IT!</p>
+                     <p style="word-spacing:20px;">JUST A LITTLE DESCRIPTION!</p>
                      <p>{{form.description}}</p>
 
                      <p style="word-spacing:30px;" >LOCATION {{form.location}}</p>
-                     <p style="word-spacing:16px;" >POINTS {{form.points}} EXPERIENCE {{form.experience}}</p>
-                     <p style="word-spacing:0px;">DATE {{form.date}} EVENT'S TYPE {{form.event_type}}</p>
+                     <p style="word-spacing:16px;" >PRICE IN POINTS {{form.price}}
 					<input type="submit"   class="btn btn-primary btn-default" value="DO IT!">
 				</form>
 				</div>
