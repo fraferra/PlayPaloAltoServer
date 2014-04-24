@@ -21,7 +21,7 @@ def pictureUrl(user, player):
 
 
 def returnCustomUser(user):
-    #from models import *
+    from models import *
     facebook_id=UserSocialAuth.objects.get(user=user).uid
     customuser=CustomUser.objects.get(facebook_id=facebook_id)
     return customuser
@@ -36,7 +36,7 @@ def authenticationFra(request):
 
 
 def customAuth(request):
-    #from play.models import *
+    from play.models import *
     token=''
     try:
         token=request.GET.get('token','')

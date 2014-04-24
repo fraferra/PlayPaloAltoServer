@@ -235,7 +235,7 @@ def api_registration(request):
         user.save()
         return HttpResponseRedirect('/api/login/')
 
-
+#v2
 
 
 def api_v2_login(request):
@@ -418,7 +418,7 @@ def api_v2_events(request):
 
 
 
-
+#v1
 
 def api_v1_logout(request):
     django_logout(request)
