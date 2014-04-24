@@ -5,3 +5,4 @@ lib
 /frontend/dist
 /node_modules
 /dist
+/venv
