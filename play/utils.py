@@ -4,7 +4,7 @@ from social_auth.models import UserSocialAuth
 from django.contrib.auth import authenticate, login as auth_login
 import json
 from django.core.exceptions import *
-from play.models import *
+#from play.models import *
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 import string, random
 def pictureUrl(user, player):
@@ -21,7 +21,7 @@ def pictureUrl(user, player):
 
 
 def returnCustomUser(user):
-    from models import *
+    from play.models import CustomUser
     facebook_id=UserSocialAuth.objects.get(user=user).uid
     customuser=CustomUser.objects.get(facebook_id=facebook_id)
     return customuser
@@ -36,7 +36,7 @@ def authenticationFra(request):
 
 
 def customAuth(request):
-    from play.models import *
+    from play.models import Player
     token=''
     try:
         token=request.GET.get('token','')
@@ -53,6 +53,13 @@ def customAuth(request):
 
 def randomword(length):
    return ''.join(random.choice(string.lowercase) for i in range(length))
+
+def getShop(user):
+    from play.models import Shop
+    try:
+        return Shop.objects.get(user=user)
+    except ObjectDoesNotExist:
+        return False
 '''
 
 def customAuth(request):

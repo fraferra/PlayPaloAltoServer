@@ -54,10 +54,7 @@ def home(request):
             organization=Organization.objects.get(user=user)
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
-        try:
-            shop=Shop.objects.get(user=user)
-        except ObjectDoesNotExist:
-            shop=False
+        shop=getShop(user)
         return render(request, 'play/home.html', {'user':user, 'player':player, 'shop':shop})
 
 
@@ -70,10 +67,7 @@ def create_event(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        try:
-            shop=Shop.objects.get(user=user)
-        except ObjectDoesNotExist:
-            shop=False
+        shop=getShop(user)
         try:
             organization=Organization.objects.get(user=user)
             if request.method=='POST':
@@ -95,9 +89,10 @@ def create_coupon(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
+
         try:
             organization=Organization.objects.get(user=user)
-            shop=Shop.objects.get(user=user)
+            shop=getShop(user)
             if request.method=='POST':
                 form = CouponForm(request.POST) 
                 if form.is_valid():
@@ -107,7 +102,7 @@ def create_coupon(request):
                     return HttpResponseRedirect('/my_coupons/')
             else:
                 form = CouponForm()
-            return render(request, 'play/create_coupon.html', {'form':form})
+            return render(request, 'play/create_coupon.html', {'form':form, 'shop':shop})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
@@ -116,10 +111,7 @@ def my_events(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        try:
-            shop=Shop.objects.get(user=user)
-        except ObjectDoesNotExist:
-            shop=False
+        shop=getShop(user)
         try:
             organization=Organization.objects.get(user=user)
             list_of_events=Event.objects.filter(organizer=organization)
@@ -129,7 +121,7 @@ def my_events(request):
                 event=Event.objects.get(pk=id_delete)
                 event.delete()
                 return HttpResponseRedirect('/my_events/')
-            return render(request, 'play/my_events.html', {'list_of_events':list_of_events, 'number':number})
+            return render(request, 'play/my_events.html', {'list_of_events':list_of_events, 'number':number, 'shop':shop})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
@@ -140,7 +132,7 @@ def my_coupons(request):
         user=request.user
         try:
             organization=Organization.objects.get(user=user)
-            shop=Shop.objects.get(user=user)
+            shop=getShop(user)
             list_of_coupons=Coupon.objects.filter(shop=shop)
             number=len(list_of_coupons)
             id_delete=request.GET.get('delete','')
@@ -148,7 +140,7 @@ def my_coupons(request):
                 coupon=Coupon.objects.get(pk=id_delete)
                 coupon.delete()
                 return HttpResponseRedirect('/my_coupons/')
-            return render(request, 'play/my_coupons.html', {'list_of_coupons':list_of_coupons, 'number':number})
+            return render(request, 'play/my_coupons.html', {'list_of_coupons':list_of_coupons, 'number':number, 'shop':shop})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
@@ -159,11 +151,7 @@ def reward(request):
     else:
         user=request.user
         organization=Organization.objects.get(user=user)
-        try:
-            shop=Shop.objects.get(user=user)
-        except ObjectDoesNotExist:
-            shop=False
-        shop=Organization.objects.get(user=user)
+
         if request.method == 'GET':
             id_user=request.GET['id_user']
             id_event=request.GET['id_event']
@@ -197,10 +185,7 @@ def my_company(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        try:
-            shop=Shop.objects.get(user=user)
-        except ObjectDoesNotExist:
-            shop=False
+        shop=getShop(user)
         try:
             organization=Organization.objects.get(user=user)
             if request.method=='POST':
@@ -210,7 +195,7 @@ def my_company(request):
                 organization.location=location
                 organization.save()
                 return HttpResponseRedirect('/company/')
-            return render(request, 'play/my_company.html', {'user':user,'organization':organization})
+            return render(request, 'play/my_company.html', {'user':user,'organization':organization, 'shop':shop})
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
 
