@@ -8,7 +8,7 @@ APIs:
 
 THE USERS NEED TO USE Login BEFORE TO GET AUTHENTICATED 
 
-Registration - GET http://playpaloalto.com/api/registation/?email={EMAIL}&first_name={FIRST_NAME}&last_name={LAST_NAME}&password={PASSWORD}
+Registration - GET http://playpaloalto.com/api/registration/?email={EMAIL}&first_name={FIRST_NAME}&last_name={LAST_NAME}&password={PASSWORD}
         It creates a new user
 
 
