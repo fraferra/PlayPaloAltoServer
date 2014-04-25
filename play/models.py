@@ -94,17 +94,4 @@ class Challenge(models.Model):
     points=models.DecimalField(max_digits=4, decimal_places=0)    
     participants = models.ManyToManyField(Player)
 
-class CouponHistory(models.Model):
-    title=models.CharField(max_length=100, null=True)
-    #coupon=models.ForeignKey(Coupon, related_name='coupon')
-    player=models.ForeignKey(Player, related_name='participated')
-    shop=models.ForeignKey(Shop, related_name='created')
 
-
-class EventHistory(models.Model):
-    date=models.DateTimeField( null=True)
-    title=models.CharField(max_length=100, null=True)
-    event=models.ForeignKey(Event, related_name='created')
-    player=models.ForeignKey(Player, related_name='participated')
-    points=models.DecimalField(max_digits=4, decimal_places=0) 
-    #organization=models.ForeignKey(Organization, related_name='organization')

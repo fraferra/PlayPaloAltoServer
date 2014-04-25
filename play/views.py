@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 #from django.contrib.auth import authenticate, login as auth_login
 from social_auth.models import UserSocialAuth
 from play.models import *
+from play.models2 import *
 from play.utils import *
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
