@@ -33,6 +33,17 @@ def logout(request):
 
 
 
+def idea(request):
+    if request.method=='POST':
+        form = IdeaForm(request.POST) 
+        if form.is_valid():
+            new_idea = form.save()
+            return HttpResponseRedirect('/') 
+    else:
+        form = IdeaForm()
+    return render(request, 'play/idea.html', {'form':form})
+
+
 def index(request):
     if request.method=='POST':
         form = SignUpForm(request.POST) 

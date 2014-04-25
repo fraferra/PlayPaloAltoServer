@@ -16,6 +16,15 @@ class EventForm(ModelForm):
         model=Event
         fields = ('title','description','location','points','event_type', 'date', 'experience')
 
+class IdeaForm(ModelForm):
+    title=forms.CharField()
+    description=forms.CharField(widget = forms.Textarea(attrs={}))
+    points=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
+    experience=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
+    class Meta:
+        model=Idea
+        fields = ('title','description','author','points', 'experience')
+
 class CouponForm(ModelForm):
     title=forms.CharField()
     location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))

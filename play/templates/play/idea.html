@@ -1,0 +1,37 @@
+{% extends "play/layout.html" %}
+
+{% block content %}
+	<div id="social">
+		<div class="container">
+			<div class="row centered">
+				<h2 style="color: #FF6700">TELL US ABOUT YOUR IDEA FOR A CHALLENGE!</h2>
+				<h3>The TOP 5 Challenges will be selected for the final on the 31st of May!</h3>
+				<p><b>Help us giving us ideas and feedback on how we can help you and the community!</b></p>
+
+				<div style="float:left"class="col-lg-8 col-lg-offset-2">
+					<form method='post'>{% csrf_token %}
+					
+                     <p  >How do you want to name your challenge? (Make it fancy!) {{form.title}}</p>
+                     <p >Give us a brief description</p>
+                     <p>{{form.description}}</p>
+
+                     <p  >How many points would you award? (MAX 100) {{form.points}} </p>
+                     <p >How much experience would you award? {{form.experience}}</p>
+                     <p >Tell us your name so we can acknowledge you for your help {{form.author}}</p>
+					<input type="submit"  onclick="myFunction()" class="btn btn-primary btn-default" value="SUBMIT IT!">
+				</form>
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div>
+        <br>
+
+
+        <script>
+function myFunction()
+{
+alert("Thank you for your time!");
+}
+</script>
+
+{% endblock %}
