@@ -73,7 +73,7 @@ class Coupon(models.Model):
         return unicode(self.title) or u'' 
 
 class Event(models.Model):
-    title=models.CharField(max_length=50, null=True)
+    title=models.CharField(max_length=100, null=True)
     description=models.TextField(max_length=500, null=True)
     location=models.CharField(max_length=100, null=True)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
@@ -95,6 +95,16 @@ class Challenge(models.Model):
     participants = models.ManyToManyField(Player)
 
 class CouponHistory(models.Model):
-    coupon=models.ForeignKey(Coupon, related_name='coupon')
+    title=models.CharField(max_length=100, null=True)
+    #coupon=models.ForeignKey(Coupon, related_name='coupon')
     player=models.ForeignKey(Player, related_name='player')
     shop=models.ForeignKey(Shop, related_name='shop')
+
+
+class EventHistory(models.Model):
+    date=models.DateTimeField( null=True)
+    title=models.CharField(max_length=100, null=True)
+    event=models.ForeignKey(Event, related_name='event')
+    player=models.ForeignKey(Player, related_name='player')
+    points=models.DecimalField(max_digits=4, decimal_places=0) 
+    #organization=models.ForeignKey(Organization, related_name='organization')

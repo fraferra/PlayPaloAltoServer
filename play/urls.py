@@ -31,7 +31,8 @@ urlpatterns = patterns('',
     url(r'^api/v1/my_coupons/$', views.api_v1_my_coupons ,name='api_my_coupons'),
     url(r'^api/v1/coupons/$', views.api_v1_coupons ,name='api_coupons'),
     url(r'^api/v1/leaderboard/$', views.api_v1_leaderboard ,name='api_leaderboard'),
-
+    url(r'^api/v1/history_events/$', views.api_v1_history_events ,name='api_history_events'),
+    url(r'^api/v1/history_coupons/$', views.api_v1_history_coupons ,name='api_history_coupons'),
 
     url(r'^api/v2/login/$', views.api_v2_login ,name='api_login'),
     url(r'^api/v2/home/$', views.api_v2_home ,name='api_home'),
@@ -41,6 +42,7 @@ urlpatterns = patterns('',
     url(r'^api/v2/my_coupons/$', views.api_v2_my_coupons ,name='api_my_coupons'),
     url(r'^api/v2/coupons/$', views.api_v2_coupons ,name='api_coupons'),
     url(r'^api/v2/leaderboard/$', views.api_v2_leaderboard ,name='api_leaderboard'),
-
+    url(r'^api/v2/history_events/$', views.api_v2_history_events ,name='api_history_events'),
+    url(r'^api/v2/history_coupons/$', views.api_v2_history_coupons ,name='api_history_coupons'),
 )
 

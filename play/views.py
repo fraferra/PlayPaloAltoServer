@@ -13,7 +13,7 @@ import json
 from django.contrib.auth import logout as django_logout
 from play.forms import *
 from django.core.exceptions import *
-
+from datetime import datetime
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -160,6 +160,14 @@ def reward(request):
             player.score=player.score +  event.points
             player.experience=player.experience+event.experience
             player.event_set.remove(event)
+            EventHistory.objects.create(
+                date=datetime.today(),
+                player=player,
+                #event=event,
+                organization=organization,
+                title=event.title,
+                points=event.points
+                )
             player.save()
             event.save()
             return HttpResponseRedirect('/my_events/')
@@ -176,6 +184,12 @@ def erase(request):
             coupon=Coupon.objects.get(id=id_coupon)
             player=Player.objects.get(id=id_user)
             player.coupon_set.remove(coupon)
+            CouponHistory.objects.create(
+                player=player,
+                shop=shop,
+                title=coupon.title,
+                #coupon=coupon
+                )
             player.save()
             coupon.save()
             return HttpResponseRedirect('/my_coupons/')
@@ -287,6 +301,38 @@ def api_v2_leaderboard(request):
 
         data= {'user':user.username, 'score':player.score, 'experience':player.experience,
                 'picture_url':player.picture_url, 'players':list_of_players}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+def api_v2_history_events(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/v2/login/')
+    else:
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
+        events=EventHistory.objects.filter(player=player)
+        list_events=[]
+        for event in events:
+            list_events.append({'name':event.title, 'points':event.points, 'organization':event.organization })
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+               'picture_url':player.picture_url, 'events':list_events}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+def api_v2_history_coupons(request):
+    if not customAuth(request):
+        return HttpResponseRedirect('/api/v2/login/')
+    else:
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
+        events=CouponHistory.objects.filter(player=player)
+        list_events=[]
+        for event in events:
+            list_events.append({'name':event.title, 'shop':event.shop })
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+               'picture_url':player.picture_url, 'events':list_events}
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
@@ -473,6 +519,35 @@ def api_v1_my_events(request):
         data = simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')
 
+def api_v1_history_events(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api/v1/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        events=EventHistory.objects.filter(player=player)
+        list_events=[]
+        for event in events:
+            list_events.append({'name':event.title, 'points':event.points,  'organization':event.organization})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+               'picture_url':player.picture_url, 'events':list_events}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
+
+def api_v1_history_coupons(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/api/v1/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        events=CouponHistory.objects.filter(player=player)
+        list_events=[]
+        for event in events:
+            list_events.append({'name':event.title, 'shop':event.shop})
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience,
+               'picture_url':player.picture_url, 'events':list_events}
+        data = simplejson.dumps(data)
+        return HttpResponse(data, mimetype='application/json')
 
 def api_v1_my_coupons(request):
     if not request.user.is_authenticated():
