@@ -8,153 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Player'
-        db.create_table(u'play_player', (
+        # Adding model 'Idea'
+        db.create_table(u'play_idea', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('token', self.gf('django.db.models.fields.CharField')(default=None, max_length=100, null=True)),
-            ('score', self.gf('django.db.models.fields.DecimalField')(default=0, null=True, max_digits=4, decimal_places=0)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
+            ('author', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
+            ('description', self.gf('django.db.models.fields.TextField')(max_length=500, null=True)),
+            ('points', self.gf('django.db.models.fields.DecimalField')(max_digits=4, decimal_places=0)),
             ('experience', self.gf('django.db.models.fields.DecimalField')(default=0, null=True, max_digits=5, decimal_places=0)),
-            ('level', self.gf('django.db.models.fields.DecimalField')(default=0, null=True, max_digits=4, decimal_places=0)),
-            ('picture_url', self.gf('django.db.models.fields.CharField')(default=None, max_length=200, null=True)),
         ))
-        db.send_create_signal(u'play', ['Player'])
-
-        # Adding model 'Shop'
-        db.create_table(u'play_shop', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('title', self.gf('django.db.models.fields.CharField')(default='Super shop!', max_length=100, null=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-        ))
-        db.send_create_signal(u'play', ['Shop'])
-
-        # Adding model 'Organization'
-        db.create_table(u'play_organization', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('title', self.gf('django.db.models.fields.CharField')(default='Super Duper!', max_length=100, null=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-        ))
-        db.send_create_signal(u'play', ['Organization'])
-
-        # Adding model 'Coupon'
-        db.create_table(u'play_coupon', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('description', self.gf('django.db.models.fields.TextField')(max_length=500, null=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('price', self.gf('django.db.models.fields.DecimalField')(max_digits=4, decimal_places=0)),
-            ('shop', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['play.Shop'])),
-        ))
-        db.send_create_signal(u'play', ['Coupon'])
-
-        # Adding M2M table for field buyers on 'Coupon'
-        m2m_table_name = db.shorten_name(u'play_coupon_buyers')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('coupon', models.ForeignKey(orm[u'play.coupon'], null=False)),
-            ('player', models.ForeignKey(orm[u'play.player'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['coupon_id', 'player_id'])
-
-        # Adding model 'Event'
-        db.create_table(u'play_event', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('description', self.gf('django.db.models.fields.TextField')(max_length=500, null=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('experience', self.gf('django.db.models.fields.DecimalField')(default=0, null=True, max_digits=5, decimal_places=0)),
-            ('points', self.gf('django.db.models.fields.DecimalField')(max_digits=4, decimal_places=0)),
-            ('event_type', self.gf('django.db.models.fields.CharField')(default=None, max_length=50)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('organizer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['play.Organization'])),
-        ))
-        db.send_create_signal(u'play', ['Event'])
-
-        # Adding M2M table for field participants on 'Event'
-        m2m_table_name = db.shorten_name(u'play_event_participants')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('event', models.ForeignKey(orm[u'play.event'], null=False)),
-            ('player', models.ForeignKey(orm[u'play.player'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['event_id', 'player_id'])
-
-        # Adding model 'Challenge'
-        db.create_table(u'play_challenge', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('challenge_type', self.gf('django.db.models.fields.CharField')(default=None, max_length=50)),
-            ('description', self.gf('django.db.models.fields.TextField')(max_length=500, null=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('points', self.gf('django.db.models.fields.DecimalField')(max_digits=4, decimal_places=0)),
-        ))
-        db.send_create_signal(u'play', ['Challenge'])
-
-        # Adding M2M table for field participants on 'Challenge'
-        m2m_table_name = db.shorten_name(u'play_challenge_participants')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('challenge', models.ForeignKey(orm[u'play.challenge'], null=False)),
-            ('player', models.ForeignKey(orm[u'play.player'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['challenge_id', 'player_id'])
-
-        # Adding model 'CouponHistory'
-        db.create_table(u'play_couponhistory', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('shop', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('player', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['play.Player'])),
-        ))
-        db.send_create_signal(u'play', ['CouponHistory'])
-
-        # Adding model 'EventHistory'
-        db.create_table(u'play_eventhistory', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('organization', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('player', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['play.Player'])),
-            ('points', self.gf('django.db.models.fields.DecimalField')(max_digits=4, decimal_places=0)),
-        ))
-        db.send_create_signal(u'play', ['EventHistory'])
+        db.send_create_signal(u'play', ['Idea'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Player'
-        db.delete_table(u'play_player')
-
-        # Deleting model 'Shop'
-        db.delete_table(u'play_shop')
-
-        # Deleting model 'Organization'
-        db.delete_table(u'play_organization')
-
-        # Deleting model 'Coupon'
-        db.delete_table(u'play_coupon')
-
-        # Removing M2M table for field buyers on 'Coupon'
-        db.delete_table(db.shorten_name(u'play_coupon_buyers'))
-
-        # Deleting model 'Event'
-        db.delete_table(u'play_event')
-
-        # Removing M2M table for field participants on 'Event'
-        db.delete_table(db.shorten_name(u'play_event_participants'))
-
-        # Deleting model 'Challenge'
-        db.delete_table(u'play_challenge')
-
-        # Removing M2M table for field participants on 'Challenge'
-        db.delete_table(db.shorten_name(u'play_challenge_participants'))
-
-        # Deleting model 'CouponHistory'
-        db.delete_table(u'play_couponhistory')
-
-        # Deleting model 'EventHistory'
-        db.delete_table(u'play_eventhistory')
+        # Deleting model 'Idea'
+        db.delete_table(u'play_idea')
 
 
     models = {
@@ -240,6 +108,15 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'organization': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
             'player': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['play.Player']"}),
+            'points': ('django.db.models.fields.DecimalField', [], {'max_digits': '4', 'decimal_places': '0'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'})
+        },
+        u'play.idea': {
+            'Meta': {'object_name': 'Idea'},
+            'author': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'max_length': '500', 'null': 'True'}),
+            'experience': ('django.db.models.fields.DecimalField', [], {'default': '0', 'null': 'True', 'max_digits': '5', 'decimal_places': '0'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'points': ('django.db.models.fields.DecimalField', [], {'max_digits': '4', 'decimal_places': '0'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'})
         },

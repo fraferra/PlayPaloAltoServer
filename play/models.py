@@ -111,3 +111,11 @@ class EventHistory(models.Model):
     player=models.ForeignKey(Player)
     points=models.DecimalField(max_digits=4, decimal_places=0) 
     #organization=models.ForeignKey(Organization, related_name='organization')
+
+class Idea(models.Model):
+    title=models.CharField(max_length=100, null=True)
+    author=models.CharField(max_length=100, null=True)
+    description=models.TextField(max_length=500, null=True)
+    points=models.DecimalField(max_digits=4, decimal_places=0)
+    experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
+    
