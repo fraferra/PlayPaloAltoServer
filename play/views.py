@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 #from django.contrib.auth import authenticate, login as auth_login
 from social_auth.models import UserSocialAuth
 from play.models import *
-from play.models2 import *
+
 from play.utils import *
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
@@ -165,7 +165,7 @@ def reward(request):
                 date=datetime.today(),
                 player=player,
                 #event=event,
-                organization=organization,
+                organization=organization.title,
                 title=event.title,
                 points=event.points
                 )
@@ -187,7 +187,7 @@ def erase(request):
             player.coupon_set.remove(coupon)
             CouponHistory.objects.create(
                 player=player,
-                shop=shop,
+                shop=shop.title,
                 title=coupon.title,
                 #coupon=coupon
                 )
