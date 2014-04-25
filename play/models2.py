@@ -11,7 +11,7 @@ import constants
 from django.core.exceptions import *
 # Create your models here.
 import requests
-
+from play.models import *
 class CouponHistory(models.Model):
     title=models.CharField(max_length=100, null=True)
     #coupon=models.ForeignKey(Coupon, related_name='coupon')
