@@ -43,7 +43,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             {% if not user.is_authenticated %}
-            <li class="active"><p><a href="/#contact">Register</a> | <a href="/login">Login</a></p></li>
+            <li class="active"><p><a href="/#contact">Register</a> | <a href="/login">Login</a> | <a href="/idea">Send Idea</a></p></li> 
             {% else %}
             <li class="active"><p><a href="/home">Home</a> | <a href="/create_event">Create event</a> | <a href="/my_events">My events</a> |{% if shop %} <a href="/create_coupon">Create coupon</a> | <a href="/my_coupons">My coupons</a> |{%endif%}<a href="/company">My company</a> | <a href="/logout">Logout</a></p></li>
             {% endif %}
