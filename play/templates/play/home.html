@@ -5,7 +5,7 @@
 	    	<div class="row">
 	    		<div class="col-lg-8 col-lg-offset-2 centered">
 	    			
-	    			<h3>Hello {{user.first_name}}</h3>
+	    			<h3 style="color:#FF7400">Hello {{user.first_name}}</h3>
 	    			<img style="width:100px"class="img-circle" src="{{player.picture_url}}">
 	    			<p>Points <b>{{player.score}}</b> | Exp <b>{{player.experience}}</b> | # Completed Challenges <b>{{num_events}}</b></p>
 	    		</div><!-- /col-lg-8 -->
@@ -14,7 +14,7 @@
 	    	<br>
 	    	<div class="row centered">
 	    	    <div class="col-xs-6 col-md-4">
-	    	    	<h3>Leaderboard</h3>
+	    	    	<h3 style="color:#FF7400">Leaderboard</h3>
 	    	    	<p><b>Top 10</b></p>
 	    	    	<ul>
 	    	    		{% for top in top10 %}
@@ -23,25 +23,25 @@
 	    	    	</ul>
 	    	    </div>
   				<div class="col-xs-6 col-md-4">
-  					<h3>My Events</h3>
+  					<h3 style="color:#FF7400">My Events</h3>
   					<ul>
   						{% for event in my_events %}
-  						    <li><p>{{event.title}} / {{event.date}}</p>
-  						    	<p>Points {{event.points}}</p>
-  						    	<p>Location {{event.location}}</p>
-  						    	<p>Organization {{event.organization}}</p>
+  						    <li><p>{{event.title}} / {{event.date}}<br>
+  						    	Points {{event.points}}<br>
+  						    	Location {{event.location}}<br>
+  						    	Organization {{event.organization}}</p>
   						    </li>
   						{% endfor %}
   					</ul>
   				</div>
   				<div class="col-xs-6 col-md-4">
-  					<h3>My Coupons</h3>
+  					<h3 style="color:#FF7400">My Coupons</h3>
   					<ul>
   						{% for event in my_coupons %}
-  						    <li><p>{{event.title}} </p>
-  						    	<p>Price {{event.price}}</p>
-  						    	<p>Location {{event.location}}</p>
-  						    	<p>Shop {{event.shop}}</p>
+  						    <li><p>{{event.title}} <br>
+  						    	Price {{event.price}}<br>
+  						    	Location {{event.location}}<br>
+  						    	Shop {{event.shop}}</p>
   						    </li>
   						{% endfor %}
   					</ul>
