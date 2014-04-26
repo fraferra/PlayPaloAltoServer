@@ -275,7 +275,7 @@ def look_coupons(request):
         if len(id_coupon)!=0:
             coupon=Coupon.objects.get(pk=id_coupon)
             player.score = player.score - coupon.price
-            if not coupon in my_coupons or player.score > 0 :
+            if not coupon in my_coupons and player.score > 0 :
                 coupon.buyers.add(player)
                 coupon.save()
                 player.save()
