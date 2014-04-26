@@ -234,7 +234,7 @@ def home(request):
         organization, shop=getShop(user)
         completed_events=EventHistory.objects.filter(player=player)
         num_events=len(completed_events)
-        top10=Player.objects.order_by('experience')[:10]
+        top10=Player.objects.order_by('experience')[10:]
         my_events=player.event_set.all()
         my_coupons=player.coupon_set.all()
         return render(request, 'play/home.html', {'user':user, 'player':player,
@@ -291,7 +291,7 @@ def leaderboard(request):
         user=request.user
         player=Player.objects.get(user=user)
         organization, shop=getShop(user)
-        sorted_list=Player.objects.order_by('experience')
+        sorted_list=Player.objects.order_by('experience').reverse()
         length=len(sorted_list)
         player_position = 0
         i=1
