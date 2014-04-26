@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class PlayerAdmin(admin.ModelAdmin):
 	model=Player
-	fields=['score', 'user', 'picture_url']
+	fields=['score', 'user', 'picture_url', 'experience']
 
 class OrganizationAdmin(admin.ModelAdmin):
 	model=Organization
