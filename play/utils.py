@@ -55,11 +55,16 @@ def randomword(length):
    return ''.join(random.choice(string.lowercase) for i in range(length))
 
 def getShop(user):
-    from play.models import Shop
+    from play.models import Shop, Organization
     try:
-        return Shop.objects.get(user=user)
+        shop = Shop.objects.get(user=user)
     except ObjectDoesNotExist:
-        return False
+        shop = False
+    try:
+        organization = Organization.objects.get(user=user)
+    except ObjectDoesNotExist:
+        organization = False
+    return organization, shop
 '''
 
 def customAuth(request):

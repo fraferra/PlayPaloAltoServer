@@ -26,10 +26,10 @@ class EventAdmin(admin.ModelAdmin):
 
 class IdeaAdmin(admin.ModelAdmin):
 	model=Idea
-	fields=['title', 'description', 'points', 'experience', 'author']
+	fields=['title', 'description', 'points', 'experience', 'author'] 
 
 admin.site.register(Shop, ShopAdmin)
-admin.site.register(Idea, IdeaAdmin)
+admin.site.register(Idea, IdeaAdmin) 
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Coupon, CouponAdmin)
 admin.site.register(Event, EventAdmin)

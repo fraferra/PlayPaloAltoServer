@@ -1,49 +1,57 @@
-{% extends "play/layout.html" %}
+{% extends "play/layout_user.html" %}
 {% block content %}
-	<div id="hello">
+	<div style="padding-top:50px" >
 	    <div class="container">
 	    	<div class="row">
 	    		<div class="col-lg-8 col-lg-offset-2 centered">
+	    			
+	    			<h3>Hello {{user.first_name}}</h3>
 	    			<img style="width:100px"class="img-circle" src="{{player.picture_url}}">
-	    			<h1>Hello {{user.first_name}}</h1>
-	    			<h2>WHAT'S UP?</h2>
+	    			<p>Points <b>{{player.score}}</b> | Exp <b>{{player.experience}}</b> | # Completed Challenges <b>{{num_events}}</b></p>
 	    		</div><!-- /col-lg-8 -->
 	    	</div><!-- /row -->
 	    	<br>
 	    	<br>
-	    	<div class="row">
-	    		    
-                    <div class="col-lg-8 col-lg-offset-2 centered"> 
-                    	
-                    	<button style="word-spacing:10px;" class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/create_event'" data-target="#myLogin">
-                             CREATE NEW EVENT
-                        </button>
-                        <button style="word-spacing:10px;" class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/my_events'" data-target="#myLogin">
-                             CHECK MY EVENTS
-                        </button>
-                    </div>
+	    	<div class="row centered">
+	    	    <div class="col-xs-6 col-md-4">
+	    	    	<h3>Leaderboard</h3>
+	    	    	<p><b>Top 10</b></p>
+	    	    	<ul>
+	    	    		{% for top in top10 %}
+	    	    		   <li>{{top.user.first_name}} - {{top.experience}}</li>
+	    	    		{% endfor %}
+	    	    	</ul>
+	    	    </div>
+  				<div class="col-xs-6 col-md-4">
+  					<h3>My Events</h3>
+  					<ul>
+  						{% for event in my_events %}
+  						    <li><p>{{event.title}} / {{event.date}}</p>
+  						    	<p>Points {{event.points}}</p>
+  						    	<p>Location {{event.location}}</p>
+  						    	<p>Organization {{event.organization}}</p>
+  						    </li>
+  						{% endfor %}
+  					</ul>
+  				</div>
+  				<div class="col-xs-6 col-md-4">
+  					<h3>My Coupons</h3>
+  					<ul>
+  						{% for event in my_coupons %}
+  						    <li><p>{{event.title}} </p>
+  						    	<p>Price {{event.price}}</p>
+  						    	<p>Location {{event.location}}</p>
+  						    	<p>Shop {{event.shop}}</p>
+  						    </li>
+  						{% endfor %}
+  					</ul>
+  				</div>
                
 
  
 			</div>
 			<br>
-			{% if shop %}
-	    	<div class="row">
-	    		    
-                    <div class="col-lg-8 col-lg-offset-2 centered"> 
-                    	
-                    	<button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/create_coupon'" data-target="#myLogin">
-                             CREATE NEW COUPON
-                        </button>
-                        <button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/my_coupons'" data-target="#myLogin">
-                             CHECK MY COUPONS
-                        </button>
-                    </div>
-               
 
- 
-			</div>
-			{% endif %}
 	    </div> <!-- /container -->
 	</div><!-- /hello -->
 

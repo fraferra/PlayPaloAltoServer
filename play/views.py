@@ -55,19 +55,19 @@ def index(request):
     return render(request, 'play/index.html', {'form':form})
 
 
-def home(request):
+def organization_home(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
         player=Player.objects.get(user=user)
         pictureUrl(user, player)
+        organization, shop =getShop(user)
         try:
             organization=Organization.objects.get(user=user)
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
-        shop=getShop(user)
-        return render(request, 'play/home.html', {'user':user, 'player':player, 'shop':shop})
+        return render(request, 'play/organization_home.html', {'user':user, 'player':player, 'shop':shop})
 
 
     
@@ -79,7 +79,7 @@ def create_event(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        shop=getShop(user)
+        organization, shop=getShop(user)
         try:
             organization=Organization.objects.get(user=user)
             if request.method=='POST':
@@ -103,8 +103,8 @@ def create_coupon(request):
         user=request.user
 
         try:
-            organization=Organization.objects.get(user=user)
-            shop=getShop(user)
+            #organization=Organization.objects.get(user=user)
+            organization, shop=getShop(user)
             if request.method=='POST':
                 form = CouponForm(request.POST) 
                 if form.is_valid():
@@ -123,38 +123,36 @@ def my_events(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        shop=getShop(user)
-        try:
-            organization=Organization.objects.get(user=user)
-            list_of_events=Event.objects.filter(organizer=organization)
-            number=len(list_of_events)
-            id_delete=request.GET.get('delete','')
-            if len(id_delete)!=0:
-                event=Event.objects.get(pk=id_delete)
-                event.delete()
-                return HttpResponseRedirect('/my_events/')
-            return render(request, 'play/my_events.html', {'list_of_events':list_of_events, 'number':number, 'shop':shop})
-        except ObjectDoesNotExist:
+        organization, shop=getShop(user)
+        if not organization: 
             return HttpResponseRedirect('/sorry/')
+        list_of_events=Event.objects.filter(organizer=organization)
+        number=len(list_of_events)
+        id_delete=request.GET.get('delete','')
+        if len(id_delete)!=0:
+            event=Event.objects.get(pk=id_delete)
+            event.delete()
+            return HttpResponseRedirect('/my_events/')
+        return render(request, 'play/my_events.html', {'list_of_events':list_of_events, 'number':number, 'shop':shop})
+            
 
 def my_coupons(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        try:
-            organization=Organization.objects.get(user=user)
-            shop=getShop(user)
-            list_of_coupons=Coupon.objects.filter(shop=shop)
-            number=len(list_of_coupons)
-            id_delete=request.GET.get('delete','')
-            if len(id_delete)!=0:
-                coupon=Coupon.objects.get(pk=id_delete)
-                coupon.delete()
-                return HttpResponseRedirect('/my_coupons/')
-            return render(request, 'play/my_coupons.html', {'list_of_coupons':list_of_coupons, 'number':number, 'shop':shop})
-        except ObjectDoesNotExist:
+        organization, shop=getShop(user)
+        if not organization:
             return HttpResponseRedirect('/sorry/')
+        list_of_coupons=Coupon.objects.filter(shop=shop)
+        number=len(list_of_coupons)
+        id_delete=request.GET.get('delete','')
+        if len(id_delete)!=0:
+            coupon=Coupon.objects.get(pk=id_delete)
+            coupon.delete()
+            return HttpResponseRedirect('/my_coupons/')
+        return render(request, 'play/my_coupons.html', {'list_of_coupons':list_of_coupons, 'number':number, 'shop':shop})
+
 
 
 def reward(request):
@@ -189,7 +187,7 @@ def erase(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        organization=Organization.objects.get(user=user)
+        organization, shop=getShop(user)
         if request.method == 'GET':
             id_user=request.GET['id_user']
             id_coupon=request.GET['id_coupon']
@@ -211,24 +209,101 @@ def my_company(request):
         return HttpResponseRedirect('/login/')
     else:
         user=request.user
-        shop=getShop(user)
-        try:
-            organization=Organization.objects.get(user=user)
-            if request.method=='POST':
-                title=request.POST.get('title', '')
-                location=request.POST.get('location','')
-                organization.title=title
-                organization.location=location
-                organization.save()
-                return HttpResponseRedirect('/company/')
-            return render(request, 'play/my_company.html', {'user':user,'organization':organization, 'shop':shop})
-        except ObjectDoesNotExist:
+        organization, shop=getShop(user)
+        if not organization:
             return HttpResponseRedirect('/sorry/')
+        if request.method=='POST':
+            title=request.POST.get('title', '')
+            location=request.POST.get('location','')
+            organization.title=title
+            organization.location=location
+            organization.save()
+            return HttpResponseRedirect('/company/')
+        return render(request, 'play/my_company.html', {'user':user,'organization':organization, 'shop':shop})
+
+#USER PAGES
 
 
+def home(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        pictureUrl(user, player)
+        organization, shop=getShop(user)
+        completed_events=EventHistory.objects.filter(player=player)
+        num_events=len(completed_events)
+        top10=Player.objects.order_by('experience')[:10]
+        my_events=player.event_set.all()
+        my_coupons=player.coupon_set.all()
+        return render(request, 'play/home.html', {'user':user, 'player':player,
+                                                 'num_events':num_events ,'my_coupons':my_coupons,
+                                                 'top10':top10, 'my_events':my_events,
+                                                 'organization':organization})
+
+def look_events(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        my_events=player.event_set.all()
+        organization, shop=getShop(user)
+        events=Event.objects.all()
+        id_event=request.GET.get('id_event','')
+        if len(id_event)!=0:
+            event=Event.objects.get(pk=id_event)
+            if not event in my_events:
+                event.participants.add(player)
+                event.save()
+                player.save()
+        return render(request, 'play/look_events.html', {'user':user, 'player':player,
+                                                 'events':events, 'my_events':my_events,
+                                                 'organization':organization})
+
+def look_coupons(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        my_coupons=player.coupon_set.all()
+        organization, shop=getShop(user)
+        coupons=Coupon.objects.all()
+        id_coupon=request.GET.get('id_coupon','')
+        if len(id_coupon)!=0:
+            coupon=Coupon.objects.get(pk=id_coupon)
+            player.score = player.score - coupon.price
+            if not coupon in my_coupons or player.score > 0 :
+                coupon.buyers.add(player)
+                coupon.save()
+                player.save()
+        return render(request, 'play/look_coupons.html', {'user':user, 'player':player,
+                                                 'coupons':coupons, 'my_coupons':my_coupons,
+                                                 'organization':organization})
 
 
-
+def leaderboard(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        organization, shop=getShop(user)
+        sorted_list=Player.objects.order_by('experience')
+        length=len(sorted_list)
+        player_position = 0
+        i=1
+        lis=[]
+        for p in sorted_list:
+            lis.append((i, p))
+            if player == p:
+                player_position=i
+            i=i+1
+        return render(request, 'play/leaderboard.html', {'user':user, 'player':player,'length':length,'lis':lis,
+                                                  'sorted_list':sorted_list, 'player_position':player_position,
+                                                  'organization':organization})
 #API
 
 
