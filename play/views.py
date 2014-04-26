@@ -258,6 +258,7 @@ def look_events(request):
                 event.participants.add(player)
                 event.save()
                 player.save()
+                return HttpResponseRedirect('/home/')
         return render(request, 'play/look_events.html', {'user':user, 'player':player,
                                                  'events':events, 'my_events':my_events,
                                                  'organization':organization})
@@ -279,6 +280,7 @@ def look_coupons(request):
                 coupon.buyers.add(player)
                 coupon.save()
                 player.save()
+                return HttpResponseRedirect('/home/')
         return render(request, 'play/look_coupons.html', {'user':user, 'player':player,
                                                  'coupons':coupons, 'my_coupons':my_coupons,
                                                  'organization':organization})
