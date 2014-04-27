@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row centered">
         <div class="col-lg-8 col-lg-offset-2">
-          <h2>LET'S DO IT! (*)</h2>
+          <h2>LET'S DO IT!</h2>
           <br><br>
           <form method='post'>{% csrf_token %}
           <p>Log in with<a href="{% url 'socialauth_begin' 'facebook' %}?{{ redirect_querystring }}"><i class="fa fa-facebook-square fa-fw" style="color:#3366FF"></i></a></p>
@@ -15,7 +15,7 @@
           <input type="submit"   class="btn btn-primary btn-default" value="Login">
         </form>
         <br><br>
-                  <h4><span style="font-size:37px">*</span> Currently this web app is available only for organizations and business. Soon we will release on the <i style="font-size:20px"class="fa fa-apple fa-fw"></i> Store also the app for the players. If you are the owner of a business or related to an organization and you are interested in an account contact me at <a href="mailto:me@francescomariaferrari.com">me@francescomariaferrari.com</a></h4>
+                 <!-- <h4><span style="font-size:37px">*</span> Currently this web app is available only for organizations and business. Soon we will release on the <i style="font-size:20px"class="fa fa-apple fa-fw"></i> Store also the app for the players. If you are the owner of a business or related to an organization and you are interested in an account contact me at <a href="mailto:me@francescomariaferrari.com">me@francescomariaferrari.com</a></h4>-->
         </div>
       </div>
     </div><!-- /container -->

@@ -59,11 +59,16 @@
   <div id="f">
     <div class="container">
       <div class="row">
-        {% if not organization %}
-        <p>I <i class="fa fa-heart"></i> Play Palo Alto</p>
-        {% else %}
-        <p>GO TO <a href="/organization_home">Organization account</a></p>
-        {% endif %}
+          <div class="col-xs-6 col-md-4"><small>Questions or Feedback? Contact me at <a href="mailto:me@francescomariaferrari.com">me@francescomariaferrari.com</a></small></div>
+          <div class="col-xs-6 col-md-4"></div>
+          <div class="col-xs-6 col-md-4">
+              {% if not organization %}
+                <p>I <i class="fa fa-heart"></i> Play Palo Alto</p>
+              {% else %}
+                <p>GO TO <a href="/organization_home">Organization account</a></p>
+              {% endif %}
+          </div>
+
       </div>
     </div>
   </div>
