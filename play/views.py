@@ -278,6 +278,7 @@ def look_coupons(request):
             player.score = player.score - coupon.price
             if not coupon in my_coupons and player.score > 0 :
                 coupon.buyers.add(player)
+                coupon.coupons_released=coupon.coupons_released-1
                 coupon.save()
                 player.save()
                 return HttpResponseRedirect('/home/')
@@ -489,6 +490,7 @@ def api_v2_coupons(request):
                     data = simplejson.dumps(data)
                     return HttpResponse(data, mimetype='application/json')
                 coupon.buyers.add(player)
+                coupon.coupons_released=coupon.coupons_released-1
                 coupon.save()
                 player.save()
                 data={'score':player.score}
@@ -497,7 +499,7 @@ def api_v2_coupons(request):
         coupons=Coupon.objects.all()
         list_of_coupons=[]
         for cou in coupons:
-            list_of_coupons.append({'name':cou.title, 'price':cou.price, 'location':cou.location, 'shop':cou.shop})
+            list_of_coupons.append({'name':cou.title, 'price':cou.price, 'location':cou.location, 'shop':cou.shop, 'remaining':cou.coupons_released})
         data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
                'picture_url':player.picture_url, 'list_of_coupons':list_of_coupons}
         data = simplejson.dumps(data)
@@ -683,6 +685,7 @@ def api_v1_coupons(request):
                     data = simplejson.dumps(data)
                     return HttpResponse(data, mimetype='application/json')
                 coupon.buyers.add(player)
+                coupon.coupons_released=coupon.coupons_released-1
                 coupon.save()
                 player.save()
                 data={'score':player.score}
@@ -691,7 +694,7 @@ def api_v1_coupons(request):
         coupons=Coupon.objects.all()
         list_of_coupons=[]
         for cou in coupons:
-            list_of_coupons.append({'name':cou.title, 'price':cou.price, 'location':cou.location, 'shop':cou.shop})
+            list_of_coupons.append({'name':cou.title, 'price':cou.price, 'location':cou.location, 'shop':cou.shop, 'remaining':cou.coupons_released})
         data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
                'picture_url':player.picture_url, 'list_of_coupons':list_of_coupons}
         data = simplejson.dumps(data)

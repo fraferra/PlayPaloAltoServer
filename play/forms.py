@@ -30,9 +30,10 @@ class CouponForm(ModelForm):
     location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))
     description=forms.CharField(widget = forms.Textarea(attrs={}))
     price=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
+    coupons_released=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
     class Meta:
         model=Coupon
-        fields = ('title','description','location','price')
+        fields = ('title','description','location','price','coupons_released')
 
 class CompanyForm(ModelForm):
     class Meta:
