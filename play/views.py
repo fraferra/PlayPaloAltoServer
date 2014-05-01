@@ -276,7 +276,7 @@ def look_coupons(request):
         if len(id_coupon)!=0:
             coupon=Coupon.objects.get(pk=id_coupon)
             player.score = player.score - coupon.price
-            if not coupon in my_coupons and player.score > 0 :
+            if not coupon in my_coupons and player.score > 0 and coupon.coupons_released >0:
                 coupon.buyers.add(player)
                 coupon.coupons_released=coupon.coupons_released-1
                 coupon.save()
@@ -489,6 +489,10 @@ def api_v2_coupons(request):
                     data={'message':'Not enough points'}
                     data = simplejson.dumps(data)
                     return HttpResponse(data, mimetype='application/json')
+                if coupon.coupons_released <= 0:
+                    data={'message':'Coupons finished'}
+                    data = simplejson.dumps(data)
+                    return HttpResponse(data, mimetype='application/json')
                 coupon.buyers.add(player)
                 coupon.coupons_released=coupon.coupons_released-1
                 coupon.save()
@@ -682,6 +686,10 @@ def api_v1_coupons(request):
             else:
                 if player.score <0:
                     data={'message':'Not enough points'}
+                    data = simplejson.dumps(data)
+                    return HttpResponse(data, mimetype='application/json')
+                if coupon.coupons_released <= 0:
+                    data={'message':'Coupons finished'}
                     data = simplejson.dumps(data)
                     return HttpResponse(data, mimetype='application/json')
                 coupon.buyers.add(player)
