@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'provider',
     'provider.oauth2',
     'south',
+    'play_api',
 
 )
 
