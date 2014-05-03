@@ -79,10 +79,11 @@ class Event(models.Model):
     location=models.CharField(max_length=100, null=True)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
     #position = GeopositionField()
+    challenge_event=models.CharField(max_length=50,choices=constants.CHALLENGE_EVENT, default='Event')
     points=models.DecimalField(max_digits=4, decimal_places=0)  
     participants = models.ManyToManyField(Player, default=None, null=True)
     event_type=models.CharField(max_length=50,choices=constants.TYPE, default=None)
-    date=models.DateTimeField( null=True)
+    date=models.DateTimeField( null=True, default=None)
     organizer=models.ForeignKey(Organization)
     def __unicode__(self):  # Python 3: def __str__(self):
         return unicode(self.title) or u'' 

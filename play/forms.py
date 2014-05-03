@@ -5,16 +5,17 @@ from django.contrib.auth.forms import UserCreationForm
 import string
 from play.models import *
 import constants
-
+import datetime
 class EventForm(ModelForm):
     title=forms.CharField()
     location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))
     description=forms.CharField(widget = forms.Textarea(attrs={}))
     points=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
     experience=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
+    date = forms.DateTimeField(initial=datetime.date.today)
     class Meta:
         model=Event
-        fields = ('title','description','location','points','event_type', 'date', 'experience')
+        fields = ('title','description','location','points','event_type', 'date', 'experience', 'challenge_event')
 
 class IdeaForm(ModelForm):
     title=forms.CharField()

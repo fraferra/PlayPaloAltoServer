@@ -8,6 +8,7 @@
 					<form method='post'>{% csrf_token %}
 					<h3>WHATCHA GONNA DO?!</h3>
                      <p style="word-spacing:150px;" >TITLE {{form.title}}</p>
+                     <p>CHALLENGE OR EVENT? {{form.challenge_event}}</p>
                      <p style="word-spacing:20px;">TELL US ABOUT IT!</p>
                      <p>{{form.description}}</p>
 
@@ -21,4 +22,5 @@
 		</div><!-- /container -->
 	</div>
         <br>
+
 {% endblock %}
