@@ -115,7 +115,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'social_auth.middleware.SocialAuthExceptionMiddleware'
+    'social_auth.middleware.SocialAuthExceptionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -217,6 +217,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.user.update_user_details'
 )
 
-#cross origin requests for steroids.js
+#cross origin requests for steroids
 
 CORS_ORIGIN_ALLOW_ALL = True
