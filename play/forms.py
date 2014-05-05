@@ -12,7 +12,7 @@ class EventForm(ModelForm):
     description=forms.CharField(widget = forms.Textarea(attrs={}))
     points=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
     experience=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
-    date = forms.DateTimeField(initial=datetime.date.today)
+    date = forms.DateTimeField(initial=datetime.datetime.now)
     class Meta:
         model=Event
         fields = ('title','description','location','points','event_type', 'date', 'experience', 'challenge_event')

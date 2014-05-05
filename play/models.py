@@ -11,7 +11,7 @@ import constants
 from django.core.exceptions import *
 # Create your models here.
 import requests
-
+import datetime
 
 class Player(models.Model):
     user=models.ForeignKey(User)
@@ -121,4 +121,10 @@ class Idea(models.Model):
     points=models.DecimalField(max_digits=4, decimal_places=0)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0) 
 
-    
+
+
+class Comment(models.Model):
+    comment=models.TextField(max_length=500, null=True)
+    commenter=models.ForeignKey(User, related_name='user')
+    event=models.ForeignKey(Event, related_name="event")
+    date=models.DateTimeField( null=True, default=datetime.datetime.now)
