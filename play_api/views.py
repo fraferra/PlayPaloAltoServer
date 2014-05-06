@@ -266,8 +266,8 @@ def api_v1_login(request):
         if user.is_active:
             auth_login(request, user)
 
-            #message='logged in successfully'
-            return HttpResponseRedirect('/api/v1/home/')
+            message='logged in successfully'
+            #return HttpResponseRedirect('/api/v1/home/')
         else:
             message='not authenticated'
     else:
