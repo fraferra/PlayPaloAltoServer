@@ -212,6 +212,7 @@
 						<a href="#"><i class="fa fa-envelope"></i></a>
 					</div>-->
 					<p>Sign up with<a href="{% url 'socialauth_begin' 'facebook' %}?{{ redirect_querystring }}"><i class="fa fa-facebook-square fa-fw" style="color:#3366FF"></i></a></p>
+                    <p style="font-size: 15px">(<a onclick="InviteF();">Invite Friends <img style="width:30px" src="/static/img/grumpy.png"></a>)</p>
 					<p>OR</p>
 					<form method='post'>{% csrf_token %}
                     <p style="word-spacing:30px;">FIRST NAME&nbsp;&nbsp;{{form.first_name}}</p>
@@ -225,6 +226,24 @@
 			</div>
 		</div><!-- /container -->
 	</div><!-- /social -->
+  <script src="http://connect.facebook.net/en_US/all.js"></script>
+  <script>
+      FB.init({
+      appId:'301965249950489',
+      cookie:true,
+      status:true,
+      xfbml:true
+      });
+
+    function InviteF()
+    {
+    FB.ui({
+      method: 'apprequests',
+      message: 'Welcome to Play Palo Alto, the platform that gamifies your city!',
+      });
+    }
+
+  </script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
