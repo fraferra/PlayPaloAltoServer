@@ -219,4 +219,4 @@ SOCIAL_AUTH_PIPELINE = (
 
 #cross origin requests for steroids
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False

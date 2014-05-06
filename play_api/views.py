@@ -257,8 +257,7 @@ def api_v1_logout(request):
     return HttpResponseRedirect('/api/login/')
 
 def api_v1_login(request):
-    message=''
-    data={'message':message}
+    message=''  
     username = request.GET.get('username','')
     password = request.GET.get('password','')
     user = authenticate(username =username, password=password)
@@ -272,6 +271,7 @@ def api_v1_login(request):
             message='not authenticated'
     else:
         message='not existing'
+    data={'message':message}
     data=simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')
 
@@ -279,19 +279,23 @@ def api_v1_login(request):
 
 def api_v1_home(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/v1/login/')
+        #return HttpResponseRedirect('/api/v1/login/')
+        message='not authenticated'
+        data={'message':message}
     else:
         user=request.user
         player=Player.objects.get(user=user)
         pictureUrl(user, player)
         data= {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture_url':player.picture_url}
-        data = simplejson.dumps(data)
-        return HttpResponse(data, mimetype='application/json')   
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')   
 
 
 def api_v1_leaderboard(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/v1/login/')
+        #return HttpResponseRedirect('/api/v1/login/')
+        message='not authenticated'
+        data={'message':message}
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -302,12 +306,14 @@ def api_v1_leaderboard(request):
 
         data= {'user':user.username, 'score':player.score, 'experience':player.experience,
                 'picture_url':player.picture_url, 'players':list_of_players}
-        data = simplejson.dumps(data)
-        return HttpResponse(data, mimetype='application/json')
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')
 
 def api_v1_my_events(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/v1/login/')
+        #return HttpResponseRedirect('/api/v1/login/')
+        message='not authenticated'
+        data={'message':message}
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -317,12 +323,14 @@ def api_v1_my_events(request):
             list_events.append({'name':event.title, 'points':event.points, 'experience':event.experience, 'location':event.location})
         data= {'user':user.username, 'score':player.score, 'experience':player.experience,
                'picture_url':player.picture_url, 'events':list_events}
-        data = simplejson.dumps(data)
-        return HttpResponse(data, mimetype='application/json')
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')
 
 def api_v1_history_events(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/v1/login/')
+        #return HttpResponseRedirect('/api/v1/login/')
+        message='not authenticated'
+        data={'message':message}
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -332,12 +340,14 @@ def api_v1_history_events(request):
             list_events.append({'name':event.title, 'points':event.points,  'organization':event.organization})
         data= {'user':user.username, 'score':player.score, 'experience':player.experience,
                'picture_url':player.picture_url, 'events':list_events}
-        data = simplejson.dumps(data)
-        return HttpResponse(data, mimetype='application/json')
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')
 
 def api_v1_history_coupons(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/v1/login/')
+        #return HttpResponseRedirect('/api/v1/login/')
+        message='not authenticated'
+        data={'message':message}
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -347,12 +357,14 @@ def api_v1_history_coupons(request):
             list_events.append({'name':event.title, 'shop':event.shop})
         data= {'user':user.username, 'score':player.score, 'experience':player.experience,
                'picture_url':player.picture_url, 'events':list_events}
-        data = simplejson.dumps(data)
-        return HttpResponse(data, mimetype='application/json')
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')
 
 def api_v1_my_coupons(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/api/v1/login/')
+        #return HttpResponseRedirect('/api/v1/login/')
+        message='not authenticated'
+        data={'message':message}
     else:
         user=request.user
         player=Player.objects.get(user=user)
@@ -369,8 +381,8 @@ def api_v1_my_coupons(request):
             list_events.append({'name':coupon.title, 'points':coupon.points, 'location':coupon.location, 'shop':coupon.shop})
         data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
                'picture_url':player.picture_url, 'coupons':list_coupons}
-        data = simplejson.dumps(data)
-        return HttpResponse(data, mimetype='application/json')
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')
 
 
 
