@@ -128,11 +128,14 @@ a:after {
 
 /* hello */
 #hello {
-	background-image: url('/static/img/background-1.jpg');
+	background-image: url('/static/img/vol6.jpg');
 	width: 100%;
 	padding-top: 250px;
 	padding-bottom: 250px;
+
 }
+
+
 
 #hello h1 {
 	font-size: 90px;

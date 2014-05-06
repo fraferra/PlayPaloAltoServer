@@ -282,7 +282,7 @@ def api_v1_logout(request):
     #return HttpResponseRedirect('/api/v2/login/')
     data = simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')
-    #return HttpResponseRedirect('/api/login/')
+
 
 def api_v1_login(request):
     message=''  
