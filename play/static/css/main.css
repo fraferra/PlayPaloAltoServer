@@ -128,9 +128,9 @@ a:after {
 
 /* hello */
 #hello {
-	background-image: url('/static/img/v6.jpg');
+	background-image: url('/static/img/v5.jpg');
 	width: 100%;
-	padding-top: 250px;
+	padding-top: 150px;
 	padding-bottom: 250px;
 
 }
