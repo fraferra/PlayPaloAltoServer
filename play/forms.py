@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import ModelForm,Textarea
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 import string
@@ -25,6 +25,16 @@ class IdeaForm(ModelForm):
     class Meta:
         model=Idea
         fields = ('title','description','author','points', 'experience')
+
+class CommentForm(ModelForm):
+    comment=forms.CharField(widget = forms.Textarea) 
+    class Meta:
+        model=Comment
+        fields = ('comment',)
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['comment'].widget.attrs['cols'] = 15
+        self.fields['comment'].widget.attrs['rows'] = 1
 
 class CouponForm(ModelForm):
     title=forms.CharField()

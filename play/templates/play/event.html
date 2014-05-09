@@ -1,0 +1,31 @@
+{% extends "play/layout_user.html" %}
+
+{% block content %}
+	<div id="social">
+		<div class="container">
+			<div class="row centered">
+				<div class="col-lg-8 col-lg-offset-2">
+					<h1>{{event.title}}</h1>
+					<p>{{event.description}}</p>
+					{% for comment in previous_comments %}
+					    <hr class="featurette-divider"></hr>
+					    <div class="row">
+					    	<div class="col-md-2">
+					    		<img src="{{comment.commenter.picture_url}}">
+					    	</div>
+					    	<div class="col-md-6">
+					    		<p>{{comment.comment}}</p>
+					    	</div>
+					    </div>
+					{% endfor %}
+					<form method='post'>{% csrf_token %}
+                    {{form}}
+					<input type="submit"   class="btn btn-primary btn-small" value="DO IT!">
+				</form>
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div>
+        <br>
+
+{% endblock %}

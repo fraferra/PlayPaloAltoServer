@@ -307,3 +307,33 @@ def leaderboard(request):
         return render(request, 'play/leaderboard.html', {'user':user, 'player':player,'length':length,'lis':lis,
                                                   'sorted_list':sorted_list, 'player_position':player_position,
                                                   'organization':organization})
+
+
+
+def event(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        id_event=request.GET['id_event']
+        event=Event.objects.get(pk=id_event)
+        user=request.user
+        player=Player.objects.get(user=user)
+        organization, shop=getShop(user)
+        previous_comments=Comment.objects.filter(event=event).order_by('date')
+        if request.method=='POST':
+            form = CommentForm(request.POST) 
+            if form.is_valid():
+                new_comment = form.save(commit=False)
+                new_comment.commenter=player
+                new_comment.event=event
+                #new_comment.date=datetime.now
+                new_comment.save()
+                return HttpResponseRedirect('/event/?id_event='+id_event)
+        else:
+            form = CommentForm()
+
+        return render(request, 'play/event.html', {'user':user, 'player':player,
+                                                         'form':form,'event':event,
+                                                         'previous_comments':previous_comments,
+                                                  'organization':organization})
+

@@ -125,6 +125,20 @@ class Idea(models.Model):
 
 class Comment(models.Model):
     comment=models.TextField(max_length=500, null=True)
-    commenter=models.ForeignKey(User, related_name='user')
-    event=models.ForeignKey(Event, related_name="event")
+    commenter=models.ForeignKey(Player)
+    event=models.ForeignKey(Event)
     date=models.DateTimeField( null=True, default=datetime.datetime.now)
+
+
+class Feed(models.Model):
+    player=models.ForeignKey(Player)
+    event=models.ForeignKey(Event)
+    likes= models.DecimalField(max_digits=4, decimal_places=0, default=0)    
+
+
+class CommentFeed(models.Model):
+    comment=models.TextField(max_length=500, null=True)
+    commenter=models.ForeignKey(Player)
+    feed=models.ForeignKey(Feed)
+    date=models.DateTimeField( null=True, default=datetime.datetime.now)
+

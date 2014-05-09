@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^reward/$', views.reward ,name='reward'),
     url(r'^erase/$', views.erase ,name='erase'),
     url(r'^$', views.index ,name='index'),
-    
+    url(r'^event/$', views.event ,name='event'),
     url(r'^home/$', views.home ,name='home'),
     url(r'^look_events/$', views.look_events ,name='look_events'),
     url(r'^look_coupons/$', views.look_coupons ,name='look_coupons'),
