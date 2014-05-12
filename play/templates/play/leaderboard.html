@@ -1,24 +1,30 @@
 {% extends "play/layout_user.html" %}
 {% block content %}
 
-<div id="skills">
+<div id="social">
 		<div class="container" >
 			<div class="row">
 				<br>
 				<h3>THE LEADERBOARD</h3>
-        <h4 style="color:#FFF">Your position #{{player_position}}</h4>
+        <h4 style="">Your position #{{player_position}}</h4>
 				<div class="col-md-8">
 
 					<div class="panel-group" id="accordion">
 						
 						{% for position, p in lis %}
-  						<div >
-    	
-      						<h4 style="color:orange">
-      							<i class="fa fa-hand-o-right"></i> {{position}} / {{p.user.first_name}}  
-      						</h4>
-      						
-  						</div>
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-1">
+								<h1>{{position}}</h1>
+							</div>
+							<div style=" padding-top:20px"class="col-md-2">
+								<img style="width:60px;"class="img-circle" src="{{p.picture_url}}">
+							</div>
+							<div class="col-md-4">
+								<h3>{{p.user.first_name}}  {{p.user.last_name}}  </h3>
+								<p><b>EXP {{p.experience}}</b></p>
+							</div>
+						</div>
   						{% endfor %}
 
 					</div>
