@@ -1,8 +1,10 @@
 TYPE=(
 	('Shopping', 'Shopping'),
+	('Art', 'Art'),
 	('Food','Food'),
 	('Environment','Environment'),
-	('Animals','Animals'))
+	('Animals','Animals'),
+	('Elders','Elders'))
 
 CHALLENGE_EVENT=(
 	('Challenge', 'Challenge'),

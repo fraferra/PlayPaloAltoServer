@@ -1,7 +1,7 @@
 {% extends "play/layout_user.html" %}
 {% block content %}
 
-<div id="skills">
+<div id="social">
 		<div class="container" >
 			<div class="row">
 				<br>
@@ -11,31 +11,38 @@
 					<div class="panel-group" id="accordion">
 						
 						{% for result, comment in comment_events %}
-  						<div >
-    						<div >
-      						<h4 style="color:orange">
-      							<i class="fa fa-hand-o-right"></i><a href="/event/?id_event={{result.id}}"> {{result.title}} <span style="font-size:12px">(# comments {{comment}})</span></a>/ {{result.date}}  <span style="font-size:20px">(<a href="/look_events/?id_event={{result.id}}"><i class="fa fa-thumbs-up"></i> JOIN</a>)</span>
-      						</h4>
-      						<ul style="color:black">
-      							<li><p>DESCRIPTION____ {{result.description}}</p></li>
-      							<li><p>LOCATION____ {{result.location}}</p></li>
-                    <li><p>POINTS____ {{result.points}} / EXP____ {{result.experience}}</p></li>
-      						</ul>
-        						<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
-          							View parcitipants <i class="fa fa-angle-double-down"></i>
-        						</a>
-      						
-    						</div>
-    						<div id="collapse{{result.id}}" class="panel-collapse collapse">
-      							<div class="panel-body">
-      							<ul style="color:black">
-      	                           {% for person in result.participants.all %}
+            <hr class="featurette-divider"></hr>
+            <div class="row">
+              <div class="col-md-1">
+                <img style="width:80px; height:80px"src="{{result.picture_url}}">
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                <h3><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
+                <p># comments {{comment}}</p>
+              </div>
+              <div class="col-md-6">
+                <p><b>WHAT</b> {{result.description}}<br>
+                <b>WHERE</b> {{result.location}}<br>
+                <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
+                        View parcitipants
+                    </a>
+              </div>
+                <div id="collapse{{result.id}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    <ul style="color:black">
+                                   {% for person in result.participants.all %}
                                      <li style="color:black">{{person.user.first_name}} {{person.user.last_name}}</li>
-      	                           {% endfor %}
-      	                          </ul>
-     							</div>
-    						</div>
-  						</div>
+                                   {% endfor %}
+                                  </ul>
+                  </div>
+                </div>
+            </div>
+
   						{% endfor %}
 
 					</div>
