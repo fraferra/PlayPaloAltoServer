@@ -6,7 +6,7 @@
 			<div class="row">
 				<br>
 				<h3>WHAT'S GOING ON IN PALO ALTO</h3>
-				<div class="col-md-8">
+				<div class="col-md-10">
 
 					<div class="panel-group" id="accordion">
 						
@@ -21,7 +21,7 @@
                 <h3><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
                 <p># comments {{comment}}</p>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <p><b>WHAT</b> {{result.description}}<br>
                 <b>WHERE</b> {{result.location}}<br>
                 <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
@@ -31,6 +31,10 @@
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
                         View parcitipants
                     </a>
+              </div>
+              
+              <div class="col-md-1">
+                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-thumbs-up" style="font-size:15px"></i> JOIN</a></p>
               </div>
             </div>
             <div class="row">
