@@ -13,14 +13,18 @@
 					    	<div class="col-md-2">
 					    		<img src="{{comment.commenter.picture_url}}">
 					    	</div>
-					    	<div class="col-md-6">
+					    	<div class="col-md-2">
+					    		<p style="font-size:10px">{{comment.commenter.user.first_name}} | {{comment.date}}</p>
+					    	</div>
+					    	<div class="col-md-4">
 					    		<p>{{comment.comment}}</p>
 					    	</div>
 					    </div>
 					{% endfor %}
+					<br>
 					<form method='post'>{% csrf_token %}
                     {{form}}
-					<input type="submit"   class="btn btn-primary btn-small" value="DO IT!">
+					<input type="submit"   class="btn btn-primary btn-sm" style="width:20px; height:25px; font-size:10px" value="POST">
 				</form>
 				</div>
 			</div>

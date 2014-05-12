@@ -337,3 +337,16 @@ def event(request):
                                                          'previous_comments':previous_comments,
                                                   'organization':organization})
 
+def wall(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        id_event=request.GET['id_event']
+        event=Event.objects.get(pk=id_event)
+        user=request.user
+        player=Player.objects.get(user=user)
+        organization, shop=getShop(user)
+
+        return render(request, 'play/event.html', {'user':user, 'player':player,
+                                                   'event':event,
+                                                  'organization':organization}) 
