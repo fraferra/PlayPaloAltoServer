@@ -11,22 +11,31 @@
 					<div class="panel-group" id="accordion">
 						
 						{% for result in coupons %}
-  						<div >
-    						<div >
-      						<h4 style="color:orange">
-      							<i class="fa fa-hand-o-right"></i> {{result.title}} / {{result.date}}  <span style="font-size:20px">(<a href="/look_coupons/?id_coupon={{result.id}}"><i class="fa fa-thumbs-up"></i> GET IT!</a>)</span>
-      						</h4>
-                  <h3 style="color:orange">Remaining # {{result.coupons_released}}</h3>
-      						<ul style="color:black">
-      							<li><p>DESCRIPTION____ {{result.description}}</p></li>
-      							<li><p>LOCATION____ {{result.location}}</p></li>
-                    <li><p>PRICE____ {{result.price}} </p></li>
-                    <li><p>SHOP____ {{result.shop}} </p></li>
-      						</ul>
+            <hr class="featurette-divider"></hr>
+            <div class="row">
+              <div class="col-md-1">
+                <img style="width:80px; height:80px"src="{{result.picture_url}}">
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                <h3>{{result.title}}</h3>
+                <p># left {{result.coupons_released}}</p>
+              </div>
+              <div class="col-md-4">
+                <p><b>WHAT</b> {{result.description}}<br>
+                <b>WHERE</b> {{result.location}}<br>
+                <b>POINTS</b> {{result.price}} | <b>SHOP</b> {{result.shop}}</p>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                    <a href="/look_coupons/?id_coupon={{result.id}}">
+                        GET IT!
+                    </a>
+              </div>
+              
 
-      						
-    						</div>
-  						</div>
+            </div>
+
   						{% endfor %}
 
 					</div>
