@@ -32,7 +32,10 @@
                         View parcitipants
                     </a>
               </div>
-                <div id="collapse{{result.id}}" class="panel-collapse collapse">
+            </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+                <div id="collapse{{result.id}}" class="panel-collapse collapse col-md-4">
                     <div class="panel-body">
                     <ul style="color:black">
                                    {% for person in result.participants.all %}
