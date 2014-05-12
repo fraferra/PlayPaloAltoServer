@@ -234,7 +234,7 @@ def home(request):
         organization, shop=getShop(user)
         completed_events=EventHistory.objects.filter(player=player)
         num_events=len(completed_events)
-        top10=Player.objects.order_by('experience').reverse()[:10]
+        top10=Player.objects.order_by('experience').reverse()[:5]
         my_events=player.event_set.all()
         my_coupons=player.coupon_set.all()
         return render(request, 'play/home.html', {'user':user, 'player':player,
