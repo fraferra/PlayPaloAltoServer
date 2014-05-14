@@ -6,12 +6,13 @@
 			<div class="row centered">
 				<div class="col-lg-8 col-lg-offset-2">
 					<h1>{{event.title}}</h1>
+					<p>{{event.event_type}} | {{event.challenge_event}} | {{event.date}}</p>
 					<p>{{event.description}}</p>
 					{% for comment in previous_comments %}
 					    <hr class="featurette-divider"></hr>
 					    <div class="row">
 					    	<div class="col-md-2">
-					    		<img style="width:50px"src="{{comment.commenter.picture_url}}">
+					    		<img style="width:50px" class="img-circle"src="{{comment.commenter.picture_url}}">
 					    	</div>
 					    	<div class="col-md-2">
 					    		<p style="font-size:10px">{{comment.commenter.user.first_name}} | {{comment.date}}</p>
