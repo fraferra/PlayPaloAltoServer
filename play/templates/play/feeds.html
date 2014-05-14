@@ -14,8 +14,9 @@
 						{% for feed, comments in coments_and_feeds %}
             <hr class="featurette-divider"></hr>
                   <div class="row">
-                     <div class="col-md-2">
-                        <img style="width:40px"class="img-circle" src="{{feed.player.picture_url}}">
+                    <div class="col-md-1"></div>
+                     <div class="col-md-2" style="padding-top:10px">
+                        <img style="width:60px" src="{{feed.event.picture_url}}">
                       </div>
                       <div class="col-md-8">
                         <h3>{{feed.player.user.first_name}} {{feed.player.user.last_name}} has just completed {{feed.event}}!</h3>
@@ -23,15 +24,15 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-1"></div>
+                    <div class="col-md-3"></div>
                     <div class="col-md-2">
                        <a href="/feeds/?id_like_feed={{feed.id}}" <i class="fa fa-thumbs-up" style="font-size:30px"></i></a><br><span style="font-size:14px"># likes {{feed.likes}}</span>
                      </div>
-                     <div class="col-md-1"></div>
+                     
                      <div class="col-md-5">
                         <p>
                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{feed.id}}">
-                              Comments
+                              Comments  (# {{ comments|length}})
                           </a>
                         </p>
                      </div>
