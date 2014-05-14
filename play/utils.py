@@ -3,6 +3,8 @@ from django.contrib.auth.models import User,UserManager
 from social_auth.models import UserSocialAuth
 from django.contrib.auth import authenticate, login as auth_login
 import json
+from play.models import *
+
 from django.core.exceptions import *
 #from play.models import *
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
@@ -65,13 +67,19 @@ def getShop(user):
     except ObjectDoesNotExist:
         organization = False
     return organization, shop
-'''
 
-def customAuth(request):
-    from play.models import *
-    try:
-        status=Player.objects.get(user=request.user).custom_auth
-        return status
-    except TypeError:
-        return False
+
+
+def addLike(id_like_feed):
+    from play.models import Feed
+    feed=Feed.objects.get(pk=id_like_feed)
+    feed.likes=feed.likes+1
+    feed.save()
 '''
+def addComment(id_comment_feed, comment, player):
+    feed=Feed.objects.get(pk=id_comment_feed)
+    CommentFeed.objects.create(
+        comment=comment,
+        commenter=player,
+        feed=feed,
+        )'''

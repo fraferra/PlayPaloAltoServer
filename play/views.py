@@ -167,6 +167,10 @@ def reward(request):
             id_event=request.GET['id_event']
             event=Event.objects.get(id=id_event)
             player=Player.objects.get(id=id_user)
+            Feed.objects.create(
+                player=player,
+                event=event,
+                )
             player.score=player.score +  event.points
             player.experience=player.experience+event.experience
             player.event_set.remove(event)
@@ -354,3 +358,38 @@ def wall(request):
         return render(request, 'play/event.html', {'user':user, 'player':player,
                                                    'event':event,
                                                   'organization':organization}) 
+
+
+def feeds(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        pictureUrl(user, player)
+        organization, shop=getShop(user)
+        feeds=Feed.objects.all().order_by('date')
+        coments_and_feeds=[]
+        for feed in feeds:
+            comments=CommentFeed.objects.filter(feed=feed).order_by('date')
+            coments_and_feeds.append((feed, comments))
+        id_comment_feed=request.POST.get('id_comment_feed','')
+        if request.method=='POST':
+            form = CommentFeedForm(request.POST) 
+            if form.is_valid():
+                new_comment = form.save(commit=False)
+                feed_id=request.POST['feed_id']
+                new_comment.feed=Feed.objects.get(id=feed_id)
+                new_comment.commenter=player
+                #new_comment.date=datetime.now
+                new_comment.save()
+        else:
+            id_like_feed=request.GET.get('id_like_feed','')
+            form=CommentFeedForm()
+            if len(id_like_feed)!=0:
+                addLike(id_like_feed)
+                return HttpResponseRedirect('/feeds/')
+        return render(request, 'play/feeds.html', {'user':user, 'player':player,
+                                                    'form':form,
+                                                    'coments_and_feeds':coments_and_feeds,
+                                                 'organization':organization})

@@ -1,0 +1,88 @@
+{% extends "play/layout_user.html" %}
+{% block content %}
+
+<div id="social">
+		<div class="container" >
+			<div class="row">
+				<br>
+				<center><h3>NEWS FEEDS (JUST LIKE FACEBOOK!)</h3></center>
+        <div class="col-md-1"></div>
+				<div class="col-md-10">
+
+					
+						
+						{% for feed, comments in coments_and_feeds %}
+            <hr class="featurette-divider"></hr>
+                  <div class="row">
+                     <div class="col-md-2">
+                        <img style="width:40px"class="img-circle" src="{{feed.player.picture_url}}">
+                      </div>
+                      <div class="col-md-8">
+                        <h3>{{feed.player.user.first_name}} {{feed.player.user.last_name}} has just completed {{feed.event}}!</h3>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                       <a href="/feeds/?id_like_feed={{feed.id}}" <i class="fa fa-thumbs-up" style="font-size:30px"></i></a><br><span style="font-size:14px"># likes {{feed.likes}}</span>
+                     </div>
+                     <div class="col-md-1"></div>
+                     <div class="col-md-5">
+                        <p>
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{feed.id}}">
+                              Comments
+                          </a>
+                        </p>
+                     </div>
+                  </div>
+
+
+
+
+            <div class="row">
+
+              <div class="col-md-3"></div>
+
+                <div id="collapse{{feed.id}}" class="panel-collapse collapse col-md-8">
+                    
+                    {% for comment in comments %}
+                          <div class="row">
+                                <div class="col-md-1">
+                                  <img style="width:30px"src="{{comment.commenter.picture_url}}">
+                                </div>
+                                <div class="col-md-2">
+                                  <p style="font-size:10px">{{comment.commenter.user.first_name}} | {{comment.date}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                  <p>{{comment.comment}}</p>
+                                 </div>
+                          </div>
+                    {% endfor %}
+                            <div class="row">
+                                  <form method="post" action="/feeds/?id_comment_feed={{feed.id}}">{% csrf_token %}
+                                      <div class="col-md-6">
+                                        {{form}}
+                                      </div>
+                                      <div class="col-md-2">
+                                        <input type="hidden" name="feed_id" value="{{feed.id}}">
+                                        <input type="submit"   class="btn btn-primary btn-sm" style="width:20px; height:25px; font-size:10px" value="POST">
+                                      </div>
+                                  </form>
+                            </div>
+                </div>
+            </div>
+
+  						{% endfor %}
+
+
+
+
+				</div>
+        
+				
+			</div>
+		</div> 
+	</div>
+
+{% endblock %}

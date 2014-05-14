@@ -161,7 +161,9 @@ class Comment(models.Model):
 class Feed(models.Model):
     player=models.ForeignKey(Player)
     event=models.ForeignKey(Event)
-    likes= models.DecimalField(max_digits=4, decimal_places=0, default=0)    
+    likes= models.DecimalField(max_digits=4, decimal_places=0, default=0)
+    date=models.DateTimeField( null=True, default=datetime.datetime.now)
+ 
 
 
 class CommentFeed(models.Model):

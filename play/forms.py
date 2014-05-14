@@ -36,6 +36,19 @@ class CommentForm(ModelForm):
         self.fields['comment'].widget.attrs['cols'] = 15
         self.fields['comment'].widget.attrs['rows'] = 1
 
+
+class CommentFeedForm(ModelForm):
+    comment=forms.CharField(widget = forms.Textarea) 
+    class Meta:
+        model=CommentFeed
+        fields = ('comment', )
+    def __init__(self, *args, **kwargs):
+        super(CommentFeedForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['comment'].widget.attrs['cols'] = 15
+        self.fields['comment'].widget.attrs['rows'] = 1
+
+
+
 class CouponForm(ModelForm):
     title=forms.CharField()
     location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))

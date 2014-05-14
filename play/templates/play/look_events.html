@@ -43,7 +43,7 @@
                     <div class="panel-body">
                     <ul style="color:black">
                                    {% for person in result.participants.all %}
-                                     <li style="color:black">{{person.user.first_name}} {{person.user.last_name}}</li>
+                                     <li style="color:black"><img style="width:30px;"class="img-circle" src="{{person.picture_url}}" >{{person.user.first_name}} {{person.user.last_name}}</li>
                                    {% endfor %}
                                   </ul>
                   </div>

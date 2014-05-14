@@ -23,6 +23,6 @@ urlpatterns = patterns('',
     url(r'^look_events/$', views.look_events ,name='look_events'),
     url(r'^look_coupons/$', views.look_coupons ,name='look_coupons'),
     url(r'^leaderboard/$', views.leaderboard ,name='leaderboard'),
-
+    url(r'^feeds/$', views.feeds ,name='feeds'),
 )
 
