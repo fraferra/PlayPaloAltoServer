@@ -368,10 +368,10 @@ def feeds(request):
         player=Player.objects.get(user=user)
         pictureUrl(user, player)
         organization, shop=getShop(user)
-        feeds=Feed.objects.all().order_by('date')
+        feeds=Feed.objects.all().order_by('-date')
         coments_and_feeds=[]
         for feed in feeds:
-            comments=CommentFeed.objects.filter(feed=feed).order_by('-date')
+            comments=CommentFeed.objects.filter(feed=feed).order_by('date')
             coments_and_feeds.append((feed, comments))
         id_comment_feed=request.POST.get('id_comment_feed','')
         if request.method=='POST':
