@@ -35,6 +35,7 @@
   					<div class="row centered">
   					<div class="col-md-2"></div>
                        <div class="col-md-8">
+                       	{% if my_events|length != 0 %}
   						{% for event in my_events %}
   						    <p style="text-align:left" ><img style="width:30px;"class="img-circle" src="{{event.picture_url}}">
   						    	<b><a href="/event/?id_event={{event.id}}">{{event.title}}</a></b> | {{event.date}}<br>
@@ -43,6 +44,9 @@
   						    </p>
   						    
   						{% endfor %}
+  						{% else %}
+  						<h4>NO COMING EVENTS?!<br>GET OUT HERE AND <a href="/look_events">DO SOME STUFF</a> IN OPEN AIR!</h4>
+  						{% endif %}
   					  </div>
   					</div>
   				</div>
@@ -52,6 +56,8 @@
 
   					<div class="row centered">
   					<div class="col-md-2"></div>
+  					{% if my_coupons|length != 0 %}
+  					
                        <div class="col-md-8">  					
   						{% for event in my_coupons %}
   						    <p style="text-align:left" ><img style="width:30px;"class="img-circle" src="{{event.picture_url}}"> <b>{{event.title}}</b> <br>
@@ -59,9 +65,15 @@
   						    	SHOP {{event.shop}}</p>
   						    
   						{% endfor %}
+
   					
   				</div>
-               
+  				   {% else %}
+  				   <div class="col-md-8">
+  				   	<h4>WASSUP WITH THAT?!<br>
+  				   	DO SOME <a href="/look_events">EVENTS</a> AND GET SOME COUPONS!</h4>
+  				   </div>
+               {% endif  %}
   				</div>
  
 			</div>
