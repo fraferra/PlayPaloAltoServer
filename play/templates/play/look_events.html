@@ -24,6 +24,11 @@
               <div class="col-md-4">
                 <p><b>WHAT</b> {{result.description}}<br>
                 <b>WHERE</b> {{result.location}}<br>
+                {% if result.challenge_event == 'Event' %}
+                 <b>WHEN</b> {{result.date}}<br>
+                 {% else %}
+                 <b>This is Challenge, you do it whenever you want!</b>
+                 {% endif %}
                 <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
               </div>
               <div class="col-md-1"></div>

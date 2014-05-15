@@ -254,7 +254,7 @@ def look_events(request):
         player=Player.objects.get(user=user)
         my_events=player.event_set.all()
         organization, shop=getShop(user)
-        events=Event.objects.all().order_by('date')
+        events=Event.objects.all().order_by('-date')
         comment_events=[]
         for event in events:
             comment_events.append((event, len(Comment.objects.filter(event=event))))
@@ -371,7 +371,7 @@ def feeds(request):
         feeds=Feed.objects.all().order_by('date')
         coments_and_feeds=[]
         for feed in feeds:
-            comments=CommentFeed.objects.filter(feed=feed).order_by('date')
+            comments=CommentFeed.objects.filter(feed=feed).order_by('-date')
             coments_and_feeds.append((feed, comments))
         id_comment_feed=request.POST.get('id_comment_feed','')
         if request.method=='POST':
