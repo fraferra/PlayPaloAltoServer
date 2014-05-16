@@ -15,7 +15,7 @@ from django.contrib.auth import logout as django_logout
 from play.forms import *
 from django.core.exceptions import *
 from datetime import datetime
-
+import re
 
 
 def api_registration(request):
@@ -49,7 +49,7 @@ def facebook_auth(request):
             data= {'token':player.token}
             data = simplejson.dumps(data)           
             return HttpResponse(data, mimetype='application/json')
-            
+
     data={'message':message}
     data=simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')           
