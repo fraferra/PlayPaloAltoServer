@@ -15,6 +15,10 @@ from django.contrib.auth import logout as django_logout
 from play.forms import *
 from django.core.exceptions import *
 from datetime import datetime
+
+def fac(request):
+    return render(request, 'play/facebook.html')
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
