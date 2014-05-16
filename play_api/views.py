@@ -40,7 +40,7 @@ def facebook_auth(request):
     facebook_id = request.GET['facebook_id']
     social_users = UserSocialAuth.objects.all()
     for social_user in social_users:
-        match=re.search(social_user.extra_data, facebook_id)
+        match=re.search(social_user.extra_data['id'], facebook_id)
         if match:
             user = social_user.user
             player = Player.objects.get(user=user)
