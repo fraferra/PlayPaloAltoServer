@@ -34,6 +34,25 @@ def api_registration(request):
         data=simplejson.dumps(data)
         return HttpResponse(data, mimetype='application/json')  
 #v2
+def facebook_auth(request):
+    message='user does not exist'  
+    token=''
+    facebook_id = request.GET['facebook_id']
+    social_users = UserSocialAuth.objects.all()
+    for social_user in social_users:
+        match=re.search(social_user.extra_data, facebook_id)
+        if match:
+            user = social_user.user
+            player = Player.objects.get(user=user)
+            player.token=randomword(30)
+            player.save()
+            data= {'token':player.token}
+            data = simplejson.dumps(data)           
+            return HttpResponse(data, mimetype='application/json')
+            
+    data={'message':message}
+    data=simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')           
 
 
 def api_v2_login(request):

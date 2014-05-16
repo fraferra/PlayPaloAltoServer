@@ -9,6 +9,9 @@ urlpatterns = patterns('',
 
     url(r'^api/registration/$', views.api_registration ,name='api_registration'),
 
+    url(r'^api/facebook_auth/$', views.facebook_auth ,name='facebook_auth'),
+
+
     url(r'^api/v1/login/$', views.api_v1_login ,name='api_login'),
     url(r'^api/v1/home/$', views.api_v1_home ,name='api_home'),
     url(r'^api/v1/logout/$', views.api_v1_logout ,name='api_logout'),
