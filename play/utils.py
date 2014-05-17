@@ -9,6 +9,9 @@ from django.core.exceptions import *
 #from play.models import *
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 import string, random
+from datetime import *
+
+
 def pictureUrl(user, player):
     try:
         social=UserSocialAuth.objects.get(user=user)
@@ -83,3 +86,29 @@ def addComment(id_comment_feed, comment, player):
         commenter=player,
         feed=feed,
         )'''
+
+
+
+def returnEventChallengeDict(*args):
+    from play.models import Event,Player
+    if len(args)!=0:
+        events=args[0].event_set.all().order_by('-date')
+    else:
+        events=Event.objects.all().order_by('-date')
+    today_events=[]
+    past_events=[]
+    future_events=[]
+    challenges=[]
+    today=date.today()
+    for event in events:
+        if event.challenge_event =='Event':
+            if event.date.date() == today:
+                today_events.append(event)
+            if event.date.date() < today:
+                past_events.append(event)
+            else:
+                future_events.append(event)
+        else:
+            challenges.append(event)
+    return {'past':past_events, 'today':today_events,
+                     'future':future_events, 'challenges':challenges}

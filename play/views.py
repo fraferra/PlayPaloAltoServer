@@ -258,10 +258,10 @@ def look_events(request):
         player=Player.objects.get(user=user)
         my_events=player.event_set.all()
         organization, shop=getShop(user)
-        events=Event.objects.all().order_by('-date')
+        events=returnEventChallengeDict()
         comment_events=[]
-        for event in events:
-            comment_events.append((event, len(Comment.objects.filter(event=event))))
+        #for event in events:
+            #comment_events.append((event, len(Comment.objects.filter(event=event))))
         id_event=request.GET.get('id_event','')
         if len(id_event)!=0:
             event=Event.objects.get(pk=id_event)
@@ -272,7 +272,7 @@ def look_events(request):
                 return HttpResponseRedirect('/home/')
         return render(request, 'play/look_events.html', {'user':user, 'player':player,
                                                  'events':events, 'my_events':my_events,
-                                                 'comment_events':comment_events,
+                                                 #'comment_events':comment_events,
                                                  'organization':organization})
 
 def look_coupons(request):
