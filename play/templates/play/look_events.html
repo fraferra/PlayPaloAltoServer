@@ -6,7 +6,7 @@
 			<div class="row">
 				<br>
 				<h2>WHAT'S GOING ON IN PALO ALTO</h2>
-				<div class="col-md-8">
+				<div class="col-md-6">
 
 					<div class="panel-group" id="accordion">
 						
@@ -32,15 +32,15 @@
 
                 <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-2">
+              
+              <div class="col-md-1">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
-                        View parcitipants
+                        <i class="fa fa-group" style="font-size:15px"></i>
                     </a>
               </div>
               
               <div class="col-md-1">
-                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-thumbs-up" style="font-size:15px"></i> JOIN</a></p>
+                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
               </div>
             </div>
             <div class="row">
@@ -80,15 +80,15 @@
 
                 <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-2">
+              
+              <div class="col-md-1">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
-                        View parcitipants
+                       <i class="fa fa-group" style="font-size:15px"></i>
                     </a>
               </div>
               
               <div class="col-md-1">
-                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-thumbs-up" style="font-size:15px"></i> JOIN</a></p>
+                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
               </div>
             </div>
             <div class="row">
@@ -133,15 +133,15 @@
 
                 <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-2">
+              
+              <div class="col-md-1">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
-                        View parcitipants
+                        <i class="fa fa-group" style="font-size:15px"></i>
                     </a>
               </div>
               
               <div class="col-md-1">
-                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-thumbs-up" style="font-size:15px"></i> JOIN</a></p>
+                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
               </div>
             </div>
             <div class="row">
@@ -164,17 +164,17 @@
 
 
 				</div>
-        <div class="col-md-4">
+        <div style="font-size:13px" class="col-md-5">
             <h3>CHALLENGES</h3>
             {% for result in events.challenges %}
             <hr class="featurette-divider"></hr>
             <div class="row">
               <div class="col-md-1">
-                <img style="width:80px; height:80px"src="{{result.picture_url}}">
+                <img style="width:50px; height:50px"src="{{result.picture_url}}">
               </div> 
               <div class="col-md-1"></div>
-              <div class="col-md-2">
-                <h3><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
+              <div style="padding-top:0px" class="col-md-3">
+                <h3 style="font-size:15px"><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
                 <p># comments {{result.comment_set.all|length}}</p>
               </div>
               <div class="col-md-4">
@@ -182,15 +182,15 @@
                 <b>WHERE</b> {{result.location}}<br>
                 <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-2">
+              
+              <div class="col-md-1">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
-                        View parcitipants
+                        <i class="fa fa-group" style="font-size:15px"></i>
                     </a>
               </div>
               
               <div class="col-md-1">
-                <p style="font-size:12px"><a href="/look_events/?id_event={{result.id}}"><i class="fa fa-thumbs-up" style="font-size:15px"></i> JOIN</a></p>
+                <a href="/look_events/?id_event={{result.id}}"><i class="fa fa-check-square-o" style="font-size:15px"></i></a>
               </div>
             </div>
             <div class="row">
