@@ -11,6 +11,8 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 import string, random
 from datetime import *
 
+from bs4 import BeautifulSoup
+import re
 
 def pictureUrl(user, player):
     try:
@@ -112,3 +114,18 @@ def returnEventChallengeDict(*args):
             challenges.append(event)
     return {'past':past_events, 'today':today_events,
                      'future':future_events, 'challenges':challenges}
+
+
+def findEvent():   
+    url='http://www.yelp.com/events/palo-alto'
+    event_page=BeautifulSoup(requests.get(url).text)
+    links=[]
+    popular_events_div = event_page.find(id="popular_events")
+    liks_h3 = event_page.find_all('h3')
+    for t in liks_h3:
+        t2= t.find('a')
+        if not t2 is None:
+            #print t2
+            #print t2.find('span').text
+            links.append((t2.find('span').text, t2['href']))
+    return links

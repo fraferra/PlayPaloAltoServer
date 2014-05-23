@@ -260,6 +260,7 @@ def look_events(request):
         organization, shop=getShop(user)
         events=returnEventChallengeDict()
         comment_events=[]
+        yelp=findEvent()
         #for event in events:
             #comment_events.append((event, len(Comment.objects.filter(event=event))))
         id_event=request.GET.get('id_event','')
@@ -272,6 +273,7 @@ def look_events(request):
                 return HttpResponseRedirect('/home/')
         return render(request, 'play/look_events.html', {'user':user, 'player':player,
                                                  'events':events, 'my_events':my_events,
+                                                 'yelp':yelp,
                                                  #'comment_events':comment_events,
                                                  'organization':organization})
 

@@ -2,17 +2,93 @@
 {% block content %}
 
 <div id="social">
-		<div class="container" >
+		<div class="container" style="margin:20px" >
 			<div class="row">
 				<br>
 				<h2>WHAT'S GOING ON IN PALO ALTO</h2>
-				<div class="col-md-6">
+				<div class="col-md-8">
 
 					<div class="panel-group" id="accordion">
 						
 
 
-          <h3>TODAY</h3>
+
+
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseCha">
+              <h3>CHALLENGES  <i style="font-size:30px"class="fa fa-rocket"></i></h3>
+          </a>
+          <div id="collapseCha" class="panel-collapse collapse col-md-12">
+            <div class="panel-body">
+            {% for result in events.challenges %}
+            <hr class="featurette-divider"></hr>
+            <div class="row">
+              <div class="col-md-1">
+                <img style="width:50px; height:50px"src="{{result.picture_url}}">
+              </div> 
+              <div class="col-md-1"></div>
+              <div style="padding-top:0px" class="col-md-3">
+                <h3 style="font-size:15px"><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
+                <p># comments {{result.comment_set.all|length}}</p>
+              </div>
+              <div class="col-md-5">
+                <p><b>WHAT</b> {{result.description}}<br>
+                <b>WHERE</b> {{result.location}}<br>
+                <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
+              </div>
+              
+              <div class="col-md-1">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
+                        <i class="fa fa-group" style="font-size:15px"></i>
+                    </a>
+              </div>
+              
+              <div class="col-md-1">
+                <a href="/look_events/?id_event={{result.id}}"><i class="fa fa-check-square-o" style="font-size:15px"></i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+                <div id="collapse{{result.id}}" class="panel-collapse collapse col-md-4">
+                    <div class="panel-body">
+                    <ul style="color:black">
+                                   {% for person in result.participants.all %}
+                                     <li style="color:black"><img style="width:30px;"class="img-circle" src="{{person.picture_url}}" >{{person.user.first_name}} {{person.user.last_name}}</li>
+                                   {% endfor %}
+                                  </ul>
+                  </div>
+                </div>
+            </div>
+
+              {% endfor %}
+        </div>
+        
+        
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseToday">
+              <h3>TODAY  <i style="font-size:30px"class="fa fa-eye"></i></h3>
+          </a>
+
+          
+          <div id="collapseToday" class="panel-collapse collapse in col-md-12">
+            <div class="panel-body">
           {% for result in events.today %}
             <hr class="featurette-divider"></hr>
             <div class="row">
@@ -20,11 +96,11 @@
                 <img style="width:80px; height:80px"src="{{result.picture_url}}">
               </div>
               <div class="col-md-1"></div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <h3><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
                 <p># comments {{result.comment_set.all|length}}</p>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-5">
                 <p><b>WHAT</b> {{result.description}}<br>
                 <b>WHERE</b> {{result.location}}<br>
 
@@ -57,10 +133,22 @@
             </div>
 
               {% endfor %}
+              </div>
+            </div>
 
 
 
-              <h3>FUTURE</h3>
+
+
+
+
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseFuture">
+              <h3>FUTURE  <i style="font-size:30px"class="fa fa-eye"></i></h3>
+          </a>
+
+          
+          <div id="collapseFuture" class="panel-collapse collapse col-md-12">
+            <div class="panel-body">
             {% for result in events.future %}
             <hr class="featurette-divider"></hr>
             <div class="row">
@@ -68,11 +156,11 @@
                 <img style="width:80px; height:80px"src="{{result.picture_url}}">
               </div> 
               <div class="col-md-1"></div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <h3><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
                 <p># comments {{result.comment_set.all|length}}</p>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-5">
                 <p><b>WHAT</b> {{result.description}}<br>
                 <b>WHERE</b> {{result.location}}<br>
 
@@ -105,15 +193,19 @@
             </div>
 
               {% endfor %}
+              </div>
+            </div>
 
 
 
 
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapsePast">
+              <h3>PAST <i style="font-size:30px"class="fa fa-eye"></i></h3>
+          </a>
 
-
-
-
-              <h3>PAST</h3>
+          
+          <div id="collapsePast" class="panel-collapse collapse col-md-12">
+            <div class="panel-body">
             {% for result in events.past %}
             <hr class="featurette-divider"></hr>
             <div class="row">
@@ -121,11 +213,11 @@
                 <img style="width:80px; height:80px"src="{{result.picture_url}}">
               </div> 
               <div class="col-md-1"></div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <h3><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
                 <p># comments {{result.comment_set.all|length}}</p>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-5">
                 <p><b>WHAT</b> {{result.description}}<br>
                 <b>WHERE</b> {{result.location}}<br>
                 
@@ -158,60 +250,43 @@
             </div>
 
               {% endfor %}
-
-
-					</div>
-
-
-				</div>
-        <div style="font-size:13px" class="col-md-5">
-            <h3>CHALLENGES</h3>
-            {% for result in events.challenges %}
-            <hr class="featurette-divider"></hr>
-            <div class="row">
-              <div class="col-md-1">
-                <img style="width:50px; height:50px"src="{{result.picture_url}}">
-              </div> 
-              <div class="col-md-1"></div>
-              <div style="padding-top:0px" class="col-md-3">
-                <h3 style="font-size:15px"><a href="/event/?id_event={{result.id}}">{{result.title}}</a></h3>
-                <p># comments {{result.comment_set.all|length}}</p>
-              </div>
-              <div class="col-md-4">
-                <p><b>WHAT</b> {{result.description}}<br>
-                <b>WHERE</b> {{result.location}}<br>
-                <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
-              </div>
-              
-              <div class="col-md-1">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
-                        <i class="fa fa-group" style="font-size:15px"></i>
-                    </a>
-              </div>
-              
-              <div class="col-md-1">
-                <a href="/look_events/?id_event={{result.id}}"><i class="fa fa-check-square-o" style="font-size:15px"></i></a>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-2"></div>
-                <div id="collapse{{result.id}}" class="panel-collapse collapse col-md-4">
-                    <div class="panel-body">
-                    <ul style="color:black">
-                                   {% for person in result.participants.all %}
-                                     <li style="color:black"><img style="width:30px;"class="img-circle" src="{{person.picture_url}}" >{{person.user.first_name}} {{person.user.last_name}}</li>
-                                   {% endfor %}
-                                  </ul>
+
+             </div>
+            </div>
+
+            <div class="col-md-4">
+
+             <h3>WHAT'S POPULAR ON YELP THIS WEEK</h3>
+             {% for title, url in yelp %}
+
+                <hr class="featurette-divider"></hr>
+                <div class="row">
+                  <div style="padding:0px" class="col-md-9">
+                    <p>{{title}}</p>
+                  </div>
+                  <div style="padding:0px"class="col-md-3">
+                    <a href="http://www.yelp.com{{url}}">
+                      <i style="font-size:20px"class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
-            </div>
 
-              {% endfor %}
-        </div>
-        
-				
-			</div>
-		</div> 
-	</div>
+             {% endfor %}
+
+
+            </div><!--yelp-->
+
+
+
+              </div><!--row-->
+
+
+
+
+
+            </div><!--contaneir-->
+          </div> <!--social-->
 
 {% endblock %}
