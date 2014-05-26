@@ -46,3 +46,19 @@ for t in liks_h3:
         print t2.find('span').text
         links.append((t.find('a')))
 print links
+
+
+
+def findEvent():   
+    url='http://www.yelp.com/events/palo-alto'
+    event_page=BeautifulSoup(requests.get(url).text)
+    links=[]
+    popular_events_div = event_page.find(id="popular_events")
+    liks_h3 = event_page.find_all('h3')
+    for t in liks_h3:
+        t2= t.find('a')
+        if not t2 is None:
+            #print t2
+            #print t2.find('span').text
+            links.append((t2.find('span').text, t2['href']))
+    return links
