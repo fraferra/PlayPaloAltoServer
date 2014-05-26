@@ -250,8 +250,7 @@ def api_v2_coupons(request):
         list_of_coupons=[]
         for cou in coupons:
             list_of_coupons.append({'name':cou.title, 'price':cou.price, 'location':cou.location, 'shop':cou.shop, }#'remaining':cou.coupons_released})
-        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
-               'picture_url':player.picture_url, 'list_of_coupons':list_of_coupons}
+        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture_url':player.picture_url, 'list_of_coupons':list_of_coupons}
     data = simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')
 
