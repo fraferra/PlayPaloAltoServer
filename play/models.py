@@ -9,10 +9,11 @@ from utils import *
 from social_auth.models import UserSocialAuth
 import constants
 from django.core.exceptions import *
+
 # Create your models here.
 import requests
 import datetime
-
+#from social_auth.backends.pipeline.user import update_user_details
 class Player(models.Model):
     user=models.ForeignKey(User)
     custom_auth = forms.BooleanField(initial=False)
@@ -28,7 +29,10 @@ class Player(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Player.objects.create(user=instance)
+        
 post_save.connect(create_user_profile, sender=User)
+
+
 
 '''
 def create_pic(sender, instance, created, **kwargs):
