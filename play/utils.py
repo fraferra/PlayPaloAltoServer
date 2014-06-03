@@ -4,7 +4,8 @@ from social_auth.models import UserSocialAuth
 from django.contrib.auth import authenticate, login as auth_login
 import json
 from play.models import *
-
+from charity.models import *
+from shop.models import *
 from django.core.exceptions import *
 #from play.models import *
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest

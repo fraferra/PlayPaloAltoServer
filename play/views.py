@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 #from django.contrib.auth import authenticate, login as auth_login
 from social_auth.models import UserSocialAuth
 from play.models import *
-
+from charity.models import *
 from play.utils import *
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
@@ -15,9 +15,6 @@ from django.contrib.auth import logout as django_logout
 from play.forms import *
 from django.core.exceptions import *
 from datetime import datetime
-
-def fac(request):
-    return render(request, 'play/facebook.html')
 
 def login(request):
     if request.method == 'POST':
@@ -59,175 +56,8 @@ def index(request):
     return render(request, 'play/index.html', {'form':form})
 
 
-def organization_home(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-        player=Player.objects.get(user=user)
-        pictureUrl(user, player)
-        organization, shop =getShop(user)
-        try:
-            organization=Organization.objects.get(user=user)
-        except ObjectDoesNotExist:
-            return HttpResponseRedirect('/sorry/')
-        return render(request, 'play/organization_home.html', {'user':user, 'player':player, 'shop':shop})
 
 
-    
-def sorry(request):
-    return render(request, 'play/sorry.html')
-
-def create_event(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-        organization, shop=getShop(user)
-        try:
-            organization=Organization.objects.get(user=user)
-            if request.method=='POST':
-                form = EventForm(request.POST) 
-                if form.is_valid():
-                    new_event = form.save(commit=False)
-                    new_event.organizer=organization
-                    new_event.save()
-                    return HttpResponseRedirect('/my_events/')
-            else:
-                form = EventForm()
-            return render(request, 'play/create_event.html', {'form':form,'shop':shop})
-        except ObjectDoesNotExist:
-            return HttpResponseRedirect('/sorry/')
-
-
-def create_coupon(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-
-        try:
-            #organization=Organization.objects.get(user=user)
-            organization, shop=getShop(user)
-            if request.method=='POST':
-                form = CouponForm(request.POST) 
-                if form.is_valid():
-                    new_coupon = form.save(commit=False)
-                    new_coupon.shop=shop
-                    new_coupon.save()
-                    return HttpResponseRedirect('/my_coupons/')
-            else:
-                form = CouponForm()
-            return render(request, 'play/create_coupon.html', {'form':form, 'shop':shop})
-        except ObjectDoesNotExist:
-            return HttpResponseRedirect('/sorry/')
-
-def my_events(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-        organization, shop=getShop(user)
-        if not organization: 
-            return HttpResponseRedirect('/sorry/')
-        list_of_events=Event.objects.filter(organizer=organization)
-        number=len(list_of_events)
-        id_delete=request.GET.get('delete','')
-        if len(id_delete)!=0:
-            event=Event.objects.get(pk=id_delete)
-            event.delete()
-            return HttpResponseRedirect('/my_events/')
-        return render(request, 'play/my_events.html', {'list_of_events':list_of_events, 'number':number, 'shop':shop})
-            
-
-def my_coupons(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-        organization, shop=getShop(user)
-        if not organization:
-            return HttpResponseRedirect('/sorry/')
-        list_of_coupons=Coupon.objects.filter(shop=shop)
-        number=len(list_of_coupons)
-        id_delete=request.GET.get('delete','')
-        if len(id_delete)!=0:
-            coupon=Coupon.objects.get(pk=id_delete)
-            coupon.delete()
-            return HttpResponseRedirect('/my_coupons/')
-        return render(request, 'play/my_coupons.html', {'list_of_coupons':list_of_coupons, 'number':number, 'shop':shop})
-
-
-
-def reward(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-        organization=Organization.objects.get(user=user)
-
-        if request.method == 'GET':
-            id_user=request.GET['id_user']
-            id_event=request.GET['id_event']
-            event=Event.objects.get(id=id_event)
-            player=Player.objects.get(id=id_user)
-            Feed.objects.create(
-                player=player,
-                event=event,
-                )
-            player.score=player.score +  event.points
-            player.experience=player.experience+event.experience
-            player.event_set.remove(event)
-            EventHistory.objects.create(
-                date=datetime.today(),
-                player=player,
-                #event=event,
-                organization=organization.title,
-                title=event.title,
-                points=event.points
-                )
-            player.save()
-            event.save()
-            return HttpResponseRedirect('/my_events/')
-
-def erase(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-        organization, shop=getShop(user)
-        if request.method == 'GET':
-            id_user=request.GET['id_user']
-            id_coupon=request.GET['id_coupon']
-            coupon=Coupon.objects.get(id=id_coupon)
-            player=Player.objects.get(id=id_user)
-            player.coupon_set.remove(coupon)
-            CouponHistory.objects.create(
-                player=player,
-                shop=shop.title,
-                title=coupon.title,
-                #coupon=coupon
-                )
-            player.save()
-            coupon.save()
-            return HttpResponseRedirect('/my_coupons/')
-
-def my_company(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    else:
-        user=request.user
-        organization, shop=getShop(user)
-        if not organization:
-            return HttpResponseRedirect('/sorry/')
-        if request.method=='POST':
-            title=request.POST.get('title', '')
-            location=request.POST.get('location','')
-            organization.title=title
-            organization.location=location
-            organization.save()
-            return HttpResponseRedirect('/company/')
-        return render(request, 'play/my_company.html', {'user':user,'organization':organization, 'shop':shop})
 
 #USER PAGES
 

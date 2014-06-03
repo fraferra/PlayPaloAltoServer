@@ -7,30 +7,12 @@ class PlayerAdmin(admin.ModelAdmin):
 	model=Player
 	fields=['score', 'user', 'picture_url', 'experience']
 
-class OrganizationAdmin(admin.ModelAdmin):
-	model=Organization
-	fields=['title', 'location','user']
 
-class ShopAdmin(admin.ModelAdmin):
-	model=Shop
-	fields=['title', 'location','user']
-
-
-class CouponAdmin(admin.ModelAdmin):
-	model=Coupon
-	fields=['title', 'description', 'location', 'buyers', 'price']
-
-class EventAdmin(admin.ModelAdmin):
-	model=Event
-	fields=['title', 'description', 'location', 'participants', 'points', 'experience']
 
 class IdeaAdmin(admin.ModelAdmin):
 	model=Idea
 	fields=['title', 'description', 'points', 'experience', 'author'] 
 
-admin.site.register(Shop, ShopAdmin)
+
 admin.site.register(Idea, IdeaAdmin) 
 admin.site.register(Player, PlayerAdmin)
-admin.site.register(Coupon, CouponAdmin)
-admin.site.register(Event, EventAdmin)
-admin.site.register(Organization, OrganizationAdmin)

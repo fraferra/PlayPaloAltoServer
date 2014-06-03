@@ -13,7 +13,7 @@ if var =='local':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'play',                      # Or path to database file if using sqlite3.
+            'NAME': 'play2',                      # Or path to database file if using sqlite3.
             # The following settings are not used with sqlite3:
             'USER': 'postgres',
             'PASSWORD': 'None',
@@ -151,6 +151,8 @@ INSTALLED_APPS = (
     'south',
     'play_api',
     'corsheaders',
+    'charity',
+    'shop',
 
 )
 

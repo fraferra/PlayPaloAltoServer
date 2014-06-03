@@ -1,0 +1,23 @@
+{% extends "play/layout.html" %}
+
+{% block content %}
+	<div id="social">
+		<div class="container">
+			<div class="row centered">
+				<div class="col-lg-8 col-lg-offset-2">
+					<form method='post'>{% csrf_token %}
+					<h3>WHATCHA GONNA OFFER?!</h3>
+                     <p style="word-spacing:150px;" >TITLE {{form.title}}</p>
+                     <p style="word-spacing:20px;">JUST A LITTLE DESCRIPTION!</p>
+                     <p>{{form.description}}</p>
+
+                     <p style="word-spacing:30px;" >LOCATION {{form.location}}</p>
+                     <p style="word-spacing:16px;" >PRICE IN POINTS {{form.price}} | # OF RELEASED COUPONS {{form.coupons_released}} </p>
+					<input type="submit"   class="btn btn-primary btn-default" value="DO IT!">
+				</form>
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div>
+        <br>
+{% endblock %}

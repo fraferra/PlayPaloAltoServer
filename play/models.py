@@ -9,7 +9,8 @@ from utils import *
 from social_auth.models import UserSocialAuth
 import constants
 from django.core.exceptions import *
-
+import charity.models
+import shop.models
 # Create your models here.
 import requests
 import datetime
@@ -51,7 +52,7 @@ def create_pic(sender, instance, created, **kwargs):
 
 post_save.connect(create_pic, sender=Player)
 '''
-
+'''
 class Shop(models.Model):
     user=models.ForeignKey(User)
     title=models.CharField(max_length=100, null=True, default='Super shop!')
@@ -117,16 +118,7 @@ def assign_event_pic(sender, instance, created, **kwargs):
             instance.picture_url='/static/img/shopping.png'
         instance.save()
 post_save.connect(assign_event_pic, sender=Event)
-
-
-
-class Challenge(models.Model):
-    title=models.CharField(max_length=50, null=True)
-    challenge_type=models.CharField(max_length=50,choices=constants.TYPE, default=None)
-    description=models.TextField(max_length=500, null=True)
-    location=models.CharField(max_length=100, null=True)
-    points=models.DecimalField(max_digits=4, decimal_places=0)    
-    participants = models.ManyToManyField(Player)
+'''
 
 
 class CouponHistory(models.Model):
@@ -158,13 +150,13 @@ class Idea(models.Model):
 class Comment(models.Model):
     comment=models.TextField(max_length=500, null=True)
     commenter=models.ForeignKey(Player)
-    event=models.ForeignKey(Event)
+    event=models.ForeignKey('charity.Event')
     date=models.DateTimeField( null=True, default=datetime.datetime.now)
 
 
 class Feed(models.Model):
     player=models.ForeignKey(Player)
-    event=models.ForeignKey(Event)
+    event=models.ForeignKey('charity.Event')
     likes= models.DecimalField(max_digits=4, decimal_places=0, default=0)
     date=models.DateTimeField( null=True, default=datetime.datetime.now)
  

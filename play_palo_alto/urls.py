@@ -17,8 +17,8 @@ urlpatterns = patterns('',
     url(r'', include('play_api.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('play.urls', namespace="play")),
-
-    
+    url(r'^', include('charity.urls', namespace="charity")),
+    url(r'^', include('shop.urls', namespace="shop")),
     url(r'', include('social_auth.urls')),
     #(r'^api/', include('play.api_urls', namespace="api")),
     url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),

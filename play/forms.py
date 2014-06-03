@@ -6,16 +6,6 @@ import string
 from play.models import *
 import constants
 import datetime
-class EventForm(ModelForm):
-    title=forms.CharField()
-    location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))
-    description=forms.CharField(widget = forms.Textarea(attrs={}))
-    points=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
-    experience=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
-    date = forms.DateTimeField(initial=datetime.datetime.now)
-    class Meta:
-        model=Event
-        fields = ('title','description','location','points','event_type', 'date', 'experience', 'challenge_event')
 
 class IdeaForm(ModelForm):
     title=forms.CharField()
@@ -49,20 +39,7 @@ class CommentFeedForm(ModelForm):
 
 
 
-class CouponForm(ModelForm):
-    title=forms.CharField()
-    location=forms.CharField(widget = forms.TextInput(attrs={ 'size':'30'}))
-    description=forms.CharField(widget = forms.Textarea(attrs={}))
-    price=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
-    coupons_released=forms.DecimalField(widget = forms.TextInput(attrs={ 'size':'4'}))
-    class Meta:
-        model=Coupon
-        fields = ('title','description','location','price','coupons_released')
 
-class CompanyForm(ModelForm):
-    class Meta:
-        model=Organization
-        fields=('title', 'location')
 
 class SignUpForm(UserCreationForm):
     """ Require email address when a user signs up """

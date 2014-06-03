@@ -1,0 +1,53 @@
+{% extends "play/layout.html" %}
+{% block content %}
+
+<div id="skills">
+		<div class="container" >
+			<div class="row">
+				<br>
+				<h3>YOUR BADASS COUPONS</h3>
+				<div class="col-md-8">
+
+					<div class="panel-group" id="accordion">
+						{% if number != 0 %}
+						{% for result in list_of_coupons %}
+  						<div >
+    						<div >
+      						<h4 style="color:orange">
+      							<i class="fa fa-hand-o-right"></i> {{result.title}}  <span style="font-size:10px">(<a href="/my_coupons/?delete={{result.id}}"><i class="fa fa-thumbs-down"></i> DELETE</a>)</span>
+      						</h4>
+      						<ul style="color:black">
+      							<li><p>DESCRIPTION____ {{result.description}}</p></li>
+      							<li><p>LOCATION____ {{result.location}}</p></li>
+                    <li><p>PRICE____ {{result.price}}</p></li>
+      						</ul>
+        						<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{result.id}}">
+          							View buyers <i class="fa fa-angle-double-down"></i>
+        						</a>
+      						
+    						</div>
+    						<div id="collapse{{result.id}}" class="panel-collapse collapse">
+      							<div class="panel-body">
+      							<ul style="color:black">
+      	                           {% for person in result.buyers.all %}
+                                     <li style="color:black">{{person.user.first_name}} {{person.user.last_name}} - <a href='/erase/?id_user={{person.id}}&id_coupon={{result.id}}'> CONFIRM COUPON! <i class="fa fa-smile-o"></i> </a></li>
+      	                           {% endfor %}
+      	                          </ul>
+     							</div>
+    						</div>
+  						</div>
+  						{% endfor %}
+  						{% else %}
+  						<h4 style="color:orange">WHAT?! IT LOOKS LIKE YOU HAVE NO EVENTS AT THE MOMENT! GO TO <a href="/create_coupon">CREATE NEW COUPON</a> TO MAKE A NEW ONE!</h4>
+  						{% endif %}
+					</div>
+
+
+				</div>
+        
+				
+			</div>
+		</div> 
+	</div>
+
+{% endblock %}
