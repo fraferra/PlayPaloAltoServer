@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+    <title>Play Palo Alto</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+    <link href="/static/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/assets/js/fancybox/jquery.fancybox.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/component.css" />
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="/static/assets/js/modernizr.custom.js"></script>
+  </head>
+
+  <body data-spy="scroll" data-offset="0" data-target="#theMenu">
+ <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=301965249950489&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+		
+	<!-- Menu -->
+	<nav class="menu" id="theMenu">
+		<div class="menu-wrap">
+			<h1 class="logo"><a href="/">PLAY PALO ALTO</a></h1>
+			<i class="fa fa-times menu-close"></i>
+			{% if not user.is_authenticated %}
+			<a href="/#register" class="smoothScroll">Register</a>
+			<a href="/login" class="smoothScroll">Login</a>
+			<a href="/idea" class="smoothScroll">Send Idea</a>
+			{% else %}
+			<a href="/home" class="smoothScroll">Home</a>
+			<a href="/feeds" class="smoothScroll">Feeds</a>
+			<a href="/look_events" class="smoothScroll">Events</a>
+			<a href="look_coupons" class="smoothScroll">Coupons</a>
+			<a href="/leaderboard" class="smoothScroll">Leaderboard</a>
+			<a href="/logout" class="smoothScroll">Logout</a>
+            {% endif %}
+		</div>
+		
+		<!-- Menu button -->
+		<div id="menuToggle"><i class="fa fa-bars"></i></div>
+	</nav>
+
+	{% block content %}
+    {% endblock %}   
+
+
+	  <div id="f"  >
+	    <div class="container">
+	      <div class="row">
+	      	<div class="col-md-2"></div>
+	         <div class="col-md-6"><small>Questions or Feedback? Contact us at <a href="mailto:info@playpaloalto.com">info@playpaloalto.com</a></small></div>
+	          <div class="col-md-2"><center><div class="fb-share-button" data-href="http://playpaloalto.com" data-width="100" data-type="button_count"></div></center></div>
+	          <div class="col-xs-6 col-md-4">
+	              {% if not organization %}
+	                
+	              {% else %}
+	                <p>GO TO <a href="/organization_home">Organization account</a></p>
+	              {% endif %}
+	          </div>
+
+	      </div>
+	    </div>
+	  </div>
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/static/assets/js/classie.js"></script>
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <script src="/static/assets/js/smoothscroll.js"></script>
+	<script src="/static/assets/js/jquery.stellar.min.js"></script>
+	<script src="/static/assets/js/fancybox/jquery.fancybox.js"></script>    
+	<script src="/static/assets/js/main.js"></script>
+		<script>
+		$(function(){
+			$.stellar({
+				horizontalScrolling: false,
+				verticalOffset: 40
+			});
+		});
+		</script>
+		
+		<script type="text/javascript">
+      $(function() {
+        //    fancybox
+          jQuery(".fancybox").fancybox();
+      });
+	   </script>
+
+  </body>
+</html>

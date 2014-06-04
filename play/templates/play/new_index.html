@@ -1,0 +1,257 @@
+{% extends "play/new_layout.html" %}
+{% block content %}
+
+
+	<section id="home" name="home"></section>
+	<div id="headerwrap2"class="sep header" data-stellar-background-ratio="0.5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<img src="/static/img/logo-play.png">
+					<div style="margin-top:-200px;">
+					<h1 >PLAY PALO ALTO</h1>
+					<h2>LET'S GAMIFY THIS CITY</h2>
+				    </div>
+				</div>
+			</div><! --/row -->
+		</div><! --/container -->
+	</div><! --/headerwrap -->
+	
+	<section id="about" name="about"></section>
+	<div id="aboutwrap">
+		<div class="container">
+			<center><h1 id="what">WHAT IS PLAY PALO ALTO?</h1>
+			</center>
+			<br>
+			<br>
+			<div style="padding:20px; padding-left:70px"class="row">
+         
+				<div class="col-lg-4 ">
+					<iframe width="305" height="175" src="//www.youtube.com/embed/UWM2iFlzhQA?rel=0&controls=0&showinfo=0"; frameborder="0" allowfullscreen></iframe>
+				</div>
+				
+				<div class="col-md-6">
+                  	<p>Through the application of game based thinking and game design techniques we aim to increase the level of civic engagement across the residents and visitors of Palo Alto, CA.</p>
+                  	<p>The main idea is this: As a user, you can choose to take on challenges and volunteering events through which you help out the city. After completion you will earn points that can be converted into discounts and prizes redeemable at local shops and businesses. Not only are we rewarding you for your hard work, we’re also helping boost the local and independent economy of Palo Alto. Sounds fun, doesn’t it?</p>
+				</div>
+		
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /aboutwrap -->
+	<section style="height:0px; margin:0px; padding:0px" id="register"></section>
+	<! -- ABOUT SEPARATOR -->
+	<div class="sep about" data-stellar-background-ratio="0.5">
+		<br>
+        <center><h1 style="margin-top:0px;" id="register">REGISTER</h1></center>
+		<section>
+			<div class="row centered">
+				<div class="col-md-4"></div>
+				<div class="col-md-4" >
+
+					<span><h1 >Sign up with<a href="{% url 'socialauth_begin' 'facebook' %}?{{ redirect_querystring }}"><i class="fa fa-facebook-square fa-fw" style="color:#3366FF"></i></a></h1>
+					<p >OR</p></span>
+                    
+					
+				</div>
+
+			</div>
+
+			<form id="theForm" class="simform" autocomplete="off" method="post">{% csrf_token %}
+				<div class="simform-inner">
+					<ol class="questions">
+						<li>
+							<span style="font-family:Ubuntu; color:#080807"><label for="q1">What's your first name?</label></span>
+							{{form.first_name}}
+						</li>
+						<li>
+							<span style="font-family:Ubuntu; color:#080807"><label for="q2">What's your last name?</label></span>
+							{{form.last_name}}
+						</li>
+						<li>
+							<span style="font-family:Ubuntu; color:#080807"><label for="q3">What's your email address?</label></span>
+							{{form.email}}
+						</li>
+						<li>
+							<span style="font-family:Ubuntu; color:#080807"><label for="q4">Please enter a password</label></span>
+							{{form.password1}}
+						</li>
+						<li>
+							<span style="font-family:Ubuntu; color:#080807"><label for="q5">Confirm password</label></span>
+							{{form.password2}}
+						</li>
+						<!--<li>
+							<div style=" padding:20px;">
+							<center><input style="width:200px;height:50px;  font-size: 20px" type="submit"   class="btn btn-primary btn-default" value="Register"></center>
+						</div>
+						</li>-->
+
+					</ol><!-- /questions -->
+					<button class="submit" type="submit">Send answers</button>
+					<div class="controls">
+						<button class="next"></button>
+						<div class="progress"></div>
+						<span class="number">
+							<span class="number-current"></span>
+							<span class="number-total"></span>
+						</span>
+						<span class="error-message"></span>
+					</div><!-- / controls -->
+				</div><!-- /simform-inner -->
+				<span class="final-message"></span>
+			</form><!-- /simform -->			
+		</section>
+
+	</div>
+		<div id="testimonials">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 mt">
+				
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+					    <div class="item active mb centered">
+					      <h3>FORBES</h3>
+					      <p> Play Palo Alto makes it fun to engage in local volunteer events and activities by offering points for participation, which can be redeemed as discounts and prizes at local businesses. Not only will the app help broaden the growing trend of “citizens as capacity,” but it supports the local economy as well.</p>
+					      
+					    </div>
+
+					    <div class="item mb centered">
+					      <h3>CITY OF PALO ALTO</h3>
+					      <p>Using the principles of gamification, the team hopes to reinvent the way Palo Alto visitors and residents interact with the City.<br><br> </p>
+					      
+					    </div>
+
+					    <div class="item mb centered">
+					      <h3>PALO ALTO ONLINE</h3>
+					      <p>Community members can use the application to find and sign up for local volunteer opportunities, as well as be motivated to participate by earning points.<br> </p>
+					      <p><img class="img-circle" src="assets/img/pic-t3.jpg" width="80"></p>
+					    </div>
+
+					  </div>
+					  <!-- Indicators -->
+					  <ol class="carousel-indicators">
+					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					  </ol>
+					</div>
+					  
+				</div><! --/col-lg-8 -->
+			</div><! --/row -->
+		</div><! --/container -->
+	</div><! --/testimonials -->
+	<! -- PORTFOLIO SECTION -->
+	<section id="portfolio" name="portfolio"></section>
+	<! -- SERVICE SECTION -->
+	<section id="services" name="services"></section>
+	<div id="servicewrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8-offset-2 centered">
+					<h1 id="team">MEET THE TEAM</h1>
+				</div><!-- /col-lg-8 -->
+			</div><! --/row -->
+			
+			<div class="row mt">
+				<div class="col-lg-2 service">
+				</div>
+				<div class="col-lg-4 service">
+					<p><img src="/static/img/fra.jpg" class="img-circle" style="width:70px; height:70px"> FRANCESCO FERRARI</p><p><small>FRONT-END AND BACK-END WEB DEVELOPMENT</small></p>
+					<p class="text">Ciao. Loves startups, technology and expressing himself with heavy use of hands.</p>
+				</div>
+				<div class="col-lg-4 service">
+					<p><img src="/static/img/rich.jpg" class="img-circle" style="width:70px; height:70px"> RICHARD LOGAN</p><p><small>FRONT-END WEB DEVELOPMENT</small></p>
+					<p class="text">Full time slayer of noobs.</p>
+				</div>
+				<div class="col-lg-2 service">
+				</div>
+			</div><! --/row -->
+			<div class="row mt">
+				<div class="col-lg-2 service">
+				</div>
+				<div class="col-lg-4 service">
+					<p><img src="/static/img/aris.jpg" class="img-circle" style="width:70px; height:70px"> ARIS ILIOPOLUS<p/><p><small>FRONT-END MOBILE DEVELOPMENT</small></p>
+					<p class="text">A front-end developer and sports lover, living the Californian dream.</p>
+				</div>
+				<div class="col-lg-4 service">
+					<p><img src="/static/img/nikos.jpg" class="img-circle" style="width:70px; height:70px"> NIKOS BREGIANNIS<br/><small>BACK-END MOBILE DEVELOPMENT</small></p>
+					<p class="text">Technology enthusiast dreaming big!</p>
+				</div>
+				<div class="col-lg-2 service">
+				</div>
+			</div><! --/row -->
+			
+		</div><! --/container -->
+	</div><! --/servicewrap -->
+
+	<! -- PORTFOLIO SEPARATOR -->
+	<div class="sep portfolio" data-stellar-background-ratio="0.5" >
+
+     <div  class="container">
+	    	<div class="row">
+	    		<div class="col-lg-8 col-lg-offset-2 centered">
+	    				<h1   id="rec">RECOGNITIONS</h1>
+	    		</div><!-- /col-lg-8 -->
+	    	</div><!-- /row -->
+
+       
+        	<div class="row">
+        		<div class="col-md-3"></div>
+        		<div class="col-md-3 centered">
+        			<h2 style="font-size:25px">1st Prize Winner</h2>
+        			
+                    <img style="width:150px" src="/static/img/hack.png">
+        		</div>
+        		<div class="col-md-3 centered">
+        			<h2 style="font-size:25px">Featured On</h2>
+        			<img style="width:150px; " src="/static/img/forbes.png">
+        			
+        			<div class="row">
+        				
+        				<div class="col-md-5">
+        					
+        					<img style="width:150px; " src="/static/img/city.png">
+        				</div>
+        				<div class="col-md-2"></div>
+        				<div class="col-md-5">
+        					<img style="width:150px; " src="/static/img/online.png">
+        				</div>
+        			</div>
+
+        		</div>
+        		<div class="col-md-3"></div>
+        	</div>
+        </div>
+
+
+
+
+	</div>
+	
+	
+	
+	<script src="/static/assets/js/classie-form.js"></script>
+	<script src="/static/assets/js/stepsForm.js"></script>
+	<script>
+		var theForm = document.getElementById( 'theForm' );
+
+		new stepsForm( theForm, {
+			onSubmit : function( form ) {
+				// hide form
+				classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+
+				/*
+				form.submit()
+				or
+				AJAX request (maybe show loading indicator while we don't have an answer..)
+				*/
+
+				// let's just simulate something...
+				var messageEl = theForm.querySelector( '.final-message' );
+				messageEl.innerHTML = '<input style="width:200px;height:50px;  font-size: 20px" type="submit"   class="btn btn-primary btn-default" value="Register">';
+				classie.addClass( messageEl, 'show' );
+			}
+		} );
+	</script>
+{% endblock %}
