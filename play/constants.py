@@ -10,3 +10,9 @@ CHALLENGE_EVENT=(
 	('Challenge', 'Challenge'),
 	('Event', 'Event'),
 	)
+
+
+ICON =(
+	('fa-thumbs-o-up','fa-thumbs-o-up'),
+	('fa-paw', 'fa-paw'),
+	)

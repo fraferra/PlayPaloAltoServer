@@ -1,0 +1,107 @@
+{% extends "play/layout_user.html" %}
+{% block content %}
+
+
+        <div class="row layout">
+          <div class="col-md-"></div>
+          <div class="col-md-1"></div>
+          <div class="col-md-8">
+
+              <div class="row cover">
+                <div class="col-md-12 "></div>
+              </div>
+
+              <div class="row cover-info">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                  <img style="width:100px"class="img-circle" src="{{player.picture_url}}">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                  <h3 style="color:#FF7400">{{user.first_name}} {{user.last_name}}</h3>
+                <p style="color:#fff">Points <b>{{player.score}}</b> | Exp <b>{{player.experience}}</b> | # Completed Challenges <b>{{num_events}}</b></p>
+                </div>
+              </div>
+
+
+              <div class="row other">
+                <div class="col-md-6 my-event">
+
+                  <h3>My Events</h3>
+                  
+                    {% if my_events|length != 0 %}
+                      {% for event in my_events %}
+                        <p style="text-align:left" ><img style="width:30px;"class="img-circle" src="{{event.picture_url}}">
+                        <b><a href="/event/?id_event={{event.id}}">{{event.title}}</a></b> | {{event.date}}<br>
+                       POINTS {{event.points}} | WHERE {{event.location}}<br>
+                        ORGANIZER {{event.organizer}}
+                        </p>
+          
+                      {% endfor %}
+                    {% else %}
+                        <h4>HAVEN'T CHOSEN ANY EVENT?<br> <a href="/look_events">CHECK OUT WHAT'S AVAILABLE</a></h4>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-6 my-coupon">
+                   <h3>My Events</h3>
+                 
+                    {% if my_coupons|length != 0 %}
+                        {% for event in my_coupons %}
+                           <p style="text-align:left" ><img style="width:30px;"class="img-circle" src="{{event.picture_url}}">
+                           <b><a href="/event/?id_event={{event.id}}">{{event.title}}</a></b><br>
+                            PRICE {{event.price}} | WHERE {{event.location}}<br>
+                            SHOP {{event.shop}}
+                          </p>
+          
+                        {% endfor %}
+                    {% else %}
+                        <h4>HAVEN'T CHOSEN ANY EVENT?<br> <a href="/look_events">CHECK OUT WHAT'S AVAILABLE</a></h4>
+                    {% endif %}
+                </div>
+
+
+              </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+
+          <div  class="row leaderboard">
+            <div class="col-md-12">
+            <h3>Top 5 Players</h3>
+            {% for top in top10 %} 
+                <p style="text-align:left"><img style="width:30px;"class="img-circle" src="{{top.picture_url}}"><b> {{top.user.first_name}}</b> | EXP {{top.experience}}</p>   
+            {% endfor %}
+          </div>
+        </div>
+
+
+
+
+          <div  class="row badges">
+            <div class="col-md-12">
+            <h3>My Badges</h3>
+            <p>
+            {% for badge in my_badges %}
+               <i data-toggle="tooltip" data-placement="left" title="{{badge.title}}" style="font-size:30px"class="fa {{badge.icon}}"></i>
+            {% endfor %}
+            </p>
+            </div>
+        </div>
+
+
+
+        </div><!--sidebar-->
+
+
+
+      </div>
+
+
+
+        
+    
+
+{% endblock %}

@@ -224,3 +224,81 @@ a:after {
 .grid img:hover {
     opacity: 1;
 }
+
+
+.cover{
+	width:100%;
+	height: 100px;
+	background: url('../img/forest.JPG');
+    background-position:center;
+    max-width: 1000px;
+    
+
+}
+
+.cover-info{
+	width:100%;
+	background-color:#272B33;
+	padding:10px;
+	max-width: 1000px;
+
+
+}
+
+
+.my-event{
+	background-color:#fff;
+	padding: 30px;
+
+}
+
+.my-coupon{
+	background-color:#9FB5CC;
+    padding: 30px;
+}
+
+.other{
+	margin-top: 10px;
+	width: 100%;
+
+
+}
+
+.layout{
+	margin-top: 150px;
+	max-width: 1000px;
+	margin-bottom: 300px
+
+}
+
+.leaderboard{
+	background-color: #272B33;
+	max-width: 1000px;
+	min-width: 250px;
+	padding:10px;
+	width: 100%;
+}
+.leaderboard h3{
+	color: #fff;
+}
+.leaderboard p{
+	color: #fff;
+}
+
+.badges{
+	background-color: #26517C;
+	max-width: 1000px;
+	margin-top: 10px;
+	min-width: 250px;
+	padding:10px;
+	width: 100%;
+
+
+}
+
+.badges p{
+	color:#689CD2;	
+}
+.badges h3{
+	color:#689CD2;	
+}

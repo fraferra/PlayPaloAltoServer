@@ -75,9 +75,11 @@ def home(request):
         top10=Player.objects.order_by('experience').reverse()[:5]
         my_events=player.event_set.all()
         my_coupons=player.coupon_set.all()
-        return render(request, 'play/home.html', {'user':user, 'player':player,
+        my_badges=player.badge_set.all()
+        return render(request, 'play/tmp-home.html', {'user':user, 'player':player,
                                                  'num_events':num_events ,'my_coupons':my_coupons,
                                                  'top10':top10, 'my_events':my_events,
+                                                 'my_badges':my_badges,
                                                  'organization':organization})
 
 def look_events(request):
