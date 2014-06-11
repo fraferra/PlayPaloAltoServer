@@ -231,3 +231,32 @@ def feeds(request):
                                                     'form':form,
                                                     'coments_and_feeds':coments_and_feeds,
                                                  'organization':organization})
+
+
+
+def edit_profile(request):
+    completed_events=''
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        completed_events=EventHistory.objects.filter(player=player)
+        organization, shop=getShop(user)
+        num_events=len(completed_events)
+        top10=Player.objects.order_by('experience').reverse()[:5]
+        my_badges=player.badge_set.all()
+        if request.method=='POST':
+            form = EditUserForm(request.POST, instance=user) 
+            if form.is_valid():
+                new_event = form.save()
+                new_event.save()
+                return HttpResponseRedirect('/home/')
+        else:
+            form = EditUserForm(instance=user)
+        return render(request, 'play/edit_profile.html', {'user':user, 'player':player,
+                                                          'num_events':num_events ,
+                                                            'top10':top10,
+                                                            'my_badges':my_badges,
+                                                          'form':form,'organization':organization})
+

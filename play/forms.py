@@ -38,6 +38,10 @@ class CommentFeedForm(ModelForm):
         self.fields['comment'].widget.attrs['rows'] = 1
 
 
+class EditUserForm(ModelForm):
+    class Meta:
+        model=User
+        fields = ('first_name','last_name','username',)
 
 
 
