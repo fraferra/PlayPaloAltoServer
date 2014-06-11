@@ -41,9 +41,12 @@ class CommentFeedForm(ModelForm):
 class EditUserForm(ModelForm):
     class Meta:
         model=User
-        fields = ('first_name','last_name','username',)
+        fields = ('username',)
 
-
+class EditPicForm(ModelForm):
+    class Meta:
+        model=Player
+        fields = ('picture_url', 'facebook_pic')
 
 class SignUpForm(UserCreationForm):
     """ Require email address when a user signs up """

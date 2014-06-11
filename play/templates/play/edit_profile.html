@@ -14,13 +14,15 @@
               <div class="row cover-info">
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
-                  <img style="width:100px"class="img-circle" src="{{player.picture_url}}">
+                  <img style="width:100px; height:100px"class="img-circle" src="{{player.picture_url}}">
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-6">
                   <form method="post">{% csrf_token %}
-                  <h3 style="color:#FF7400">{{form.first_name}} {{form.last_name}}</h3>
-                  <h3 style="color:#FF7400">{{form.username}}</h3>
+                  <h3 style="color:#FF7400">{{player.first_name}} {{player.last_name}}</h3>
+                  <h3 style="color:#FF7400">Username: {{form.username}}</h3>
+                  <h3 style="color:#FF7400">Picture Url: {{form2.picture_url}}</h3>
+                  <h3 style="color:#FF7400">Keep Facebook pic? {{form2.facebook_pic}}</h3>
                   <p><input type="submit"   class="btn btn-primary btn-default" value="Save"></p>
                 </form>
                 <p style="color:#fff">Points <b>{{player.score}}</b> | Exp <b>{{player.experience}}</b> | # Completed Challenges <b>{{num_events}}</b></p>
@@ -38,7 +40,7 @@
             <div class="col-md-12">
             <h3>Top 5 Players</h3>
             {% for top in top10 %} 
-                <p style="text-align:left"><img style="width:30px;"class="img-circle" src="{{top.picture_url}}"><b> {{top.user.first_name}}</b> | EXP {{top.experience}}</p>   
+                <p style="text-align:left"><img style="width:30px; height:30px"class="img-circle" src="{{top.picture_url}}"><b> {{top.user.first_name}}</b> | EXP {{top.experience}}</p>   
             {% endfor %}
           </div>
         </div>

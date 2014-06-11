@@ -18,12 +18,13 @@ import re
 def pictureUrl(user, player):
     try:
         social=UserSocialAuth.objects.get(user=user)
-        social.refresh_token()
-        token=social.extra_data['access_token']
-        url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
-        rr=requests.get(url).json()['picture']['data']['url']
-        player.picture_url=rr
-        player.save()
+        if player.facebook_pic is True:
+            social.refresh_token()
+            token=social.extra_data['access_token']
+            url = 'https://graph.facebook.com/me/?fields=id,name,picture&access_token='+token
+            rr=requests.get(url).json()['picture']['data']['url']
+            player.picture_url=rr
+            player.save()
     except ObjectDoesNotExist:
         pass
 

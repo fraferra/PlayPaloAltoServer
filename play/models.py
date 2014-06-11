@@ -22,7 +22,8 @@ class Player(models.Model):
     score=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=20)
     experience=models.DecimalField(max_digits=5, decimal_places=0, null=True, default=0)
     level=models.DecimalField(max_digits=4, decimal_places=0, null=True, default=0)
-    picture_url=models.CharField(max_length=200, null=True, default='/static/img/avatar-1.png')
+    picture_url=models.CharField(max_length=400, null=True, default='/static/img/avatar-1.png')
+    facebook_pic=models.BooleanField(default=True)
     def __unicode__(self):  # Python 3: def __str__(self):
         return unicode(self.user) or u'' 
 

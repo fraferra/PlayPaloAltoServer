@@ -247,16 +247,22 @@ def edit_profile(request):
         top10=Player.objects.order_by('experience').reverse()[:5]
         my_badges=player.badge_set.all()
         if request.method=='POST':
+            form2 = EditPicForm(request.POST, instance=player) 
             form = EditUserForm(request.POST, instance=user) 
-            if form.is_valid():
-                new_event = form.save()
-                new_event.save()
+            if form.is_valid() and form2.is_valid():
+                updated_user = form.save()
+                updated_pic=form2.save()
+                print updated_pic.picture_url
+                updated_pic.save()
+                updated_user.save()
                 return HttpResponseRedirect('/home/')
         else:
             form = EditUserForm(instance=user)
+            form2 = EditPicForm( instance=player) 
         return render(request, 'play/edit_profile.html', {'user':user, 'player':player,
                                                           'num_events':num_events ,
                                                             'top10':top10,
+                                                            'form2':form2,
                                                             'my_badges':my_badges,
                                                           'form':form,'organization':organization})
 
