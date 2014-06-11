@@ -267,7 +267,8 @@ a:after {
 .layout{
 	margin-top: 150px;
 	max-width: 1000px;
-	margin-bottom: 300px
+	margin-bottom: 300px;
+	width:100%;
 
 }
 

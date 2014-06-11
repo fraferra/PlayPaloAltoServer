@@ -281,7 +281,13 @@ def api_v2_events(request):
         events=Event.objects.all()
         list_events=[]
         for eve in events:
-            list_events.append({'name':eve.title,'id':eve.id ,'type':eve.event_type,'location':eve.location, 'points':eve.points, 'experience':eve.experience})
+            people=eve.participants.all()
+            pp=[]
+            for p in people:
+                pp.append({'FirstName':p.user.first_name, 'Picture':p.picture_url})
+            list_events.append({'Name':eve.title,'id':eve.id ,'Category':eve.event_type,
+                'Location':eve.location, 'Points':eve.points, 'Experience':eve.experience,
+                'DateTime':str(eve.date),'Description':eve.description, 'Organizer':eve.organizer.title, 'Participants':pp })
         data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
                'picture_url':player.picture_url, 'list_events':list_events}
     data = simplejson.dumps(data)
