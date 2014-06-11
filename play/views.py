@@ -53,7 +53,7 @@ def index(request):
             return HttpResponseRedirect('/login/') 
     else:
         form = SignUpForm()
-    return render(request, 'play/new_index.html', {'form':form})
+    return render(request, 'general/index2.html', {'form':form})
 
 
 
