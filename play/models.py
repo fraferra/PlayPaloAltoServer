@@ -48,7 +48,8 @@ class EventHistory(models.Model):
     #event_done=models.ForeignKey(Event, related_name='created')
     organization=models.CharField(max_length=100, null=True)
     player=models.ForeignKey(Player)
-    points=models.DecimalField(max_digits=4, decimal_places=0) 
+    points=models.DecimalField(max_digits=4, decimal_places=0)
+    event_type=models.CharField(max_length=50,choices=constants.TYPE, default=None, null=True)
     #organization=models.ForeignKey(Organization, related_name='organization')
 
 class Idea(models.Model):
@@ -88,9 +89,14 @@ class Badge(models.Model):
     title=models.CharField(max_length=100, null=True, default='Beginner!')
     icon=models.CharField(max_length=50,choices=constants.ICON, default='fa-thumbs-o-up')
 
-
+'''
 def assign_badge(sender, instance, created, **kwargs):
     if created:
-        Badge.objects.create(player=instance)
+        badge=Badge.objects.create(player=instance.player)
+        type_event=['Animals', 'Food','Art', 'Shopping', 'Elders', 'Environment']
+        for tt in type_event:
+
+
+
         
-post_save.connect(assign_badge, sender=Player)
+post_save.connect(assign_badge, sender=EventHistory) '''

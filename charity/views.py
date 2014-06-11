@@ -102,6 +102,7 @@ def reward(request):
                 #event=event,
                 organization=organization.title,
                 title=event.title,
+                event_type=event.event_type,
                 points=event.points
                 )
             player.save()
