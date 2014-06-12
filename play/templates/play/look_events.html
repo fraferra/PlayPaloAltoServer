@@ -2,10 +2,16 @@
 {% block content %}
 
 <div id="social">
-		<div class="container"  >
+		<div  id="challenge"class="container"  >
       <div class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-4"><h3>Filter</h3></div>
+        <div class="col-md-4">
+             <span><h3>Filter</h3>
+               <input class="search" placeholder="Search" />
+               <button class="sort" data-sort="type">
+               Sort by Type
+             </button></span>
+        </div>
       </div>
 			<div class="row">
         <div class="col-md-4"></div>
@@ -24,7 +30,10 @@
           </a>
           <div id="collapseCha" class="panel-collapse collapse col-md-12">
             <div class="panel-body">
+
+            <ul class="list">
             {% for result in events.challenges %}
+            <li>
             <hr class="featurette-divider"></hr>
             <div class="row">
               <div class="col-md-1">
@@ -36,7 +45,8 @@
                 <p># comments {{result.comment_set.all|length}}</p>
               </div>
               <div class="col-md-5">
-                <p><b>WHAT</b> {{result.description}}<br>
+                <p><b>TYPE</b><span class='type'> {{result.event_type}}</span><br>
+                <b>WHAT</b> {{result.description}}<br>
                 <b>WHERE</b> {{result.location}}<br>
                 <b>POINTS</b> {{result.points}} | <b>EXP</b> {{result.experience}}</p>
               </div>
@@ -63,7 +73,7 @@
                   </div>
                 </div>
             </div>
-
+            </li>
               {% endfor %}
         </div>
         
@@ -293,5 +303,12 @@
 
             </div><!--contaneir-->
           </div> <!--social-->
+<script src="http://listjs.com/no-cdn/list.js"></script>
+<script type="text/javascript">
+    var options = {
+      valueNames: [ 'type',  ]
+     };
 
+    var userList = new List('challenge', options);
+</script>
 {% endblock %}
