@@ -24,6 +24,8 @@ urlpatterns = patterns('',
     url(r'^api/v1/history_coupons/$', views.api_v1_history_coupons ,name='api_history_coupons'),
 
     url(r'^api/v2/login/$', views.api_v2_login ,name='api_login'),
+    url(r'^api/v2/add_event/$', views.api_v2_add_event ,name='api_add_event'),
+    url(r'^api/v2/add_coupon/$', views.api_v2_add_coupon ,name='api_add_coupon'),
     url(r'^api/v2/home/$', views.api_v2_home ,name='api_home'),
     url(r'^api/v2/logout/$', views.api_v2_logout ,name='api_logout'),
     url(r'^api/v2/my_events/$', views.api_v2_my_events ,name='api_my_events'),

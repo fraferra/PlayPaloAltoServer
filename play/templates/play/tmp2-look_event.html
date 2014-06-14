@@ -1,0 +1,139 @@
+{% extends "play/layout_user.html" %}
+{% block content %}
+
+<section class="container">
+        
+        <h1>Filters</h1>
+        <p>
+            You can easily add any filter you want, once a filter is clicked the images will reorganize gracefully. See the example.        
+        </p>
+        <hr>
+        <div id="gallery">
+
+             <div class="ftg-filters">
+                 <a href="#">All</a>
+                 <a href="#cat-1">Category 1</a>
+                 <a href="#cat-2">Category 2</a>
+                 <a href="#cat-3">Category 3</a>
+             </div>
+             
+             <div class="ftg-items">
+                <div class="ftg-items">
+                    <article class="tile ftg-cat-1">
+                        <a class="tile-inner" href="photos/1.jpg">
+                            <img class="item" src="photos/thumbs/1.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    
+                    <article class="tile ftg-cat-2">
+                        <a class="tile-inner" href="photos/2.jpg">
+                            <img class="item" src="photos/thumbs/2.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article>                    
+                                        
+                    <article class="tile ftg-cat-3">
+                        <a class="tile-inner" href="photos/3.jpg">
+                            <img class="item" src="photos/thumbs/3.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article>
+                    
+                    <article class="tile ftg-cat-1">
+                        <a class="tile-inner" href="photos/5.jpg">
+                            <img class="item" src="photos/thumbs/5.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article>
+                                        
+                    <article class="tile ftg-cat-2">
+                        <a class="tile-inner" href="photos/4.jpg">
+                            <img class="item" src="photos/thumbs/4.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article>                                                         
+                                        
+                    <article class="tile ftg-cat-3">
+                        <a class="tile-inner" href="photos/6.jpg">
+                            <img class="item" src="photos/thumbs/6.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article> 
+                    
+                    <article class="tile ftg-cat-1">
+                        <a class="tile-inner" href="photos/7.jpg">
+                            <img class="item" src="photos/thumbs/7.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article> 
+                    
+                    <article class="tile ftg-cat-2">
+                        <a class="tile-inner" href="photos/8.jpg">
+                            <img class="item" src="photos/thumbs/8.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article> 
+                    
+                    <article class="tile ftg-cat-3">
+                        <a class="tile-inner" href="photos/9.jpg">
+                            <img class="item" src="photos/thumbs/9.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article> 
+                    
+                    <article class="tile ftg-cat-1">
+                        <a class="tile-inner" href="photos/10.jpg">
+                            <img class="item" src="photos/thumbs/10.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article> 
+                    
+                    <article class="tile ftg-cat-2">
+                        <a class="tile-inner" href="photos/11.jpg">
+                            <img class="item" src="photos/thumbs/11.jpg" />
+                            <div class="caption">
+                                <p>Photo title</p>
+                            </div>
+                        </a>
+                    </article>                                                                          
+                </div>
+             </div>
+        </div>
+    </section>
+    <script type="text/javascript" charset="utf-8">
+        $('#gallery').finalTilesGallery({
+            gridCellSize: 50,
+            minTileWidth: 100
+        });
+    </script>  
+        
+
+    <script>
+        $(".tile > a").magnificPopup({
+            type: 'image'
+        });
+    </script> 
+
+{% endblock %}

@@ -2,25 +2,16 @@
 {% block content %}
 
 <div id="social">
-		<div  id="challenge"class="container"  >
+    <div  class="container"  >
+
       <div class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-4">
-             <span><h3>Filter</h3>
-               <input class="search" placeholder="Search" />
-               <button class="sort" data-sort="type">
-               Sort by Type
-             </button></span>
-        </div>
-      </div>
-			<div class="row">
-        <div class="col-md-4"></div>
-				<br>
-				
-				<div style="background-color:#F8F8F8"class="col-md-7">
+        <br>
+        
+        <div style="background-color:#F8F8F8"class="col-md-7">
          <h2>WHAT'S GOING ON IN PALO ALTO</h2>
-					<div class="panel-group" id="accordion">
-						
+          <div class="panel-group" id="accordion">
+            
 
 
 
@@ -31,9 +22,9 @@
           <div id="collapseCha" class="panel-collapse collapse col-md-12">
             <div class="panel-body">
 
-            <ul class="list">
+
             {% for result in events.challenges %}
-            <li>
+
             <hr class="featurette-divider"></hr>
             <div class="row">
               <div class="col-md-1">
@@ -73,7 +64,7 @@
                   </div>
                 </div>
             </div>
-            </li>
+
               {% endfor %}
         </div>
         
@@ -303,12 +294,5 @@
 
             </div><!--contaneir-->
           </div> <!--social-->
-<script src="http://listjs.com/no-cdn/list.js"></script>
-<script type="text/javascript">
-    var options = {
-      valueNames: [ 'type',  ]
-     };
 
-    var userList = new List('challenge', options);
-</script>
 {% endblock %}

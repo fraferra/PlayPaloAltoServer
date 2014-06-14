@@ -103,7 +103,7 @@ def look_events(request):
                 event.save()
                 player.save()
                 return HttpResponseRedirect('/home/')
-        return render(request, 'play/look_events.html', {'user':user, 'player':player,
+        return render(request, 'play/tmp-look_event.html', {'user':user, 'player':player,
                                                  'events':events, 'my_events':my_events,
                                                  'yelp':yelp,
                                                  #'comment_events':comment_events,

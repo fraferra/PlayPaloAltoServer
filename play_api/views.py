@@ -94,7 +94,49 @@ def api_v2_logout(request):
     return HttpResponse(data, mimetype='application/json')
 
 
- 
+def api_v2_add_event(request):
+    if not customAuth(request):
+        #return HttpResponseRedirect('/api/v2/login/')
+        message='not authenticated'
+        data={'message':message}
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        id_event=request.GET.get('id','')
+        event=Event.objects.get(pk=id_event)
+        event.participants.add(player)
+        event.save()
+        pictureUrl(user, player)
+        data= {'user':user.username, 'score':player.score,
+               'experience':player.experience, 
+               'message':'Event added to your list!',
+               'picture_url':player.picture_url}
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')   
+
+
+def api_v2_add_coupon(request):
+    if not customAuth(request):
+        #return HttpResponseRedirect('/api/v2/login/')
+        message='not authenticated'
+        data={'message':message}
+    else:
+        user=request.user
+        player=Player.objects.get(user=user)
+        id_coupon=request.GET.get('id','')
+        coupon=Coupon.objects.get(pk=id_coupon)
+        coupon.buyers.add(player)
+        coupon.save()
+        pictureUrl(user, player)
+        data= {'user':user.username, 'score':player.score,
+               'experience':player.experience, 
+               'message':'Coupon added to your list!',
+               'picture_url':player.picture_url}
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')   
+
+
+
 
 def api_v2_home(request):
     if not customAuth(request):
@@ -105,7 +147,17 @@ def api_v2_home(request):
         user=request.user
         player=Player.objects.get(user=user)
         pictureUrl(user, player)
-        data= {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture_url':player.picture_url}
+        tops=Player.objects.order_by('experience').reverse()[:5]
+        top5=[]
+        for top in tops:
+            top5.append({'first_name':top.user.first_name, 
+                         'experience':top.experience,
+                         'picture':top.picture_url})
+
+        data= {'user':user.username, 'score':player.score,
+               'experience':player.experience,
+               'picture':player.picture_url,
+               'top5':top5}
     data = simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')   
 
@@ -119,11 +171,12 @@ def api_v2_leaderboard(request):
         token=request.GET.get('token','')
         player=Player.objects.get(token=token)
         user=player.user
-
-        players=Player.objects.all().order_by('score')
+        players=Player.objects.all().order_by('experience')
         list_of_players=[]
         for other_player in players:
-            list_of_players.append({'player':other_player.user.username, 'player_experience':other_player.experience})
+            list_of_players.append({'first_name':other_player.user.first_name,
+                                    'experience':other_player.experience,
+                                    'picture':other_player.picture_url})
 
         data= {'user':user.username, 'score':player.score, 'experience':player.experience,
                 'picture_url':player.picture_url, 'players':list_of_players}
@@ -211,7 +264,31 @@ def api_v2_my_coupons(request):
     return HttpResponse(data, mimetype='application/json')
 
 
+def api_v2_coupons(request):
+    if not customAuth(request):
+        #return HttpResponseRedirect('/api/v2/login/')
+        message='not authenticated'
+        data={'message':message}
+    else:
+        token=request.GET.get('token','')
+        player=Player.objects.get(token=token)
+        user=player.user
+        id_coupon=request.GET.get('id','')
+        coupons=Coupon.objects.all()
+        list_of_coupons=[]
+        for cou in coupons:
+            list_of_coupons.append({'name':cou.title, 'price':cou.price,
+                                    'location':cou.location, 
+                                    'shop':cou.shop, 'description':cou.description,
+                                    'remaining':cou.coupons_released,
+                                    'picture':cou.picture_url})# 'shop':cou.shop, #'remaining':cou.coupons_released})
+        data = {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture':player.picture_url, 'list_of_coupons':list_of_coupons}
+    data = simplejson.dumps(data)
+    return HttpResponse(data, mimetype='application/json')
 
+
+
+'''
 def api_v2_coupons(request):
     if not customAuth(request):
         #return HttpResponseRedirect('/api/v2/login/')
@@ -253,6 +330,7 @@ def api_v2_coupons(request):
         data = {'user':user.username, 'score':player.score, 'experience':player.experience, 'picture_url':player.picture_url, 'list_of_coupons':list_of_coupons}
     data = simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')
+'''
 
 def api_v2_events(request):
     if not customAuth(request):
