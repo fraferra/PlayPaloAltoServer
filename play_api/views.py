@@ -104,12 +104,17 @@ def api_v2_add_event(request):
         player=Player.objects.get(user=user)
         id_event=request.GET.get('id','')
         event=Event.objects.get(pk=id_event)
-        event.participants.add(player)
-        event.save()
+        players=event.participants_set.all()
+        if not player in players:
+            event.participants.add(player)
+            event.save()
+            message='Event added!'
+        else:
+            message='Event already added!'
         pictureUrl(user, player)
         data= {'user':user.username, 'score':player.score,
                'experience':player.experience, 
-               'message':'Event added to your list!',
+               'message':message,
                'picture_url':player.picture_url}
     data = simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')   
@@ -125,12 +130,17 @@ def api_v2_add_coupon(request):
         player=Player.objects.get(user=user)
         id_coupon=request.GET.get('id','')
         coupon=Coupon.objects.get(pk=id_coupon)
-        coupon.buyers.add(player)
-        coupon.save()
+        players=coupon.buyers_set.all()
+        if not player in players:
+            coupon.buyers.add(player)
+            coupon.save()
+            message='Coupon added!'
+        else:
+            message='Coupon already purchased!'
         pictureUrl(user, player)
         data= {'user':user.username, 'score':player.score,
                'experience':player.experience, 
-               'message':'Coupon added to your list!',
+               'message':message,
                'picture_url':player.picture_url}
     data = simplejson.dumps(data)
     return HttpResponse(data, mimetype='application/json')   
