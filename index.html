@@ -7,23 +7,22 @@
     <!-- CSS 
         ================================================== -->
     <!-- Bootstrap 3-->
-    <link href="/static/new_index/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic|Roboto+Condensed:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
     <!-- Template Styles -->
 
-    <link rel="stylesheet" type="text/css" href="/static/assets/css/component.css" />
+
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/iconfont.css">
-	<link href="/static/new_index/css/style.css" rel="stylesheet" media="screen">
+	<link href="css/style.css" rel="stylesheet" media="screen">
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-    <script src="/static/assets/js/modernizr.custom.js"></script>
-	    <link rel="stylesheet" href="/static/new_index/css/m-buttons.css">
-    <link rel="stylesheet" href="/static/new_index/css/m-icons.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-	<script src="/static/new_index/js/modernizr.custom.js"></script>
+	    <link rel="stylesheet" href="css/m-buttons.css">
+    <link rel="stylesheet" href="css/m-icons.css">
+
+	<script src="js/modernizr.custom.js"></script>
    </head>
  	<body>
 	  
@@ -51,7 +50,7 @@
 			      <li><a onclick="$('.detail').animatescroll({padding:71});">Mobile</a></li>
 			      <li><a onclick="$('.team').animatescroll({padding:71});">Team</a></li>
 			      <li><a onclick="$('.social').animatescroll({padding:71});">Social</a></li>
-			      <li><a onclick="href=http://www.google.com" href="/login">Sign In</a></li>
+			      <li><a onclick="href=http://www.google.com">Sign In</a></li>
 			    </ul>
 			  </div>
 		  </div>
@@ -64,7 +63,7 @@
 		 <div class="container">
 			 <div class="row">
 				 <div class="col-md-12">
-					  <img class="logo" src="/static/new_index/img/logo-play.png"/>
+					  <img class="logo" src="img/logo-play.png"/>
 					  <h1>Play Palo Alto</h1>
 					  <p class="lead">Let's Gamify This City</p>
 					  
@@ -101,63 +100,7 @@
 	  	   <div class="row">
 	  	   	<div class="col-md-10 col-md-offset-1">
 		  	   <p>If you liked the idea visit our Web App Page. Help Palo Alto and become a better citizen. The only thing you have to do is to create a new account, or login with your facebook profile and join our growing community.</p>
-		  	   <section>
-			<div class="row centered">
-				<div class="col-md-4"></div>
-				<div class="col-md-4" >
-
-					<span><h1 >Sign up with<a href="{% url 'socialauth_begin' 'facebook' %}?{{ redirect_querystring }}"><i class="fa fa-facebook-square fa-fw" style="color:#3366FF"></i></a></h1>
-					<p >OR</p></span>
-                    
-					
-				</div>
-
-			</div>
-
-			<form id="theForm" class="simform" autocomplete="off" method="post">{% csrf_token %}
-				<div class="simform-inner">
-					<ol class="questions">
-						<li>
-							<span ><label for="q1">What's your first name?</label></span>
-							{{form.first_name}}
-						</li>
-						<li>
-							<span><label for="q2">What's your last name?</label></span>
-							{{form.last_name}}
-						</li>
-						<li>
-							<span ><label for="q3">What's your email address?</label></span>
-							{{form.email}}
-						</li>
-						<li>
-							<span><label for="q4">Please enter a password</label></span>
-							{{form.password1}}
-						</li>
-						<li>
-							<span><label for="q5">Confirm password</label></span>
-							{{form.password2}}
-						</li>
-						<!--<li>
-							<div style=" padding:20px;">
-							<center><input style="width:200px;height:50px;  font-size: 20px" type="submit"   class="btn btn-primary btn-default" value="Register"></center>
-						</div>
-						</li>-->
-
-					</ol><!-- /questions -->
-					<button class="submit" type="submit">Send answers</button>
-					<div class="controls">
-						<button class="next"></button>
-						<div class="progress"></div>
-						<span class="number">
-							<span class="number-current"></span>
-							<span class="number-total"></span>
-						</span>
-						<span class="error-message"></span>
-					</div><!-- / controls -->
-				</div><!-- /simform-inner -->
-				<span class="final-message"></span>
-			</form><!-- /simform -->			
-		</section>
+		  	   <div class="pagebutton">Get Started Here</div>
 		  	</div>
 		  </div>
 		</div>
@@ -187,7 +130,7 @@
 					      		</div>
 					      		<div class="col-sm-12 col-md-5">
 					      			<div class="app-screenshot">
-					      				<img src="/static/new_index/img/screenshots/app-2.png" class="img-responsive" alt="App Screen 1">
+					      				<img src="img/screenshots/app-2.png" class="img-responsive" alt="App Screen 1">
 					      			</div>
 					      		</div>
 					      	</div>
@@ -200,7 +143,7 @@
 					    		</div>
 					    		<div class="col-sm-12 col-md-5">
 					    			<div class="app-screenshot">
-					    				<img src="/static/new_index/img/screenshots/app-1.png" class="img-responsive" alt="App Screen 2">
+					    				<img src="img/screenshots/app-1.png" class="img-responsive" alt="App Screen 2">
 					    			</div>
 					    		</div>
 					    	</div>
@@ -213,7 +156,7 @@
 					      	</div>
 					      	<div class="col-sm-12 col-md-5">
 					      		<div class="app-screenshot">
-					      			<img src="/static/new_index/img/screenshots/app-3.png" class="img-responsive" alt="App Screen 3">
+					      			<img src="img/screenshots/app-3.png" class="img-responsive" alt="App Screen 3">
 					      		</div>
 					      	</div>
 					      </div>
@@ -242,30 +185,28 @@
 				<h1>Meet The Team</h1>
 
 				  <div class="col-md-3">
-					  <a  target="_blank" href="https://github.com/fraferra"><img src="/static/new_index/img/fra.jpg" class="circle" ></img></a>
+					  <a  href="https://github.com/fraferra"><img src="/img/fra.jpg" class="circle" ></img></a>
 					  <h2>Francesco Ferrari</h2>
 					  <p><b>FRONT-END AND BACK-END WEB DEVELOPMENT</b></p>
 					  <p>Ciao. Loves startups, technology and expressing himself with heavy use of hands</p>
 				  </div>
 				
 				  <div class="col-md-3">
-					  <a  target="_blank" href="https://github.com/RichLogan"><img src="/static/new_index/img/rich.jpg" class="circle"></img></a>
+					  <a  href="https://github.com/RichLogan"><img src="/img/rich.jpg" class="circle"></img></a>
 					  <h2>Richard Logan</h2>
 					  <p><b>FRONT-END WEB DEVELOPMENT</b></p>
 					  <p>Full time slayer of noobs</p>
 				  </div>
 				 
 				  <div class="col-md-3">
-					  <a target="_blank" href="https://www.linkedin.com/pub/aris-iliopoulos/58/537/683"><img src="/static/new_index/img/aris.jpg" class="circle"></img></a>
+					  <a href="https://github.com/iliogr"><img src="/img/aris.jpg" class="circle"></img></a>
 					  <h2>Aris Iliopoulos</h2>
 					  <p><b>FRONT-END MOBILE DEVELOPMENT</b></p>
 					  <p>A front-end developer and sports lover, living the Californian dream</p>
 				  </div>
 
 				  <div class="col-md-3">
-
-					  <a target="_blank" href="nikos.html"><img src="/static/new_index/img/nikos.jpg"  class="circle"></img></a>
-
+					  <a href="nikos.html"><img src="/img/nikos.jpg"  class="circle"></img></a>
 					  <h2>Nikos Bregiannis</h2>
 					  <p><b>BACK-END MOBILE DEVELOPMENT</b></p>
 					  <p>Technology enthusiast dreaming big</p>
@@ -284,9 +225,9 @@
 	  		  <div class="row">
 	  			  <div class="col-md-12">
 	  			  	<h2>Connect with us</h2>
-	  			   	<a target="_blank" class="icon-facebook" href="http://www.facebook.com/playpaloalto"></a>
-	  			   	<a target="_blank" class="icon-twitter" href="http://www.twitter.com/playpaloalto"></a>
-	  			   	<a target="_blank" class="icon-instagram" href="http://www.instagram.com/playpaloalto"></a>
+	  			   	<a class="icon-facebook" href="http://www.facebook.com/playpaloalto"></a>
+	  			   	<a class="icon-twitter" href="http://www.twitter.com/playpaloalto"></a>
+	  			   	<a class="icon-instagram" href="http://www.instagram.com/playpaloalto"></a>
 	  			   </div>
 	  		  </div>
 	  	  </div>	  
@@ -304,17 +245,17 @@
 				
 	  				<div class="col-md-6">
 	  					<h2><u>1st Prize @ HackPaloAlto</u></h2>
-	  					<a target="_blank" href="http://www.hackpaloalto.org/"><img class="image" src="/static/new_index/img/prize.png"></img></a>
+	  					<a href="http://www.hackpaloalto.org/"><img class="image" src="img/prize.png"></img></a>
 	  				</div>
 	  				<div class="col-md-6">
 	  					<h2><u>Featured On</u></h2>
-	  					<a target="_blank" href="http://www.forbes.com/sites/sap/2014/06/01/civic-innovation-thrives-in-silicon-valley/"><img class="image" src="/static/new_index/img/forbes.png"></img></a>
+	  					<a href="http://www.forbes.com/sites/sap/2014/06/01/civic-innovation-thrives-in-silicon-valley/"><img class="image" src="img/forbes.png"></img></a>
 	  	
-	  					<a target="_blank" href="http://www.cityofpaloalto.org/news/displaynews.asp?NewsID=2687&TargetID=268"><img class="image" src="/static/new_index/img/city.png"></img></a>
+	  					<a href="http://www.cityofpaloalto.org/news/displaynews.asp?NewsID=2687&TargetID=268"><img class="image" src="img/city.png"></img></a>
 
-	  					<a target="_blank" href="http://www.paloaltoonline.com/news/2014/06/01/community-service-app-play-palo-alto-wins-citys-apps-challenge"><img class="image1" src="/static/new_index/img/daily.gif"></img></a>
+	  					<a href="http://www.paloaltoonline.com/news/2014/06/01/community-service-app-play-palo-alto-wins-citys-apps-challenge"><img class="image1" src="img/daily.gif"></img></a>
 	  					
-	  					<a target="_blank" href="http://www.paloaltoonline.com/news/2014/06/01/community-service-app-play-palo-alto-wins-citys-apps-challenge"><img class="image" src="/static/new_index/img/online.png"></img></a>
+	  					<a href="http://www.paloaltoonline.com/news/2014/06/01/community-service-app-play-palo-alto-wins-citys-apps-challenge"><img class="image" src="img/online.png"></img></a>
 
 	  				</div>
 	  			</div>
@@ -335,33 +276,10 @@
 	 
 	 <!-- JAVASCRIPT
 	     ================================================== -->
-    <script src="/static/new_index/js/jquery.js"></script>
-    <script src="/static/new_index/js/bootstrap.min.js"></script>
-    <script src="/static/new_index/js/animatescroll.js"></script>
-    <script src="/static/new_index/js/scripts.js"></script>
-    <script src="/static/new_index/js/retina-1.1.0.min.js"></script>
-    	<script src="/static/assets/js/classie-form.js"></script>
-	<script src="/static/assets/js/stepsForm.js"></script>
-	<script>
-		var theForm = document.getElementById( 'theForm' );
-
-		new stepsForm( theForm, {
-			onSubmit : function( form ) {
-				// hide form
-				classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
-
-				/*
-				form.submit()
-				or
-				AJAX request (maybe show loading indicator while we don't have an answer..)
-				*/
-
-				// let's just simulate something...
-				var messageEl = theForm.querySelector( '.final-message' );
-				messageEl.innerHTML = '<input style="width:200px;height:50px;  font-size: 20px" type="submit"   class="btn btn-primary btn-default" value="Register">';
-				classie.addClass( messageEl, 'show' );
-			}
-		} );
-	</script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/animatescroll.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/retina-1.1.0.min.js"></script>
   	
 </html>
