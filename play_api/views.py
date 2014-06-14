@@ -104,7 +104,7 @@ def api_v2_add_event(request):
         player=Player.objects.get(user=user)
         id_event=request.GET.get('id','')
         event=Event.objects.get(pk=id_event)
-        players=event.participants_set.all()
+        players=event.participants.all()
         if not player in players:
             event.participants.add(player)
             event.save()
@@ -130,7 +130,7 @@ def api_v2_add_coupon(request):
         player=Player.objects.get(user=user)
         id_coupon=request.GET.get('id','')
         coupon=Coupon.objects.get(pk=id_coupon)
-        players=coupon.buyers_set.all()
+        players=coupon.buyers.all()
         if not player in players:
             coupon.buyers.add(player)
             coupon.save()
