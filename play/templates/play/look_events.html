@@ -331,7 +331,33 @@
                      <p style="font-size:18px"><a href="/look_events/?id_event={{result.id}}">Join  <i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
                 </li>
               {% endfor %}
-
+              {% for result in events.today %}
+                <li>
+                     <h3  class="name"><a href="/event/?id_event={{result.id}}">{{result.title}}</a> 
+                      | {{result.event_type}}</h3>
+                     <p>Type: {{result.challenge_event}}<br>
+                     Points: {{result.points}} | Exp: {{result.points}}</p>
+                     <p style="font-size:18px"><a href="/look_events/?id_event={{result.id}}">Join  <i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
+                </li>
+              {% endfor %}
+              {% for result in events.future %}
+                <li>
+                     <h3  class="name"><a href="/event/?id_event={{result.id}}">{{result.title}}</a> 
+                      | {{result.event_type}}</h3>
+                     <p>Type: {{result.challenge_event}}<br>
+                     Points: {{result.points}} | Exp: {{result.points}}</p>
+                     <p style="font-size:18px"><a href="/look_events/?id_event={{result.id}}">Join  <i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
+                </li>
+              {% endfor %}
+              {% for result in events.past %}
+                <li>
+                     <h3  class="name"><a href="/event/?id_event={{result.id}}">{{result.title}}</a> 
+                      | {{result.event_type}}</h3>
+                     <p>Type: {{result.challenge_event}}<br>
+                     Points: {{result.points}} | Exp: {{result.points}}</p>
+                     <p style="font-size:18px"><a href="/look_events/?id_event={{result.id}}">Join  <i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
+                </li>
+              {% endfor %}
             </ul>
 
           </div>
