@@ -9,7 +9,16 @@
         <br>
         
         <div style="background-color:#F8F8F8"class="col-md-7">
-         <h2>WHAT'S GOING ON IN PALO ALTO</h2>
+         <h2>
+              WHAT'S GOING ON IN PALO ALTO
+             <!-- Button trigger modal -->
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                Filter
+              </button>
+         </h2>
+
+
+
           <div class="panel-group" id="accordion">
             
 
@@ -19,7 +28,7 @@
           <a data-toggle="collapse" data-parent="#accordion" href="#collapseCha">
               <h3>CHALLENGES  <i style="font-size:30px"class="fa fa-rocket"></i></h3>
           </a>
-          <div id="collapseCha" class="panel-collapse collapse col-md-12">
+          <div id="collapseCha" class="panel-collapse in collapse col-md-12">
             <div class="panel-body">
 
 
@@ -295,4 +304,50 @@
             </div><!--contaneir-->
           </div> <!--social-->
 
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div id="users">
+            <input class="search" placeholder="Search..." />
+            <p style="font-size:15px">(Search by category or name. Categories: Animals, Art, Environment, Shopping, Elders, Food. )</p>
+
+            <ul class="list">
+              {% for result in events.challenges %}
+                <li>
+                     <h3  class="name"><a href="/event/?id_event={{result.id}}">{{result.title}}</a> 
+                      | {{result.event_type}}</h3>
+                     <p>Type: {{result.challenge_event}}<br>
+                     Points: {{result.points}} | Exp: {{result.points}}</p>
+                     <p style="font-size:18px"><a href="/look_events/?id_event={{result.id}}">Join  <i class="fa fa-check-square-o" style="font-size:15px"></i></a></p>
+                </li>
+              {% endfor %}
+
+            </ul>
+
+          </div>
+        <script src="http://listjs.com/no-cdn/list.js"></script>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var options = {
+  valueNames: [ 'name', 'born' ]
+};
+
+var userList = new List('users', options);
+</script>
 {% endblock %}

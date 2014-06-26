@@ -249,12 +249,14 @@ a:after {
 .my-event{
 	background-color:#fff;
 	padding: 30px;
+	min-height: 150px;
 
 }
 
 .my-coupon{
 	background-color:#9FB5CC;
     padding: 30px;
+    min-height: 150px;
 }
 
 .other{
@@ -302,4 +304,13 @@ a:after {
 }
 .badges h3{
 	color:#689CD2;	
+}
+
+
+.btn-sm,
+.btn-xs {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
 }

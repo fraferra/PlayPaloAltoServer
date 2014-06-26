@@ -87,18 +87,18 @@
                 <div class="ftg-items">
                     {% for challenge in events.challenges %}
 
-                    <article class="tile ftg-{{challenge.event_type}} ftg-{{challenge.challenge_event}}">
+                    <article  class="tile ftg-{{challenge.event_type}} ftg-{{challenge.challenge_event}}" >
 
-                        <a class="tile-inner" href="{{challenge.picture_url}}">
+                        
 
-                            <img class="item" src="{{challenge.picture_url}}" />
+                            <img  class="item" src="{{challenge.picture_url}}" />
                             <div class="caption">
                                 <p><b>{{challenge.title}}</b><br>
                                 <b>WHAT</b>{{challenge.description}}<br>
                                 <b>WHERE</b>{{challenge.location}}<br>
                                 <b>POINTS</b>{{challenge.points}} | <b>EXP</b>{{challenge.experience}}</p>
                             </div>
-                        </a>
+                 
                     </article>
 
 

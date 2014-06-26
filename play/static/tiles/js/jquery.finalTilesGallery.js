@@ -106,8 +106,8 @@ jQuery.easing["jswing"] = jQuery.easing["swing"]; jQuery.extend(jQuery.easing, {
 
         Slot.prototype.resize = function (blocks, onlyWidth) {
             //nw : nh = w : h => nh = nw * h / w
-            var new_width = blocks * this.cell_size;
-            var new_height = (new_width * this.px.height) / this.px.width;
+            var new_width = 100;
+            var new_height = 100;
             var bv = this.blocks.v;
             this.blocks.h = blocks;
             if(!onlyWidth)
@@ -118,9 +118,9 @@ jQuery.easing["jswing"] = jQuery.easing["swing"]; jQuery.extend(jQuery.easing, {
             this.slots = [];
             this.cells = [];
             this.margin = margin;
-            this.min_tile_width = min_tile_width;
-            this.cell_size = cell_size;
-            this.width = width;
+            this.min_tile_width = 100;
+            this.cell_size = 100;
+            this.width = 100;
             this.hor_size = Math.floor(width / cell_size);
             this.init();
         }
@@ -531,8 +531,8 @@ jQuery.easing["jswing"] = jQuery.easing["swing"]; jQuery.extend(jQuery.easing, {
 
                 img.onload = function () {                    
                     $tile.find(".item")
-                            .data("width", this.width)
-                            .data("height", this.height);
+                            .data("width", 100)
+                            .data("height",100);
                     assignImagesSize($tile);
                     entile($tile);
                     assignHover($tile);
@@ -656,14 +656,14 @@ jQuery.easing["jswing"] = jQuery.easing["swing"]; jQuery.extend(jQuery.easing, {
                 if ($(this).data("type") == null || $(this).data("type") == "image") {
                     if ($item.attr("width")) {
                         size = {
-                            width: parseInt($item.attr("width")),
-                            height: parseInt($item.attr("height"))
+                            width: 100,
+                            height:100
                         }
                     } else {
                         $item.show();
                         size = {
-                            width: $item.data("width"),
-                            height: $item.data("height")
+                            width: 100,
+                            height:100,
                         };
                     }
                     $item.hide();
