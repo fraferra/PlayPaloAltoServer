@@ -223,3 +223,28 @@ SOCIAL_AUTH_PIPELINE = (
 #cross origin requests for steroids
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = (
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+)
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken'
+)
+CORS_EXPOSE_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken'
+)
+
