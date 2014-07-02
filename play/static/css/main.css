@@ -126,30 +126,7 @@ a:after {
 
 /* WRAP SECTIONS */
 
-/* hello */
-#hello {
-	background-image: url('/static/img/v5.jpg');
-	width: 100%;
-	padding-top: 150px;
-	padding-bottom: 250px;
-
-}
-
-
-
-#hello h1 {
-	font-size: 90px;
-	font-weight: 700;
-	letter-spacing: 3px;
-	color: #74cfae;
-}
-
-#hello h2 {
-	color: #c0c0c0;
-	font-weight: 400;
-}
-
-/* Green */
+/* Green 
 #green {
 	background-color: #74cfae;
 	padding-top: 50px;
@@ -232,8 +209,6 @@ a:after {
 	background: url('../img/forest.JPG');
     background-position:center;
     max-width: 1000px;
-    
-
 }
 
 .cover-info{
@@ -241,8 +216,6 @@ a:after {
 	background-color:#272B33;
 	padding:10px;
 	max-width: 1000px;
-
-
 }
 
 
@@ -313,4 +286,76 @@ a:after {
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
+}
+
+
+/* Charity Styles */
+
+#organisationHome {
+	background-color: #272B33;
+}
+
+#organisationHeader{
+	width:100%;
+	height: 150px;
+	background: url('../img/forest.JPG');
+    background-position:center;
+}
+
+#organisationMain {
+	padding-top: 25px;
+	width:100%;
+	background-color:#272B33;
+	padding-bottom: 50px;
+}
+
+#organisationMain h1 {
+	color: #FFFFFF;
+	font-size: 90px;
+	font-weight: 700;
+	letter-spacing: 3px;
+}
+
+#organisationMain h2 {
+	font-weight: 400;
+	color: #F85C37;
+}
+
+#hello {
+	margin-top: 175px;
+	margin-bottom: 75px;
+}
+
+.organisationButton {
+	background-color: #26517C;
+}
+
+#organisationAddEventContainer {
+	padding-top: 100px;
+	padding-bottom: 100px;
+	width: 60%;
+	margin: 0 auto;
+}
+
+#addEventForm {
+	color: #FFFFFF;
+	text-align: left;
+	margin: 0 auto;
+	background-color: #272B33;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+#addEventForm .form-group {
+	width: 50%;
+	margin: 0 auto;
+	padding-bottom: 15px;
+}
+
+#createTitle {
+	margin-left: 75px;
+}
+
+#createSubmit {
+	text-align: center;
 }
