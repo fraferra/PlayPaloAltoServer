@@ -284,6 +284,15 @@ def api_v2_coupons(request):
         player=Player.objects.get(token=token)
         user=player.user
         id_coupon=request.GET.get('id','')
+        if len(id_coupon)!=0:
+            cou=Coupon.objects.get(pk=id_coupon)
+            data={'name':cou.title, 'price':cou.price,
+                  'location':cou.location, 
+                  'shop':cou.shop, 'description':cou.description,
+                  'remaining':cou.coupons_released,
+                  'picture':cou.picture_url}
+            data = simplejson.dumps(data)
+            return HttpResponse(data, mimetype='application/json')    
         coupons=Coupon.objects.all()
         list_of_coupons=[]
         for cou in coupons:
@@ -353,19 +362,13 @@ def api_v2_events(request):
         user=player.user
         id_event=request.GET.get('id','')
         if len(id_event)!=0:
-            event=Event.objects.get(pk=id_event)
-            events=player.event_set.all()
-            if not event in events:
-                event.participants.add(player)
-                event.save()
-                player.save()
-                data={'event':event.title}
-                data = simplejson.dumps(data)
-                return HttpResponse(data, mimetype='application/json')
-            else:
-                data={'message':'You have already selected!'}
-                data = simplejson.dumps(data)
-                return HttpResponse(data, mimetype='application/json')                
+            eve=Event.objects.get(pk=id_event)
+            data={'Name':eve.title,'id':eve.id ,'Category':eve.event_type,
+                  'Location':eve.location, 'Points':eve.points, 'Experience':eve.experience,
+                  'DateTime':str(eve.date),'Description':eve.description,
+                  'Organizer':eve.organizer.title }
+            data = simplejson.dumps(data)
+            return HttpResponse(data, mimetype='application/json')              
         events=Event.objects.all()
         list_events=[]
         for eve in events:
@@ -375,7 +378,8 @@ def api_v2_events(request):
                 pp.append({'FirstName':p.user.first_name, 'Picture':p.picture_url})
             list_events.append({'Name':eve.title,'id':eve.id ,'Category':eve.event_type,
                 'Location':eve.location, 'Points':eve.points, 'Experience':eve.experience,
-                'DateTime':str(eve.date),'Description':eve.description, 'Organizer':eve.organizer.title, 'Participants':pp })
+                'DateTime':str(eve.date),'Description':eve.description,
+                 'Organizer':eve.organizer.title, 'Participants':pp })
         data= {'user':user.username, 'score':player.score, 'experience':player.experience, 
                'picture_url':player.picture_url, 'list_events':list_events}
     data = simplejson.dumps(data)
