@@ -7,6 +7,7 @@ from play.models import *
 from charity.models import *
 from shop.models import *
 from play.utils import *
+from charity.utils import *
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate,login as auth_login
@@ -30,9 +31,12 @@ def organization_home(request):
         organization, shop =getShop(user)
         try:
             organization=Organization.objects.get(user=user)
+            createEvent(request, organization)
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/sorry/')
-        return render(request, 'charity/organization_home.html', {'user':user, 'player':player, 'shop':shop})
+        return render(request, 'charity/organization_home.html', {'user':user,
+                                                                  'player':player,
+                                                                  'shop':shop})
 
 
     
