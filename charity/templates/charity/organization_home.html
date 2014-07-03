@@ -1,50 +1,45 @@
 {% extends "play/layout.html" %}
 {% block content %}
 	<div id="hello">
-	    <div class="container">
+	    <div class="container" id="organisationHome">
 	    	<div class="row">
-	    		<div class="col-lg-8 col-lg-offset-2 centered">
-	    			<img style="width:100px"class="img-circle" src="{{player.picture_url}}">
-	    			<h1>Hello {{user.first_name}}</h1>
-	    			<h2>WHAT'S UP?</h2>
-	    		</div><!-- /col-lg-8 -->
-	    	</div><!-- /row -->
-	    	<br>
-	    	<br>
-	    	<div class="row">
-	    		    
-                    <div class="col-lg-8 col-lg-offset-2 centered"> 
-                    	
-                    	<button style="word-spacing:10px;" class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/create_event'" data-target="#myLogin">
-                             CREATE NEW EVENT
-                        </button>
-                        <button style="word-spacing:10px;" class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/my_events'" data-target="#myLogin">
-                             CHECK MY EVENTS
-                        </button>
-                    </div>
-               
+	    		<div id="organisationHeader"></div>
+	    	</div>
 
- 
-			</div>
-			<br>
-			{% if shop %}
-	    	<div class="row">
-	    		    
-                    <div class="col-lg-8 col-lg-offset-2 centered"> 
-                    	
-                    	<button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/create_coupon'" data-target="#myLogin">
-                             CREATE NEW COUPON
-                        </button>
-                        <button class="btn btn-primary btn-medium" data-toggle="modal" onclick="window.location.href='/my_coupons'" data-target="#myLogin">
-                             CHECK MY COUPONS
-                        </button>
-                    </div>
-               
-
- 
-			</div>
+	    	<div id="organisationMain">
+	    		<div class="row">
+		    		<div class="col-lg-8 col-lg-offset-2 centered">
+		    			<img style="width:100px"class="img-circle" src="{{player.picture_url}}">
+		    			<h1>Hello {{user.first_name}}</h1>
+		    			<h2>{% templatetag openvariable %}Organisation Name Here{% templatetag closevariable %}<!-- user.orgname??--></h2>
+		    		</div><!-- /col-lg-8 -->
+		    	</div><!-- /row -->
+		    	<br>
+		    	<br>
+		    	<div class="row">
+		    		<div class="col-lg-8 col-lg-offset-2 centered">
+	                    <button style="word-spacing:10px;" class="btn btn-primary btn-medium organisationButton" data-toggle="modal" onclick="window.location.href='/create_event'" data-target="#myLogin">
+	                    	CREATE NEW EVENT
+	                	</button>
+	                    <button style="word-spacing:10px;" class="btn btn-primary btn-medium organisationButton" data-toggle="modal" onclick="window.location.href='/my_events'" data-target="#myLogin">
+	                        CHECK MY EVENTS
+	                    </button>
+	                </div>
+				</div>
+				<br>
+				{% if shop %}
+		    	<div class="row">
+	                <div class="col-lg-8 col-lg-offset-2 centered">
+	                   	<button class="btn btn-primary btn-medium organisationButton" data-toggle="modal" onclick="window.location.href='/create_coupon'" data-target="#myLogin">
+	                        CREATE NEW COUPON
+	                    </button>
+	                    <button class="btn btn-primary btn-medium organisationButton" data-toggle="modal" onclick="window.location.href='/my_coupons'" data-target="#myLogin">
+	                        CHECK MY COUPONS
+	                    </button>
+	                </div>
+				</div>
 			{% endif %}
+			</div>
 	    </div> <!-- /container -->
 	</div><!-- /hello -->
-
 {% endblock %}
