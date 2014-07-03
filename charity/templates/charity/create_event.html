@@ -1,26 +1,168 @@
 {% extends "play/layout.html" %}
 
 {% block content %}
-	<div id="social">
-		<div class="container">
-			<div class="row centered">
-				<div class="col-lg-8 col-lg-offset-2">
-					<form method='post'>{% csrf_token %}
-					<h3>WHATCHA GONNA DO?!</h3>
-                     <p style="word-spacing:150px;" >TITLE {{form.title}}</p>
-                     <p>CHALLENGE OR EVENT? {{form.challenge_event}}</p>
-                     <p style="word-spacing:20px;">TELL US ABOUT IT!</p>
-                     <p>{{form.description}}</p>
+<div id="organisationAddEventContainer">
+	<div class="container">
+		<div class="row">
+	    	<div id="organisationHeader"></div>
+	    </div>
+		<div class="row centered">
+			<form class="form" id="addEventForm" method='post'>{% csrf_token %}
+				<h3 id="createTitle" style="color: #F85C37">WHAT ARE YOU PLANNING?</h3>
 
-                     <p style="word-spacing:30px;" >LOCATION {{form.location}}</p>
-                     <p style="word-spacing:16px;" >POINTS {{form.points}} EXPERIENCE {{form.experience}}</p>
-                     <p style="word-spacing:0px;">DATE {{form.date}} EVENT'S TYPE {{form.event_type}}</p>
-					<input type="submit"   class="btn btn-primary btn-default" value="DO IT!">
-				</form>
+				<br />
+
+				<div class="form-group">
+					<label for="title" class="control-label">TITLE</label>
+					<!-- {{form.title}} -->
+					<input type="text" class="form-control" name="title" id="title">
 				</div>
-			</div>
-		</div><!-- /container -->
-	</div>
-        <br>
 
+				<div class="form-group">
+					<label for="challenge_event" class="control-label">CHALLENGE OR EVENT</label>
+					<!-- {{form.challenge_event}} -->
+						<select name="challenge_event" class="form-control">
+							<option>Challenge</option>
+							<option>Event</option>
+						</select>
+				</div>
+
+				<div class="form-group">
+					<label for="description" class="control-label">TELL US ABOUT IT</label>
+					<!-- {{form.description}} -->
+					<textarea id="description" class="form-control" name="description" rows="3"></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="location" class="control-label">LOCATION</label>
+					<!-- {{form.location}} -->
+					<input type="text" class="form-control" name="location" id="location">
+				</div>
+
+				<div class="form-group">
+					<label for="location" class="control-label">POINTS</label>
+					<!-- {{form.points}} -->
+					<input type="text" class="form-control" name="points" id="points">
+				</div>
+
+				<div class="form-group">
+					<label for="location" class="control-label">EXPERIENCE</label>
+					<!-- {{form.experience}} -->
+					<input type="text" class="form-control" name="experience" id="experience">
+				</div>
+
+				<div class="form-group">
+					<label for="date" class="control-label">DATE</label>
+					<!-- {{form.date}} -->
+            		<input name="date" type='text' class="form-control"/>
+				</div>
+
+				<div class="form-group">
+					<label for="event_type" class="control-label">Event Type</label>
+					<!-- {{form.event_type}} -->
+					<select name="challenge_event" class="form-control">
+						<option>Shopping</option>
+						<option>Art</option>
+						<option>Food</option>
+						<option>Environment</option>
+						<option>Animals</option>
+						<option>Elders</option>
+					</select>
+				</div>
+
+				<br />
+				<div id="createSubmit">
+					<input type="submit" class="btn btn-primary btn-default" value="DO IT!" style="width:250px;">
+				</div>
+			</form>
+
+
+		</div>
+	</div><!-- /container -->
+</div>
 {% endblock %}
+
+<form class="form form-horizontal" id="addEventForm" method='post'>{% csrf_token %}
+	<h3 id="createTitle" style="color: #F85C37">WHATCHA GONNA DO?!</h3>
+
+	<br />
+
+	<div class="form-group">
+		<label for="title" class="col-sm-4 control-label">TITLE</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.title}} -->
+			<input type="text" class="form-control" name="title" id="title">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="challenge_event" class="col-sm-4 control-label">CHALLENGE OR EVENT</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.challenge_event}} -->
+			<select name="challenge_event" class="form-control">
+				<option>Challenge</option>
+				<option>Event</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="description" class="col-sm-4 control-label">TELL US ABOUT IT</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.description}} -->
+			<textarea id="description" class="form-control" name="description" rows="3"></textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="location" class="col-sm-4 control-label">LOCATION</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.location}} -->
+			<input type="text" class="form-control" name="location" id="location">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="location" class="col-sm-4 control-label">POINTS</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.points}} -->
+			<input type="text" class="form-control" name="points" id="points">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="location" class="col-sm-4 control-label">XP</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.experience}} -->
+			<input type="text" class="form-control" name="experience" id="experience">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="date" class="col-sm-4 control-label">DATE</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.date}} -->
+			<input name="date" type='text' class="form-control"/>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="event_type" class="col-sm-4 control-label">Event Type</label>
+		<div class="col-sm-4 input-group">
+			<!-- {{form.event_type}} -->
+			<select name="challenge_event" class="form-control">
+				<option>Shopping</option>
+				<option>Art</option>
+				<option>Food</option>
+				<option>Environment</option>
+				<option>Animals</option>
+				<option>Elders</option>
+			</select>
+		</div>
+	</div>
+
+	<br />
+	<div id="createSubmit">
+		<input type="submit" class="btn btn-primary btn-default" value="DO IT!" style="width:250px;">
+	</div>
+</form>
